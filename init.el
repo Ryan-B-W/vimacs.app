@@ -1,3 +1,17 @@
+;; Do compatibility checks
+(if (version< emacs-version "29.0")
+    (warn "Emacs version is %s.  This init assumes at least Emacs 29 release series." emacs-version))
+(let ((warn-message "Feature `%s' is not available.  The init file assumes that it is."))
+  (mapcar (lambda (feature) (if (not (featurep feature)) (warn warn-message feature)))
+          '(treesit eglot)))
+(let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it."))
+  (mapcar (lambda (feature) (if (not (featurep feature)) (warn warn-message feature)))
+          '(native-compile json threads)))
+(let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it.")
+      (comp-features (split-string system-configuration-features " ")))
+  (mapcar (lambda (feature) (if (not (member feature comp-features)) (warn warn-message feature)))
+          '("SQLITE3" "FREETYPE")))
+
 ;; Setup MELPA support
 (require 'package)
 (add-to-list 'package-archives
