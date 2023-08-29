@@ -23,7 +23,7 @@
 ;; Auto install configured packages
 (require 'use-package)
 (setf use-package-always-ensure t)
-(setf use-package-always-demand t)
+;;(setf use-package-always-demand t) ; When enabled, this will for immediate loading of packages
 
 (load-theme 'kunagawa-dark-julian-mix t)
 
@@ -366,7 +366,6 @@
 
 (use-package diff-hl
   :disabled
-  :demand t
   :config
   (global-diff-hl-mode))
 
@@ -650,7 +649,6 @@
 (use-package projectile
   :pin nongnu
   :ensure t
-  :demand t
   :after (counsel)
   :bind
   (:map projectile-mode-map
@@ -825,7 +823,6 @@
 
 (use-package highlight-indent-guides
   :pin melpa
-  :demand t
   :hook ((prog-mode . (lambda ()
                         (highlight-indent-guides-mode 1)
                         (set-face-foreground 'highlight-indent-guides-character-face "#727169")
