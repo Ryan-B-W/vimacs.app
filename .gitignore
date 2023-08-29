@@ -1,0 +1,15 @@
+.cache/
+.dap-breakpoints
+abbrev_defs
+auto-save-list/
+custom.el
+eln-cache/
+elpa/
+emms/
+network-security.data
+org-clock-save.el
+projectile-bookmarks.eld
+recentf
+tramp
+transient/
+tree-sitter/
