@@ -62,8 +62,11 @@
   (evil-mode 1))
 
 ;; Custom keymap.
+(defvar-keymap custom-search-map
+  :doc "Custom keymap for aggregating search actions.")
 (defvar-keymap custom-leader-map
-  :doc "Custom keymap for triggering various actions.")
+  :doc "Custom keymap for triggering various actions."
+  "s" custom-search-map)
 (define-key evil-normal-state-map (kbd "SPC") custom-leader-map)
 (define-key evil-visual-state-map (kbd "SPC") custom-leader-map)
 (define-key evil-motion-state-map (kbd "SPC") custom-leader-map)
@@ -82,7 +85,9 @@
   :bind
   (:map custom-leader-map
         ("?" . counsel-buffer-or-recentf)
-        ("SPC" . counsel-switch-buffer))
+        ("SPC" . counsel-switch-buffer)
+   :map custom-search-map
+        ("f" . counsel-find-file))
   :config
   (setf ivy-re-builders-alist '((swiper . ivy--regex-plus)
                                 (t . ivy--regex-fuzzy)))
