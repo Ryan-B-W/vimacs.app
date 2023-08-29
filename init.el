@@ -71,11 +71,13 @@
 ;; More fancy auto-completion and matching than default.
 (use-package flx
   :pin melpa
-  :ensure t)
+  :ensure t
+  :demand t)
 
 (use-package counsel
   :pin gnu
   :ensure t
+  :demand t
   :after (flx)
   :bind
   (:map custom-leader-map
@@ -96,6 +98,7 @@
 (use-package company
   :pin gnu
   :ensure t
+  :demand t
   :config
   (global-company-mode 1))
 
@@ -640,11 +643,13 @@
 (use-package editorconfig
   :pin nongnu
   :ensure t
+  :demand t
   :config
   (editorconfig-mode 1))
 (use-package projectile
   :pin nongnu
   :ensure t
+  :demand t
   :after (counsel)
   :bind
   (:map projectile-mode-map
