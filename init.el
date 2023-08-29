@@ -711,6 +711,7 @@
   :after (treemacs magit)
   :ensure t)
 (use-package minimap
+  :disabled
   :pin gnu
   :custom-face
   (minimap-font-face ((t (:height 18))))
