@@ -234,12 +234,12 @@
   (org-clock-persistence-insinuate)
   ;; Setup org-mode capture.
   (setf org-default-notes-file (concat org-directory "/notes.org"))
-  :bind (("C-c l" . #'org-store-link)
-         ("C-c c" . #'org-capture)
-         ("C-c a" . #'org-agenda)
-         ("C-c b" . #'org-switchb)
+  :bind (("C-c l" . org-store-link)
+         ("C-c c" . org-capture)
+         ("C-c a" . org-agenda)
+         ("C-c b" . org-switchb)
          ;; org-mode style links in all buffers.
-         ("C-c o" . #'org-open-at-point-global)))
+         ("C-c o" . org-open-at-point-global)))
 
 ;; Enable org-mode structure template expansions.
 (use-package org-tempo
@@ -333,7 +333,7 @@
   (bs-default-configuration "all")
   :bind
   ;; Swap list-buffers with bs-show.
-  ("C-x C-b" . #'bs-show))
+  ("C-x C-b" . bs-show))
 
 (use-package magit
   :pin nongnu
@@ -357,7 +357,7 @@
 (use-package hl-prog-extra
   :disabled
   :commands (hl-prog-extra-mode)
-  :hook ((prog-mode . #'hl-prog-extra-mode)))
+  :hook ((prog-mode . hl-prog-extra-mode)))
 
 ;; Enable ECB.
 (use-package ecb
