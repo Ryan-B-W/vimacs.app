@@ -854,7 +854,7 @@
   :after (evil))
 (use-package evil-surround
   :pin melpa-stable
-  :after (evile)
+  :after (evil)
   :config
   (global-evil-surround-mode 1))
 (use-package evil-textobj-tree-sitter
