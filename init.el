@@ -475,7 +475,7 @@
                             treesit-language-source-alist))))
 (use-package eglot
   :pin manual
-  :ensure t
+  :ensure nil
   :hook ((bash-ts-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
          (c-or-c++-mode . eglot-ensure)
