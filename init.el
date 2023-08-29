@@ -51,6 +51,23 @@
 ;; Disable backup files.
 (setf make-backup-files nil)
 
+;; Load Evil Mode.
+(use-package evil
+  :pin nongnu
+  :ensure t
+  :demand t
+  :init
+  (setf evil-search-module 'evil-search)
+  :config
+  (evil-mode 1))
+
+;; Custom keymap.
+(defvar-keymap custom-leader-map
+  :doc "Custom keymap for triggering various actions.")
+(define-key evil-normal-state-map (kbd "SPC") custom-leader-map)
+(define-key evil-visual-state-map (kbd "SPC") custom-leader-map)
+(define-key evil-motion-state-map (kbd "SPC") custom-leader-map)
+
 ;; More fancy auto-completion and matching than default.
 (use-package flx
   :pin melpa
@@ -93,6 +110,8 @@
   :ensure nil
   :defer t
   :after (inline-docs)
+  :bind (:map custom-leader-map
+              ("h" . eldoc-print-current-symbol-info))
   :config
   (setf eldoc-message-function #'inline-docs)
   (setf eldoc-echo-area-use-multiline-p 3)
@@ -367,6 +386,9 @@
 (use-package dap-mode
   :pin melpa-stable
   :defer
+  :bind (:map custom-leader-map
+             ("b" . dap-breakpoint-toggle)
+             ("B" . dap-breakpoint-condition))
   :custom
   (dap-auto-configure-mode t))
 
@@ -649,8 +671,11 @@
   :ensure t
   :demand t
   :after (counsel)
-  :bind (:map projectile-mode-map
-              ("C-c p" . projectile-command-map))
+  :bind
+  (:map projectile-mode-map
+   ("C-c p" . projectile-command-map)
+   :map custom-leader-map
+   ("p" . projectile-command-map))
   :custom
   (projectile-completion-system 'ivy)
   :config
@@ -663,6 +688,9 @@
 (use-package treemacs
   :pin melpa-stable
   :ensure t
+  :bind
+  (:map custom-leader-map
+        ("t" . treemacs))
   :custom
   (treemacs-project-follow-cleanup t)
   (treemacs-recenter-after-file-follow t)
@@ -859,15 +887,7 @@
 
 ;;(setf ps-header-lines 1)
 
-;;; Evil mode stuff
-(use-package evil
-  :pin nongnu
-  :ensure t
-  :demand t
-  :init
-  (setf evil-search-module 'evil-search)
-  :config
-  (evil-mode 1))
+;;; Evil mode customization
 (use-package evil-numbers
   :pin nongnu
   :after (evil))
