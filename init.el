@@ -830,7 +830,7 @@
   :ensure nil
   :demand t
   :custom
-  (whitespace-style '(face tabs trailing space-before-tab newline empty space-after-tab tab-mark newline-mark))
+  (whitespace-style '(face tabs trailing space-before-tab empty space-after-tab tab-mark))
   :config
   (global-whitespace-mode))
 
