@@ -364,7 +364,7 @@
   :pin melpa-stable
   :after (magit))
 (use-package magit-lfs
-  :pin melpa-stable
+  :pin melpa
   :after (magit))
 
 (use-package diff-hl
@@ -859,7 +859,7 @@
   :pin melpa
   :after (evil))
 (use-package evil-org
-  :pin melpa-stable
+  :pin melpa
   :after (evil))
 
 (use-package treemacs-evil
