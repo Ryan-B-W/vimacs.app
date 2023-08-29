@@ -64,9 +64,12 @@
 ;; Custom keymap.
 (defvar-keymap custom-search-map
   :doc "Custom keymap for aggregating search actions.")
+(defvar-keymap custom-workspace-map
+  :doc "Custom keymap for managing projects and workspaces.")
 (defvar-keymap custom-leader-map
   :doc "Custom keymap for triggering various actions."
-  "s" custom-search-map)
+  "s" custom-search-map
+  "w" custom-workspace-map)
 (define-key evil-normal-state-map (kbd "SPC") custom-leader-map)
 (define-key evil-visual-state-map (kbd "SPC") custom-leader-map)
 (define-key evil-motion-state-map (kbd "SPC") custom-leader-map)
@@ -660,7 +663,10 @@
   (:map projectile-mode-map
    ("C-c p" . projectile-command-map)
    :map custom-leader-map
-   ("p" . projectile-command-map))
+   ("p" . projectile-command-map)
+   :map custom-workspace-map
+   ("pa" . projectile-add-known-project)
+   ("pp" . projectile-command-map))
   :custom
   (projectile-completion-system 'ivy)
   :config
@@ -670,7 +676,11 @@
   :ensure t
   :bind
   (:map custom-leader-map
-        ("t" . treemacs))
+        ("t" . treemacs)
+   :map custom-workspace-map
+   ("ta" . treemacs-add-and-display-current-project)
+   ("tp" . treemacs-project-map)
+   ("tw" . treemacs-workspace-map))
   :custom
   (treemacs-project-follow-cleanup t)
   (treemacs-recenter-after-file-follow t))
