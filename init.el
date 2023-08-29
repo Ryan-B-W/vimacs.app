@@ -28,7 +28,7 @@
 (load-theme 'kunagawa-dark-julian-mix t)
 
 ;; Set font
-;;(set-face-attribute 'default nil :family "Iosevka SS09" :height 100)
+(set-face-attribute 'default nil :family "Fira Code")
 
 ;; Customize UI
 (setf inhibit-startup-screen t)
