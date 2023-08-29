@@ -117,6 +117,12 @@
   (setf eldoc-echo-area-use-multiline-p 3)
   (setf eldoc-echo-area-display-truncation-message nil))
 
+;; Folding in programming modes.
+(use-package hideshow ;hs-minor-mode
+  :pin manual
+  :ensure nil
+  :hook ((prog-mode . hs-minor-mode)))
+
 ;; Configure dired
 (use-package dired
   :pin manual
