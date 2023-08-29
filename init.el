@@ -117,6 +117,12 @@
   (setf eldoc-echo-area-use-multiline-p 3)
   (setf eldoc-echo-area-display-truncation-message nil))
 
+(use-package eldoc-box
+  :disabled ; enable for gui-only Eldoc overlay under point
+  :pin melpa-stable
+  :ensure t
+  :hook ((eglot-managed-mode . eldoc-box-hover-mode)))
+
 ;; Folding in programming modes.
 (use-package hideshow ;hs-minor-mode
   :pin manual
