@@ -82,7 +82,7 @@
   :bind
   (:map custom-leader-map
         ("?" . counsel-buffer-or-recentf)
-        (" " . counsel-switch-buffer))
+        ("SPC" . counsel-switch-buffer))
   :config
   (setf ivy-re-builders-alist '((swiper . ivy--regex-plus)
                                 (t . ivy--regex-fuzzy)))
