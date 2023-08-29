@@ -799,7 +799,7 @@
 (setf read-quoted-char-radix 10)
 
 ;; Set welcome file.
-(setf initial-buffer-choice (expand-file-name "~/doc/notes.org"))
+(setf initial-buffer-choice t)
 
 ;; Set *scratch* initial text.
 (setf initial-scratch-message "# Scratch buffer for trying things out.\n\n")
