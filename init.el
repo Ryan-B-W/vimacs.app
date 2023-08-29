@@ -591,10 +591,6 @@
 (use-package php-mode
   :pin nongnu
   :defer t)
-(use-package pdf-tools
-  :pin nongnu
-  :config
-  (pdf-loader-install nil t nil nil))
 (use-package irony
   :pin melpa-stable
   :defer t)
