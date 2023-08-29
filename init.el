@@ -324,13 +324,6 @@
                  " ⟼ ")))
   (add-to-list 'which-func-functions #'org-which-function))
 
-;; Setup Mini Edit.
-(use-package miniedit
-  :disabled
-  :pin melpa-stable
-  :config
-  (miniedit-install))
-
 ;; Use transparent encryption.
 (use-package epa-file
   :pin manual
@@ -341,14 +334,6 @@
 
 (use-package pinentry
   :pin gnu)
-
-;; Enable ido-mode.
-(use-package ido
-  :disabled
-  :pin manual
-  :ensure nil
-  :config
-  (ido-mode t))
 
 ;; Customize bs-show.
 (use-package bs
@@ -385,16 +370,6 @@
   :config
   (global-diff-hl-mode))
 
-(use-package hl-prog-extra
-  :disabled
-  :commands (hl-prog-extra-mode)
-  :hook ((prog-mode . hl-prog-extra-mode)))
-
-;; Enable ECB.
-(use-package ecb
-  :disabled
-  :pin melpa)
-
 (use-package dap-mode
   :pin melpa-stable
   :defer
@@ -410,12 +385,6 @@
   :bind (("s-s" . sr-speedbar-toggle))
   :custom
   (sr-speedbar-right-side nil))
-
-;; Use the google C/C++ Style for c-mode.
-(use-package google-c-style
-  :disabled
-  :pin melpa
-  :hook (c-mode-common . google-set-c-style))
 
 ;; show-paren-mode configuration.
 (setf show-paren-delay 0)
@@ -692,11 +661,6 @@
   (projectile-completion-system 'ivy)
   :config
   (projectile-mode 1))
-(use-package counsel-projectile
-  :disabled
-  :pin melpa-stable
-  :after (counsel projectile)
-  :ensure t)
 (use-package treemacs
   :pin melpa-stable
   :ensure t
@@ -705,15 +669,7 @@
         ("t" . treemacs))
   :custom
   (treemacs-project-follow-cleanup t)
-  (treemacs-recenter-after-file-follow t)
-  :config
-;;  (treemacs-follow-mode t)
-;;  (treemacs-filewatch-mode t)
-;;  (treemacs-fringe-indicator-mode 'always)
-;;  (treemacs-git-commit-diff-mode t)
-;;  (treemacs-git-mode 'deferred)
-;;  (treemacs-hide-gitignored-files-mode t)
-  )
+  (treemacs-recenter-after-file-follow t))
 (use-package treemacs-projectile
   :pin melpa-stable
   :after (treemacs projectile)
@@ -837,14 +793,6 @@
   :config
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
-
-;; Setup mastodon-mode.
-(use-package mastodon
-  :disabled
-  :pin melpa-stable
-  :defer t
-  :custom
-  (mastodon-instance-url "https://mastodon.sdf.org"))
 
 ;;; Various variable customizations.
 
