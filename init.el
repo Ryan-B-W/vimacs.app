@@ -82,6 +82,22 @@
   :config
   (global-company-mode 1))
 
+;; Eldoc customization.
+(use-package inline-docs
+  :ensure t
+  :init
+  (setf inline-docs-border-symbol 9472))
+
+(use-package eldoc
+  :pin manual
+  :ensure nil
+  :defer t
+  :after (inline-docs)
+  :config
+  (setf eldoc-message-function #'inline-docs)
+  (setf eldoc-echo-area-use-multiline-p 3)
+  (setf eldoc-echo-area-display-truncation-message nil))
+
 ;; Configure dired
 (use-package dired
   :pin manual
