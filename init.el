@@ -51,6 +51,37 @@
 ;; Disable backup files.
 (setf make-backup-files nil)
 
+;; More fancy auto-completion and matching than default.
+(use-package flx
+  :pin melpa
+  :ensure t)
+
+(use-package counsel
+  :pin gnu
+  :ensure t
+  :after (flx)
+  :bind
+  (:map custom-leader-map
+        ("?" . counsel-buffer-or-recentf)
+        (" " . counsel-switch-buffer))
+  :config
+  (setf ivy-re-builders-alist '((swiper . ivy--regex-plus)
+                                (t . ivy--regex-fuzzy)))
+  (ivy-mode 1)
+  (counsel-mode 1))
+
+;; Fuzzy search in buffer.
+(use-package swiper
+  :bind (:map custom-leader-map
+            ("/" . swiper)))
+
+;; Better in buffer completion.
+(use-package company
+  :pin gnu
+  :ensure t
+  :config
+  (global-company-mode 1))
+
 ;; Configure dired
 (use-package dired
   :pin manual
@@ -266,6 +297,7 @@
 
 ;; Enable ido-mode.
 (use-package ido
+  :disabled
   :pin manual
   :ensure nil
   :config
@@ -600,10 +632,18 @@
   :pin nongnu
   :ensure t
   :demand t
+  :after (counsel)
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map))
+  :custom
+  (projectile-completion-system 'ivy)
   :config
   (projectile-mode 1))
+(use-package counsel-projectile
+  :disabled
+  :pin melpa-stable
+  :after (counsel projectile)
+  :ensure t)
 (use-package treemacs
   :pin melpa-stable
   :ensure t
