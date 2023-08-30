@@ -692,11 +692,16 @@
    ("t" . treemacs)
    :map custom-workspace-map
    ("ta" . treemacs-add-and-display-current-project)
+   ("te" . treemacs-add-and-display-current-project-exclusively)
    ("tp" . treemacs-project-map)
-   ("tw" . treemacs-workspace-map))
+   ("tw" . treemacs-workspace-map)
+   ("wp" . treemacs-create-workspace-from-project))
   :custom
+  (treemacs-eldoc-display nil) ; Since inline-docs is used, this prevents annoying popups
   (treemacs-project-follow-cleanup t)
-  (treemacs-recenter-after-file-follow t))
+  (treemacs-recenter-after-file-follow t)
+  :config
+  (treemacs-project-follow-mode 1))
 (use-package treemacs-projectile
   :pin melpa-stable
   :after (treemacs projectile)
