@@ -688,6 +688,7 @@
 (use-package treemacs
   :pin melpa-stable
   :ensure t
+  :hook ((treemacs-mode . (lambda () (eldoc-mode -1)))) ; Since inline-docs is used, this prevents annoying popups
   :bind
   (:map custom-leader-map
    ("t" . treemacs)
@@ -698,7 +699,6 @@
    ("tw" . treemacs-workspace-map)
    ("wp" . treemacs-create-workspace-from-project))
   :custom
-  (treemacs-eldoc-display nil) ; Since inline-docs is used, this prevents annoying popups
   (treemacs-project-follow-cleanup t)
   (treemacs-recenter-after-file-follow t)
   :config
