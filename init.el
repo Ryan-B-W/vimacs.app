@@ -505,26 +505,10 @@
 (use-package eglot
   :pin manual
   :ensure nil
-  :hook ((bash-ts-mode . eglot-ensure)
-         (c++-mode . eglot-ensure)
-         (c-or-c++-mode . eglot-ensure)
-         (c-mode . eglot-ensure)
-         (csharp-mode . eglot-ensure)
-         (css-mode . eglot-ensure)
-         (dockerfile-ts-mode . eglot-ensure)
-         (go-mod-ts-mode . eglot-ensure)
-         (go-ts-mode . eglot-ensure)
-         (java-mode . eglot-ensure)
-         (js-mode . eglot-ensure)
+  :hook ((js-mode . eglot-ensure)
          (json-ts-mode . eglot-ensure)
-         (python-mode . eglot-ensure)
-         (php-mode . eglot-ensure)
-         (ruby-mode . eglot-ensure)
-         (rust-ts-mode . eglot-ensure)
-         (toml-ts-mode . eglot-ensure)
          (tsx-ts-mode . eglot-ensure)
-         (typescript-ts-mode . eglot-ensure)
-         (yaml-ts-mode . eglot-ensure)))
+         (typescript-ts-mode . eglot-ensure)))
 
 (use-package verb
   :pin melpa-stable
