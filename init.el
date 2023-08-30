@@ -87,10 +87,10 @@
   :after (flx)
   :bind
   (:map custom-leader-map
-        ("?" . counsel-buffer-or-recentf)
-        ("SPC" . counsel-switch-buffer)
+   ("?" . counsel-buffer-or-recentf)
+   ("SPC" . counsel-switch-buffer)
    :map custom-search-map
-        ("f" . counsel-find-file))
+   ("f" . counsel-find-file))
   :config
   (setf ivy-re-builders-alist '((swiper . ivy--regex-plus)
                                 (t . ivy--regex-fuzzy)))
@@ -100,7 +100,7 @@
 ;; Fuzzy search in buffer.
 (use-package swiper
   :bind (:map custom-leader-map
-            ("/" . swiper)))
+         ("/" . swiper)))
 
 ;; Better in buffer completion.
 (use-package company
@@ -122,7 +122,7 @@
   :defer t
   :after (inline-docs)
   :bind (:map custom-leader-map
-              ("h" . eldoc-print-current-symbol-info))
+         ("h" . eldoc-print-current-symbol-info))
   :config
   (setf eldoc-message-function #'inline-docs)
   (setf eldoc-echo-area-use-multiline-p 3)
@@ -384,8 +384,8 @@
   :pin melpa-stable
   :defer
   :bind (:map custom-leader-map
-             ("b" . dap-breakpoint-toggle)
-             ("B" . dap-breakpoint-condition))
+         ("b" . dap-breakpoint-toggle)
+         ("B" . dap-breakpoint-condition))
   :custom
   (dap-auto-configure-mode t))
 
@@ -540,7 +540,7 @@
   :after (org)
   :defer nil
 ;;  :bind (:map org-mode-map
-;;              ("C-c C-r" . verb-command-map))
+;;         ("C-c C-r" . verb-command-map))
   :config
   (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
@@ -689,7 +689,7 @@
   :ensure t
   :bind
   (:map custom-leader-map
-        ("t" . treemacs)
+   ("t" . treemacs)
    :map custom-workspace-map
    ("ta" . treemacs-add-and-display-current-project)
    ("tp" . treemacs-project-map)
