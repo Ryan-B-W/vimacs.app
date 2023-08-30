@@ -122,7 +122,8 @@
   :defer t
   :after (inline-docs)
   :bind (:map custom-leader-map
-         ("h" . eldoc-print-current-symbol-info))
+         ("h" . eldoc-mode)
+         ("H" . eldoc-print-current-symbol-info))
   :config
   (setf eldoc-message-function #'inline-docs)
   (setf eldoc-echo-area-use-multiline-p 3)
