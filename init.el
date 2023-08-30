@@ -532,6 +532,10 @@
   :pin gnu
   :config
   (which-key-mode 1))
+(use-package yaml-ts-mode
+  :pin manual
+  :ensure nil
+  :mode "\\.yaml\\'")
 (use-package arduino-mode
   :pin nongnu
   :defer t)
