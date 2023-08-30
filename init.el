@@ -50,6 +50,8 @@
 
 ;; Disable backup files.
 (setf make-backup-files nil)
+;; Prompt to delete autosaves when killing buffers.
+(setf kill-buffer-delete-auto-save-files t)
 
 ;; Load Evil Mode.
 (use-package evil
