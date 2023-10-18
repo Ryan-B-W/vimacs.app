@@ -57,9 +57,19 @@
   :ensure t
   :demand t
   :init
+  (setf evil-want-keybinding nil)
   (setf evil-search-module 'evil-search)
   :config
   (evil-mode 1))
+(use-package evil-collection
+  :after (evil)
+  :ensure t
+  :custom
+  (evil-collection-setup-minibuffer t)
+  (evil-collection-calendar-want-org-bindings t)
+  (evil-collection-outline-bind-tab-p t)
+  :config
+  (evil-collection-init))
 
 ;; Custom keymap.
 (defvar-keymap custom-search-map
