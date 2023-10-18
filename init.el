@@ -363,7 +363,6 @@
   :after (magit))
 
 (use-package diff-hl
-  :disabled
   :config
   (global-diff-hl-mode))
 
