@@ -541,7 +541,7 @@
   (which-key-mode 1))
 (use-package yaml-ts-mode
   :ensure nil
-  :mode "\\.yaml\\'")
+  :mode "\\.ya?ml\\'")
 (use-package arduino-mode
   :defer t)
 (use-package platformio-mode
