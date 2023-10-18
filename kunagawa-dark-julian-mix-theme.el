@@ -26,7 +26,7 @@
 ;; SOFTWARE.
 
 (deftheme kunagawa-dark-julian-mix
-  "Created 2023-08-13, edited 2023-08-21.")
+  "Created 2023-08-13, edited 2023-08-30.")
 
 (custom-theme-set-faces
  'kunagawa-dark-julian-mix
@@ -50,7 +50,7 @@
  '(font-lock-doc-face ((t (:foreground "#54536D"))))
  '(font-lock-doc-markup-face ((t (:foreground "#54536D"))))
  '(font-lock-escape-face ((t (:inherit (font-lock-regexp-grouping-backslash)))))
- '(font-lock-function-call-face ((t (:inherit font-lock-function-name-face :foreground "#DCD7BA"))))
+ '(font-lock-function-call-face ((t (:inherit (font-lock-function-name-face) :foreground "#DCD7BA"))))
  '(font-lock-function-name-face ((t (:foreground "#7FB4CA"))))
  '(font-lock-keyword-face ((t (:foreground "#957FB8" :slant oblique :weight semi-bold))))
  '(font-lock-negation-char-face ((t (:foreground "#FF5D62"))))
@@ -59,14 +59,14 @@
  '(font-lock-operator-face ((t nil)))
  '(font-lock-preprocessor-face ((t (:foreground "#C0A36E"))))
  '(font-lock-property-name-face ((t (:foreground "#957FB8"))))
- '(font-lock-property-use-face ((t (:foreground "#E6C384" :inherit font-lock-property-name-face))))
+ '(font-lock-property-use-face ((t (:foreground "#E6C384" :inherit (font-lock-property-name-face)))))
  '(font-lock-punctuation-face ((t nil)))
  '(font-lock-regexp-grouping-backslash ((t (:foreground "#C0A36E"))))
  '(font-lock-regexp-grouping-construct ((t (:inherit (bold)))))
  '(font-lock-string-face ((t (:foreground "#98BB6C"))))
  '(font-lock-type-face ((t (:foreground "#7AA89F"))))
  '(font-lock-variable-name-face ((t (:foreground "#957FB8"))))
- '(font-lock-variable-use-face ((t (:inherit font-lock-variable-name-face))))
+ '(font-lock-variable-use-face ((t (:inherit (font-lock-variable-name-face)))))
  '(font-lock-warning-face ((t (:foreground "#FF9E3B"))))
  '(button ((t (:foreground "#7AA89F"))))
  '(link ((t (:foreground "#7E9CD8"))))
@@ -85,10 +85,6 @@
  '(match ((t (:foreground "#16161D" :background "#E6C384"))))
  '(next-error ((t (:inherit (region)))))
  '(query-replace ((t (:inherit (isearch)))))
- '(highlight-indent-guides-odd-face ((t (:background "#141617"))))
- '(highlight-indent-guides-even-face ((t (:background "#141617"))))
- '(highlight-indent-guides-character-face ((t (:foreground "#727169"))))
  '(default ((t (:background "#141617" :foreground "#DCD7BA"))))
- '(eglot-diagnostic-tag-unnecessary-face ((t (:foreground "#727169" :slant oblique)))))
 
 (provide-theme 'kunagawa-dark-julian-mix)
