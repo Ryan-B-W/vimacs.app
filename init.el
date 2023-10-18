@@ -137,8 +137,7 @@
   (setf eldoc-echo-area-display-truncation-message nil))
 
 (use-package eldoc-box
-  :disabled ; enable for gui-only Eldoc overlay under point
-  :ensure t
+  :if (display-graphic-p) ; enable only when gui is available for Eldoc overlay under point, doesn't work in TUI.
   :hook ((eglot-managed-mode . eldoc-box-hover-mode)))
 
 ;; Folding in programming modes.
