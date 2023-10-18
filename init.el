@@ -1,4 +1,4 @@
-;; Do compatibility checks
+;; Do compatibility checks.
 (if (version< emacs-version "29.0")
     (warn "Emacs version is %s.  This init assumes at least Emacs 29 release series." emacs-version))
 (let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it."))
@@ -9,7 +9,7 @@
   (mapcar (lambda (feature) (if (not (member feature comp-features)) (warn warn-message feature)))
           '("SQLITE3" "FREETYPE")))
 
-;; Setup MELPA support
+;; Setup MELPA support.
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -20,17 +20,16 @@
         ("nongnu" . 20)
         ("melpa-stable" . 10)
         ("melpa" . 0)))
-;; Auto install configured packages
+;; Auto install configured packages.
 (require 'use-package)
 (setf use-package-always-ensure t)
-;;(setf use-package-always-demand t) ; When enabled, this will for immediate loading of packages
 
 (load-theme 'kunagawa-dark-julian-mix t)
 
-;; Set font
+;; Set font.
 (set-face-attribute 'default nil :family "Fira Code")
 
-;; Customize UI
+;; Customize UI.
 (setf inhibit-startup-screen t)
 (setf initial-major-mode 'org-mode)
 (menu-bar-mode -1)
@@ -130,12 +129,12 @@
   :hook ((eglot-managed-mode . eldoc-box-hover-mode)))
 
 ;; Folding in programming modes.
-(use-package hideshow ;hs-minor-mode
+(use-package hideshow ; hs-minor-mode.
   :pin manual
   :ensure nil
   :hook ((prog-mode . hs-minor-mode)))
 
-;; Configure dired
+;; Configure dired.
 (use-package dired
   :pin manual
   :ensure nil
@@ -143,7 +142,7 @@
   :custom
   (dired-listing-switches "-alh"))
 
-;; enable dired-x
+;; enable dired-x.
 (use-package dired-x
   :disabled
   :pin manual
@@ -158,7 +157,6 @@
 ;; Disable auto-fill-mode globally.
 (auto-fill-mode -1)
 
-;;(require 'printing)
 (use-package printing
   :pin manual
   :ensure nil)
@@ -265,7 +263,7 @@
      (shell . t)
      (sql . t)
      (sqlite . t)))
-  ;; Setup org-mode habits
+  ;; Setup org-mode habits.
   (add-to-list 'org-modules 'org-habit)
   ;; Configure clocking.
   (org-clock-persistence-insinuate)
@@ -285,7 +283,7 @@
   :defer t
   :after (org))
 
-;; Org-babel tmux
+;; Org-babel tmux.
 (use-package ob-tmux
   :defer t
   :after (org)
@@ -437,7 +435,7 @@
   :custom
   (scheme-program-name "plt-r5rs"))
 
-;;; JDEE configuration
+;;; JDEE configuration.
 ;; JDE
 ;;(load "jde")
 ;; decompile.el
@@ -645,7 +643,7 @@
   :config
   (projectile-mode 1))
 (use-package treemacs
-  :hook ((treemacs-mode . (lambda () (eldoc-mode -1)))) ; Since inline-docs is used, this prevents annoying popups
+  :hook ((treemacs-mode . (lambda () (eldoc-mode -1)))) ; Since inline-docs is used, this prevents annoying popups.
   :bind
   (:map custom-leader-map
    ("t" . treemacs)
@@ -746,7 +744,7 @@
 
 ;;(setf ps-header-lines 1)
 
-;;; Evil mode customization
+;;; Evil mode customization.
 (use-package evil-numbers
   :defer t
   :after (evil))
@@ -771,7 +769,7 @@
 (put 'narrow-to-defun 'disabled nil)
 (put 'narrow-to-defun-include-comments 'disabled nil)
 
-;;;; Customizer settings
+;;;; Customizer settings.
 
 (setf custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
