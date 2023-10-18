@@ -42,7 +42,6 @@
 (setf display-line-numbers-type 'relative)
 (setq-default display-line-numbers-widen t)
 (use-package telephone-line
-  :demand t
   :config
   (telephone-line-mode 1))
 (setf frame-resize-pixelwise t)
@@ -54,8 +53,6 @@
 
 ;; Load Evil Mode.
 (use-package evil
-  :ensure t
-  :demand t
   :init
   (setf evil-want-keybinding nil)
   (setf evil-search-module 'evil-search)
@@ -63,7 +60,6 @@
   (evil-mode 1))
 (use-package evil-collection
   :after (evil)
-  :ensure t
   :custom
   (evil-collection-setup-minibuffer t)
   (evil-collection-calendar-want-org-bindings t)
@@ -85,12 +81,9 @@
 (define-key evil-motion-state-map (kbd "SPC") custom-leader-map)
 
 ;; More fancy auto-completion and matching than default.
-(use-package flx
-  :ensure t
-  :demand t)
+(use-package flx)
 
 (use-package counsel
-  :ensure t
   :demand t
   :after (flx)
   :bind
@@ -112,21 +105,17 @@
 
 ;; Better in buffer completion.
 (use-package company
-  :ensure t
-  :demand t
   :config
   (global-company-mode 1))
 
 ;; Eldoc customization.
 (use-package inline-docs
-  :ensure t
   :init
   (setf inline-docs-border-symbol 9472))
 
 (use-package eldoc
   :pin manual
   :ensure nil
-  :defer t
   :after (inline-docs)
   :bind (:map custom-leader-map
          ("h" . eldoc-mode)
@@ -293,10 +282,12 @@
 (use-package org-tempo
   :pin manual
   :ensure nil
+  :defer t
   :after (org))
 
 ;; Org-babel tmux
 (use-package ob-tmux
+  :defer t
   :after (org)
   :custom
   (org-babel-default-header-args:tmux
@@ -306,6 +297,7 @@
   (org-babel-tmux-terminal "urxvt"))
 
 (use-package orgit
+  :defer t
   :after (org magit)
   :config
   (use-package orgit-forge
@@ -313,15 +305,17 @@
 
 (use-package org-modern
   :disabled
+  :defer t
   :after (org))
 
 (use-package htmlize
   :disabled
+  :defer t
+  :after (org)
   :init
   (setf org-src-fontify-natively t)
   :config
-  (setf org-html-htmlize-output-type 'css)
-  :after (org))
+  (setf org-html-htmlize-output-type 'css))
 
 ;; Setup org-mode with which-function-mode.
 ;; Originally taken from https://emacs.stackexchange.com/a/30901
@@ -363,12 +357,15 @@
   ("C-x C-b" . bs-show))
 
 (use-package magit
-  :ensure t)
+  :defer t)
 (use-package forge
+  :defer t
   :after (magit))
 (use-package magit-annex
+  :defer t
   :after (magit))
 (use-package magit-lfs
+  :defer t
   :after (magit))
 
 (use-package diff-hl
@@ -376,7 +373,6 @@
   (global-diff-hl-mode))
 
 (use-package dap-mode
-  :defer
   :bind (:map custom-leader-map
          ("b" . dap-breakpoint-toggle)
          ("B" . dap-breakpoint-condition))
@@ -394,7 +390,6 @@
 (setf show-paren-context-when-offscreen 'overlay)
 
 (use-package smartparens
-  :ensure t
   :hook ((lisp-mode . smartparens-strict-mode)
          (emacs-lisp-mode . smartparens-strict-mode)
          (eval-expression-minibuffer-setup . (lambda ()
@@ -413,6 +408,7 @@
 (use-package slime
   :pin manual
   :ensure nil
+  :defer t
   :init
   (load (expand-file-name "~/quicklisp/slime-helper.el"))
   :custom
@@ -430,7 +426,8 @@
 ;; Setup integration for Common Lisp Documentation.
 (use-package info-look
   :pin manual
-  :ensure nil)
+  :ensure nil
+  :defer t)
 
 ;; Setup run-scheme.
 (use-package scheme
@@ -528,8 +525,8 @@
          (yaml-ts-mode . eglot-ensure)))
 
 (use-package verb
-  :after (org)
   :defer t
+  :after (org)
   :init
   (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
@@ -537,7 +534,9 @@
   :config
   (which-key-mode 1))
 (use-package yaml-ts-mode
+  :pin manual
   :ensure nil
+  :defer t
   :mode "\\.ya?ml\\'")
 (use-package arduino-mode
   :defer t)
@@ -555,23 +554,28 @@
   :defer t)
 (use-package scad-mode
   :defer t)
-(use-package rainbow-mode)
+(use-package rainbow-mode
+  :defer t)
 (use-package markdown-mode
   :defer t)
 ;;(use-package bbdb
 ;;  :defer t)
-;;(use-package bbdb-vcard)
+;;(use-package bbdb-vcard
+;;  :defer t)
 ;;(use-package ebdb
 ;;  :defer t)
 (use-package haskell-mode
   :defer t)
-;;(use-package docker-compose-mode)
+;;(use-package docker-compose-mode
+;;  :defer t)
 (use-package web-mode
   :defer t)
-;;(use-package js2-mode)
+;;(use-package js2-mode
+;;  :defer t)
 (use-package sass-mode
   :defer t)
-;;(use-package pipenv) ; unsure if needed
+;;(use-package pipenv
+;;  :defer t) ; unsure if needed
 (use-package jinja2-mode
   :defer t)
 (use-package csv-mode
@@ -589,9 +593,12 @@
 ;; Unsure if edbi is still relevant or if there is something better.
 ;;(use-package edbi
 ;;  :defer t)
-;;(use-package edbi-sqlite) ; possibly redundant with 29.1
-;;(use-package edbi-minor-mode)
-;;(use-package edbi-database-url)
+;;(use-package edbi-sqlite
+;;  :defer t) ; possibly redundant with 29.1
+;;(use-package edbi-minor-mode
+;;  :defer t)
+;;(use-package edbi-database-url
+;;  :defer t)
 (use-package biblio
   :defer t)
 ;;(use-package autodisass-java-bytecode
@@ -611,18 +618,18 @@
   :defer t)
 (use-package dired-preview
   :defer t)
-;;(use-package dired-sidebar)
-;;(use-package dired-subtree)
-;;(use-package dired-toggle)
-;;(use-package nix-sandbox)
-;;(use-package neotree)
+;;(use-package dired-sidebar
+;;  :defer t)
+;;(use-package dired-subtree
+;;  :defer t)
+;;(use-package dired-toggle
+;;  :defer t)
+;;(use-package nix-sandbox
+;;  :defer t)
 (use-package editorconfig
-  :ensure t
-  :demand t
   :config
   (editorconfig-mode 1))
 (use-package projectile
-  :ensure t
   :demand t
   :after (counsel)
   :bind
@@ -638,7 +645,6 @@
   :config
   (projectile-mode 1))
 (use-package treemacs
-  :ensure t
   :hook ((treemacs-mode . (lambda () (eldoc-mode -1)))) ; Since inline-docs is used, this prevents annoying popups
   :bind
   (:map custom-leader-map
@@ -655,13 +661,14 @@
   :config
   (treemacs-project-follow-mode 1))
 (use-package treemacs-projectile
-  :after (treemacs projectile)
-  :ensure t)
+  :defer t
+  :after (treemacs projectile))
 (use-package treemacs-magit
-  :after (treemacs magit)
-  :ensure t)
+  :defer t
+  :after (treemacs magit))
 (use-package minimap
   :disabled
+  :defer t
   :custom-face
   (minimap-font-face ((t (:height 18))))
   :custom
@@ -670,7 +677,8 @@
   (minimap-mode 1))
 (use-package lorem-ipsum
   :defer t)
-(use-package osm)
+(use-package osm
+  :defer t)
 
 ;; Configuring gnus.
 (use-package gnus
@@ -683,7 +691,6 @@
                                    (nntp "news.gmane.io"))))
 
 (use-package keyfreq
-  :ensure t
   :config
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
@@ -711,7 +718,6 @@
 (use-package whitespace
   :pin manual
   :ensure nil
-  :demand t
   :custom
   (whitespace-style '(face tabs trailing space-before-tab empty space-after-tab tab-mark))
   :config
@@ -742,17 +748,21 @@
 
 ;;; Evil mode customization
 (use-package evil-numbers
+  :defer t
   :after (evil))
 (use-package evil-surround
+  :defer t
   :after (evil)
   :config
   (global-evil-surround-mode 1))
 (use-package evil-textobj-tree-sitter
+  :defer t
   :after (evil))
 (use-package evil-org
-  :after (evil))
+  :after (evil org))
 
 (use-package treemacs-evil
+  :defer t
   :after (treemacs evil))
 
 ;; Enabled disabled by default commands.
