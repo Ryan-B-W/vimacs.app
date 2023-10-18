@@ -42,7 +42,6 @@
 (setf display-line-numbers-type 'relative)
 (setq-default display-line-numbers-widen t)
 (use-package telephone-line
-  :pin nongnu
   :demand t
   :config
   (telephone-line-mode 1))
@@ -55,7 +54,6 @@
 
 ;; Load Evil Mode.
 (use-package evil
-  :pin nongnu
   :ensure t
   :demand t
   :init
@@ -78,12 +76,10 @@
 
 ;; More fancy auto-completion and matching than default.
 (use-package flx
-  :pin melpa
   :ensure t
   :demand t)
 
 (use-package counsel
-  :pin gnu
   :ensure t
   :demand t
   :after (flx)
@@ -106,7 +102,6 @@
 
 ;; Better in buffer completion.
 (use-package company
-  :pin gnu
   :ensure t
   :demand t
   :config
@@ -133,7 +128,6 @@
 
 (use-package eldoc-box
   :disabled ; enable for gui-only Eldoc overlay under point
-  :pin melpa-stable
   :ensure t
   :hook ((eglot-managed-mode . eldoc-box-hover-mode)))
 
@@ -294,7 +288,6 @@
 
 ;; Org-babel tmux
 (use-package ob-tmux
-  :pin melpa-stable
   :after (org)
   :custom
   (org-babel-default-header-args:tmux
@@ -304,21 +297,17 @@
   (org-babel-tmux-terminal "urxvt"))
 
 (use-package orgit
-  :pin nongnu
   :after (org magit)
   :config
   (use-package orgit-forge
-    :pin melpa-stable
     :after (org magit forge)))
 
 (use-package org-modern
   :disabled
-  :pin gnu
   :after (org))
 
 (use-package htmlize
   :disabled
-  :pin nongnu
   :init
   (setf org-src-fontify-natively t)
   :config
@@ -346,8 +335,7 @@
   (epa-file-enable)
   (setf epa-pinentry-mode 'loopback))
 
-(use-package pinentry
-  :pin gnu)
+(use-package pinentry)
 
 ;; Customize bs-show.
 (use-package bs
@@ -366,16 +354,12 @@
   ("C-x C-b" . bs-show))
 
 (use-package magit
-  :pin nongnu
   :ensure t)
 (use-package forge
-  :pin melpa-stable
   :after (magit))
 (use-package magit-annex
-  :pin melpa-stable
   :after (magit))
 (use-package magit-lfs
-  :pin melpa
   :after (magit))
 
 (use-package diff-hl
@@ -384,7 +368,6 @@
   (global-diff-hl-mode))
 
 (use-package dap-mode
-  :pin melpa-stable
   :defer
   :bind (:map custom-leader-map
          ("b" . dap-breakpoint-toggle)
@@ -394,7 +377,6 @@
 
 ;; Setup sr-speedbar.
 (use-package sr-speedbar
-  :pin melpa-stable
   :bind (("s-s" . sr-speedbar-toggle))
   :custom
   (sr-speedbar-right-side nil))
@@ -404,7 +386,6 @@
 (setf show-paren-context-when-offscreen 'overlay)
 
 (use-package smartparens
-  :pin nongnu
   :ensure t
   :hook ((lisp-mode . smartparens-strict-mode)
          (emacs-lisp-mode . smartparens-strict-mode)
@@ -539,7 +520,6 @@
          (yaml-ts-mode . eglot-ensure)))
 
 (use-package verb
-  :pin melpa-stable
   :after (org)
   :defer nil
 ;;  :bind (:map org-mode-map
@@ -548,116 +528,82 @@
   (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
 (use-package which-key
-  :pin gnu
   :config
   (which-key-mode 1))
 (use-package yaml-ts-mode
-  :pin manual
   :ensure nil
   :mode "\\.yaml\\'")
 (use-package arduino-mode
-  :pin nongnu
   :defer t)
 (use-package platformio-mode
-  :pin melpa-stable
   :defer t)
 (use-package nhexl-mode
-  :pin gnu
   :defer t)
 (use-package elf-mode
-  :pin melpa-stable
   :defer t)
 (use-package pcap-mode
-  :pin melpa
   :defer t)
 (use-package gnuplot
-  :pin nongnu
   :defer t)
 (use-package graphviz-dot-mode
-  :pin melpa-stable
   :defer t)
 (use-package scad-mode
-  :pin nongnu
   :defer t)
-(use-package rainbow-mode
-  :pin gnu)
+(use-package rainbow-mode)
 (use-package markdown-mode
-  :pin nongnu
   :defer t)
 ;;(use-package bbdb
-;;  :pin gnu
 ;;  :defer t)
 ;;(use-package bbdb-vcard)
 ;;(use-package ebdb
-;;  :pin gnu
 ;;  :defer t)
 (use-package haskell-mode
-  :pin nongnu
   :defer t)
 ;;(use-package docker-compose-mode)
 (use-package web-mode
-  :pin nongnu
   :defer t)
 ;;(use-package js2-mode)
 (use-package sass-mode
-  :pin nongnu
   :defer t)
 ;;(use-package pipenv) ; unsure if needed
 (use-package jinja2-mode
-  :pin nongnu
   :defer t)
 (use-package csv-mode
-  :pin gnu
   :defer t)
 (use-package ess
-  :pin melpa-stable
   :defer t)
 (use-package sed-mode
-  :pin gnu
   :defer t)
 (use-package php-mode
-  :pin nongnu
   :defer t)
 (use-package irony
-  :pin melpa-stable
   :defer t)
 (use-package emms
-  :pin gnu
   :defer t)
 ;; Unsure if edbi is still relevant or if there is something better.
 ;;(use-package edbi
-;;  :pin melpa-stable
 ;;  :defer t)
 ;;(use-package edbi-sqlite) ; possibly redundant with 29.1
 ;;(use-package edbi-minor-mode)
 ;;(use-package edbi-database-url)
 (use-package biblio
-  :pin melpa-stable
   :defer t)
 ;;(use-package autodisass-java-bytecode
-;;  :pin melpa-stable
 ;;  :defer t)
 (use-package tex
   :ensure auctex
-  :pin gnu
   :defer t)
 (use-package apache-mode
-  :pin nongnu
   :defer t)
 (use-package nginx-mode
-  :pin nongnu
   :defer t)
 (use-package nix-mode
-  :pin nongnu
   :defer t)
 (use-package dired-du
-  :pin gnu
   :defer t)
 (use-package dired-git-info
-  :pin gnu
   :defer t)
 (use-package dired-preview
-  :pin gnu
   :defer t)
 ;;(use-package dired-sidebar)
 ;;(use-package dired-subtree)
@@ -665,13 +611,11 @@
 ;;(use-package nix-sandbox)
 ;;(use-package neotree)
 (use-package editorconfig
-  :pin nongnu
   :ensure t
   :demand t
   :config
   (editorconfig-mode 1))
 (use-package projectile
-  :pin nongnu
   :ensure t
   :demand t
   :after (counsel)
@@ -688,7 +632,6 @@
   :config
   (projectile-mode 1))
 (use-package treemacs
-  :pin melpa-stable
   :ensure t
   :hook ((treemacs-mode . (lambda () (eldoc-mode -1)))) ; Since inline-docs is used, this prevents annoying popups
   :bind
@@ -706,16 +649,13 @@
   :config
   (treemacs-project-follow-mode 1))
 (use-package treemacs-projectile
-  :pin melpa-stable
   :after (treemacs projectile)
   :ensure t)
 (use-package treemacs-magit
-  :pin melpa-stable
   :after (treemacs magit)
   :ensure t)
 (use-package minimap
   :disabled
-  :pin gnu
   :custom-face
   (minimap-font-face ((t (:height 18))))
   :custom
@@ -723,94 +663,8 @@
   (minimap-window-location 'right)
   (minimap-mode 1))
 (use-package lorem-ipsum
-  :pin nongnu
   :defer t)
-(use-package osm
-  :pin gnu)
-
-;; Packages pulled in as dependencies.
-
-(use-package async
-  :pin gnu
-  :defer t)
-(use-package biblio-core
-  :pin melpa-stable
-  :defer t)
-(use-package closql
-  :pin melpa-stable
-  :defer t)
-(use-package compat
-  :pin gnu
-  :defer t)
-(use-package dash
-  :pin gnu
-  :defer t)
-(use-package emacsql
-  :pin melpa-stable
-  :defer t)
-(use-package emacsql-sqlite
-  :pin melpa-stable
-  :defer t)
-(use-package ghub
-  :pin melpa-stable
-  :defer t)
-(use-package git-commit
-  :pin nongnu
-  :defer t)
-(use-package haml-mode
-  :pin nongnu
-  :defer t)
-(use-package julia-mode
-  :pin nongnu
-  :defer t)
-(use-package magit-section
-  :pin nongnu
-  :defer t)
-(use-package s
-  :pin melpa-stable
-  :defer t)
-(use-package spinner
-  :pin gnu
-  :defer t)
-(use-package tablist
-  :pin nongnu
-  :defer t)
-(use-package transient
-  :pin gnu
-  :defer t)
-(use-package treepy
-  :pin melpa-stable
-  :defer t)
-(use-package with-editor
-  :pin nongnu
-  :defer t)
-(use-package yaml
-  :pin melpa-stable
-  :defer t)
-(use-package ace-window
-  :pin gnu
-  :defer t)
-(use-package avy
-  :pin gnu
-  :defer t)
-(use-package pfuture
-  :pin melpa-stable
-  :defer t)
-(use-package hydra
-  :pin gnu
-  :defer t)
-(use-package lv
-  :pin gnu
-  :defer t)
-(use-package ht
-  :pin melpa-stable
-  :defer t)
-(use-package cfrs
-  :pin melpa-stable
-  :defer t)
-(use-package posframe
-  :pin gnu
-  :defer t)
+(use-package osm)
 
 ;; Configuring gnus.
 (use-package gnus
@@ -823,7 +677,6 @@
                                    (nntp "news.gmane.io"))))
 
 (use-package keyfreq
-  :pin melpa-stable
   :ensure t
   :config
   (keyfreq-mode 1)
@@ -859,7 +712,6 @@
   (global-whitespace-mode))
 
 (use-package highlight-indent-guides
-  :pin melpa
   :hook ((prog-mode . (lambda ()
                         (highlight-indent-guides-mode 1)
                         (set-face-foreground 'highlight-indent-guides-character-face "#727169")
@@ -884,22 +736,17 @@
 
 ;;; Evil mode customization
 (use-package evil-numbers
-  :pin nongnu
   :after (evil))
 (use-package evil-surround
-  :pin melpa-stable
   :after (evil)
   :config
   (global-evil-surround-mode 1))
 (use-package evil-textobj-tree-sitter
-  :pin melpa
   :after (evil))
 (use-package evil-org
-  :pin melpa
   :after (evil))
 
 (use-package treemacs-evil
-  :pin melpa-stable
   :after (treemacs evil))
 
 ;;;; Customizer settings
