@@ -749,6 +749,12 @@
 (use-package treemacs-evil
   :after (treemacs evil))
 
+;; Enabled disabled by default commands.
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disabled nil)
+(put 'narrow-to-defun-include-comments 'disabled nil)
+
 ;;;; Customizer settings
 
 (setf custom-file (concat user-emacs-directory "custom.el"))
