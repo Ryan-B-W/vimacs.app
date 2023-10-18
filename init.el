@@ -529,10 +529,8 @@
 
 (use-package verb
   :after (org)
-  :defer nil
-;;  :bind (:map org-mode-map
-;;         ("C-c C-r" . verb-command-map))
-  :config
+  :defer t
+  :init
   (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
 (use-package which-key
