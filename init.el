@@ -111,6 +111,18 @@
 (use-package inline-docs
   :init
   (setf inline-docs-border-symbol 9472))
+(use-package eldoc-box
+  :config
+  (defun eldoc-box-hover-ensure ()
+    (if eldoc-box-hover-at-point-mode
+        (if (xor eldoc-mode
+                 (display-graphic-p))
+            (eldoc-box-hover-at-point-mode -1))
+      (if (and eldoc-mode
+               (display-graphic-p))
+          (eldoc-box-hover-at-point-mode 1)
+        (eldoc-box-hover-at-point-mode -1))))
+  (add-hook 'window-state-change-hook #'eldoc-box-hover-ensure))
 
 (use-package eldoc
   :pin manual
@@ -123,10 +135,6 @@
   (setf eldoc-message-function #'inline-docs)
   (setf eldoc-echo-area-use-multiline-p 3)
   (setf eldoc-echo-area-display-truncation-message nil))
-
-(use-package eldoc-box
-  :if (display-graphic-p) ; enable only when gui is available for Eldoc overlay under point, doesn't work in TUI.
-  :hook ((eglot-managed-mode . eldoc-box-hover-mode)))
 
 ;; Folding in programming modes.
 (use-package hideshow ; hs-minor-mode.
