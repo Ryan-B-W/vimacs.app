@@ -110,7 +110,45 @@
 ;; Eldoc customization.
 (use-package inline-docs
   :init
-  (setf inline-docs-border-symbol 9472))
+  (setf inline-docs-border-symbol 9472)
+  :config
+  ;; Overriding internal function to fix overflow issue.
+  ;; Following function is from inline-docs.el from
+  ;; https://repo.or.cz/inline-docs.git and is licensed under the
+  ;; GNU GPL V3.
+  (defun inline-docs--string-display (string apply-face)
+    "Show STRING contents below point line until next command with APPLY-FACE."
+    ;; note that `display-line-numbers-mode' takes 2 + `line-number-display-width' columns
+    (let* ((total-column-number (if display-line-numbers-mode
+                                    (- (window-body-width) (+ 3 (line-number-display-width)))
+                                  (- (window-body-width) 1)))
+           (border-line (make-string total-column-number inline-docs-border-symbol))
+           (offset (make-string
+                    (if (= (current-indentation) 0)
+                        (current-indentation)
+                      (- (current-indentation) 1))
+                    inline-docs-prefix-symbol))
+           (str (concat (propertize border-line 'face 'inline-docs-border-face) "\n"
+                        offset
+                        (propertize (concat inline-docs-indicator-symbol " ") 'face 'inline-docs-indicator-face)
+                        (copy-sequence string) "\n"
+                        (propertize border-line 'face 'inline-docs-border-face) "\n"))
+           start-pos end-pos)
+      (unwind-protect
+          (save-excursion
+            (inline-docs--clear-overlay)
+            (cl-case inline-docs-position
+              (above (forward-line 0))
+              (below (forward-line)))
+            (setq start-pos (point))
+            (end-of-line)
+            (setq end-pos (point))
+            (setq inline-docs-overlay (make-overlay start-pos end-pos (current-buffer)))
+            (if apply-face
+                (overlay-put inline-docs-overlay 'face 'inline-docs-face))
+            (overlay-put inline-docs-overlay 'evaporate t)
+            (overlay-put inline-docs-overlay 'before-string str))
+        (add-hook 'post-command-hook 'inline-docs--clear-overlay)))))
 (use-package eldoc-box
   :config
   (defun eldoc-box-hover-ensure ()
