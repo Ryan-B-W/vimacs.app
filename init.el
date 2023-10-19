@@ -44,6 +44,7 @@
   :config
   (telephone-line-mode 1))
 (setf frame-resize-pixelwise t)
+(pixel-scroll-precision-mode 1)
 
 ;; Disable backup files.
 (setf make-backup-files nil)
