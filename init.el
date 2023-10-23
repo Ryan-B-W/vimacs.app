@@ -41,6 +41,7 @@
 (setf display-line-numbers-type 'relative)
 (setq-default display-line-numbers-widen t)
 (use-package telephone-line
+  :pin melpa-stable
   :config
   (telephone-line-mode 1))
 (setf frame-resize-pixelwise t)
