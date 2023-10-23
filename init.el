@@ -460,6 +460,7 @@
   :pin manual
   :ensure nil
   :defer t
+  :if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
   :init
   (load (expand-file-name "~/quicklisp/slime-helper.el"))
   :custom
