@@ -1,13 +1,14 @@
 ;; Do compatibility checks.
-(if (version< emacs-version "29.0")
+(unless (file-exists-p (concat user-emacs-directory "suppress-feature-checks"))
+  (when (version< emacs-version "29.0")
     (warn "Emacs version is %s.  This init assumes at least Emacs 29 release series." emacs-version))
-(let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it."))
-  (mapcar (lambda (feature) (if (not (featurep feature)) (warn warn-message feature)))
-          '(native-compile json threads)))
-(let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it.")
-      (comp-features (split-string system-configuration-features " ")))
-  (mapcar (lambda (feature) (if (not (member feature comp-features)) (warn warn-message feature)))
-          '("SQLITE3" "FREETYPE")))
+  (let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it."))
+    (mapcar (lambda (feature) (unless (featurep feature) (warn warn-message feature)))
+            '(native-compile json threads)))
+  (let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it.")
+        (comp-features (split-string system-configuration-features " ")))
+    (mapcar (lambda (feature) (unless (member feature comp-features) (warn warn-message feature)))
+            '("SQLITE3" "FREETYPE"))))
 
 ;; Setup MELPA support.
 (require 'package)
@@ -161,11 +162,9 @@
   :config
   (defun eldoc-box-hover-ensure ()
     (if eldoc-box-hover-at-point-mode
-        (if (xor eldoc-mode
-                 (display-graphic-p))
-            (eldoc-box-hover-at-point-mode -1))
-      (if (and eldoc-mode
-               (display-graphic-p))
+        (when (xor eldoc-mode (display-graphic-p))
+          (eldoc-box-hover-at-point-mode -1))
+      (if (and eldoc-mode (display-graphic-p))
           (eldoc-box-hover-at-point-mode 1)
         (eldoc-box-hover-at-point-mode -1))))
   (add-hook 'window-state-change-hook #'eldoc-box-hover-ensure))
