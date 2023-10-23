@@ -34,7 +34,7 @@
 (setf initial-major-mode 'org-mode)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
-(scroll-bar-mode -1)
+(when (featurep 'scroll-bar) (scroll-bar-mode -1))
 (setf split-width-threshold 80)
 (column-number-mode)
 (global-display-line-numbers-mode 1)
@@ -45,7 +45,7 @@
   :config
   (telephone-line-mode 1))
 (setf frame-resize-pixelwise t)
-(pixel-scroll-precision-mode 1)
+(when (featurep 'pixel-scroll) (pixel-scroll-precision-mode 1))
 
 ;; Enable additional mouse support.
 (setf dired-mouse-drag-files t)
