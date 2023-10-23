@@ -52,7 +52,7 @@
 (setf dired-mouse-drag-files t)
 (setf mouse-drag-and-drop-region-cross-program t)
 (xterm-mouse-mode 1)
-(gpm-mouse-mode 1)
+(when (string-match-p "\\<GPM\\>" system-configuration-features) (gpm-mouse-mode 1))
 
 ;; Disable backup files.
 (setf make-backup-files nil)
