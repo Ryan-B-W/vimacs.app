@@ -407,8 +407,7 @@
   ;; Swap list-buffers with bs-show.
   ("C-x C-b" . bs-show))
 
-(use-package magit
-  :defer t)
+(use-package magit)
 (use-package forge
   :defer t
   :after (magit))
@@ -420,8 +419,12 @@
   :after (magit))
 
 (use-package diff-hl
+  :after (magit)
+  :defer nil
+  :hook
+  ((magit-refresh-buffer . diff-hl-update))
   :config
-  (global-diff-hl-mode))
+  (global-diff-hl-mode 1))
 
 (use-package dap-mode
   :bind (:map custom-leader-map
