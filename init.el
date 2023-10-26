@@ -76,14 +76,18 @@
   (evil-collection-init))
 
 ;; Custom keymap.
-(defvar-keymap custom-search-map
-  :doc "Custom keymap for aggregating search actions.")
-(defvar-keymap custom-workspace-map
-  :doc "Custom keymap for managing projects and workspaces.")
-(defvar-keymap custom-leader-map
-  :doc "Custom keymap for triggering various actions."
-  "s" custom-search-map
-  "w" custom-workspace-map)
+;; TODO: revert to using defvar-keymap when Emacs 29 is widely available by default.
+(defvar custom-search-map
+  (make-keymap
+   "Custom keymap for aggregating search actions."))
+(defvar custom-workspace-map
+  (make-keymap
+   "Custom keymap for managing projects and workspaces."))
+(defvar custom-leader-map
+  (make-keymap
+   "Custom keymap for triggering various actions."))
+(define-key custom-leader-map (kbd "s") custom-search-map)
+(define-key custom-leader-map (kbd "w") custom-workspace-map)
 (define-key evil-normal-state-map (kbd "SPC") custom-leader-map)
 (define-key evil-visual-state-map (kbd "SPC") custom-leader-map)
 (define-key evil-motion-state-map (kbd "SPC") custom-leader-map)
