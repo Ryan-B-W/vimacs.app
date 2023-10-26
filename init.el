@@ -506,7 +506,7 @@
 (use-package treesit
   :pin manual
   :ensure nil
-  :if (featurep 'treesit)
+  :if (fboundp 'treesit-install-language-grammar)
   :init
   (setf treesit-language-source-alist
         '((bash "https://github.com/tree-sitter/tree-sitter-bash")
@@ -564,7 +564,7 @@
 (use-package eglot
   :pin manual
   :ensure nil
-  :if (featurep 'eglot)
+  :if (fboundp 'eglot)
   :hook ((bash-ts-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
          (c-or-c++-mode . eglot-ensure)
