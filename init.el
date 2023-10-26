@@ -814,6 +814,7 @@
   :defer t
   :after (evil))
 (use-package evil-org
+  :pin melpa
   :after (evil org))
 
 (use-package treemacs-evil
