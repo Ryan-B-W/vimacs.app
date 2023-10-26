@@ -159,6 +159,7 @@
             (overlay-put inline-docs-overlay 'before-string str))
         (add-hook 'post-command-hook 'inline-docs--clear-overlay)))))
 (use-package eldoc-box
+  :if (featurep 'term/common-win)
   :config
   (defun eldoc-box-hover-ensure ()
     (if eldoc-box-hover-at-point-mode
