@@ -22,8 +22,15 @@
         ("melpa-stable" . 10)
         ("melpa" . 0)))
 ;; Auto install configured packages.
+(unless (fboundp 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 (require 'use-package)
 (setf use-package-always-ensure t)
+
+;; If insufficient Emacs version, install and load compat.
+(use-package compat
+  :if (version< emacs-version "29.0"))
 
 (load-theme 'kunagawa-dark-julian-mix t)
 
