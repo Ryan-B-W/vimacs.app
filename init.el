@@ -200,6 +200,9 @@
   :pin manual
   :ensure nil
   :defer t
+  :bind (:map dired-mode-map
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil))
   :custom
   (dired-listing-switches "-alh"))
 
@@ -415,7 +418,9 @@
   ;; Swap list-buffers with bs-show.
   ("C-x C-b" . bs-show))
 
-(use-package magit)
+(use-package magit
+  :bind (:map magit-mode-map
+         ("SPC" . nil)))
 (use-package forge
   :defer t
   :after (magit))
