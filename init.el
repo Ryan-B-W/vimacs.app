@@ -840,4 +840,5 @@
 ;;;; Customizer settings.
 
 (setf custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file)
+(when (file-exists-p custom-file)
+  (load custom-file))
