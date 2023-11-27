@@ -221,6 +221,14 @@
 ;; Disable auto-fill-mode globally.
 (auto-fill-mode -1)
 
+(use-package image
+  :pin manual
+  :ensure nil
+  :defer t
+  :bind (:map image-mode-map
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil)))
+
 (use-package printing
   :pin manual
   :ensure nil)
