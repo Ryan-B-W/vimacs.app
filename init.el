@@ -428,7 +428,26 @@
 
 (use-package magit
   :bind (:map magit-mode-map
-         ("SPC" . nil)))
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil)
+         :map magit-diff-mode-map
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil)
+         :map magit-log-mode-map
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil)
+         :map magit-section-mode-map
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil)
+         :map magit-repolist-mode-map
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil)
+         :map magit-submodule-list-mode-map
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil)
+         :map magit-blame-read-only-mode-map
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil)))
 (use-package forge
   :defer t
   :after (magit))
