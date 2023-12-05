@@ -667,6 +667,11 @@
 ;;  :defer t)
 (use-package web-mode
   :defer t)
+(use-package typescript-ts-mode
+  :pin manual
+  :ensure nil
+  :defer t
+  :mode ("\\.ts\\'" "\\.js\\'"))
 ;;(use-package js2-mode
 ;;  :defer t)
 (use-package sass-mode
