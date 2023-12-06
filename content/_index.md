@@ -1,5 +1,5 @@
 ---
-title: "Vimacs.app, The Oninionated Emacs Config For Those Who Want a Little More From Their Editor"
+title: "Vimacs.app"
 date: 2023-12-05T11:56:17-08:00
 description: "Vimacs.app, the oninionated Emacs config for those who want a little more from their editor"
 ---
