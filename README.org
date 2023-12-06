@@ -1,0 +1,1 @@
+An opinionated Emacs config intended for Neovim users with a IDE-like experience.  This config attempts to meld the quick, powerful editing conventions of Vim with the extensibility and power of Emacs along with aiming for modern development environment sensibilities.

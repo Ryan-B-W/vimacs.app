@@ -1,0 +1,7 @@
+baseURL = 'https://vimacs.app/'
+languageCode = 'en-us'
+title = 'Vimacs.app'
+copyright = 'Ryan "sandbox" Wilcox'
+[params]
+author = 'sandbox'
+subtitle = 'Emacs config for the Neovim neophyte wanting more'

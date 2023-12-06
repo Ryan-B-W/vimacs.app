@@ -1,0 +1,7 @@
+{{ with .Params.hide_footer }}
+<!-- No footer -->
+{{ else }}
+<footer>
+  <p>Website by {{ .Site.Copyright }} © {{ now.Year }} | <a type="application/xml" href="{{ .Site.BaseURL }}sitemap.xml">Sitemap</a>{{ if .OutputFormats.Get "RSS" }}{{ with .OutputFormats.Get "RSS" }} | <a href="{{ .RelPermalink }}" type="application/rss+xml" title="RSS Feed" rel="feed">{{ partial "feed-icon.svg" . }}</a>{{ end }}{{ end }}</p>
+</footer>
+{{ end }}
