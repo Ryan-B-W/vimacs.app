@@ -5,4 +5,4 @@ copyright = 'Ryan "sandbox" Wilcox'
 [params]
 author = 'sandbox'
 subtitle = 'Emacs config for the Neovim neophyte wanting more'
-images = ['2023-12-06T005831Z.png', '2023-12-06T005708Z.png', '2023-12-06T005612Z.png', '2023-12-06T005536Z.png']
+images = ['/screenshots/2023-12-06T005831Z.png', '/screenshots/2023-12-06T005708Z.png', '/screenshots/2023-12-06T005612Z.png', '/screenshots/2023-12-06T005536Z.png']
