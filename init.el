@@ -35,7 +35,25 @@
 (load-theme 'kunagawa-dark-julian-mix t)
 
 ;; Set font.
-(set-face-attribute 'default nil :family "Fira Code")
+(cond ((member "Iosevka SS09" (font-family-list))
+       (set-face-attribute 'default nil :family "Iosevka SS09")
+       (set-face-attribute 'fixed-pitch nil :family "Iosevka SS09")
+       (cond ((member "Iosevka Aile SS09" (font-family-list))
+              (set-face-attribute 'variable-pitch nil :family "Iosevka Aile SS09"))
+             ((member "Iosevka Aile" (font-family-list))
+              (set-face-attribute 'variable-pitch nil :family "Iosevka Aile"))))
+      ((member "Iosevka SS05" (font-family-list))
+       (set-face-attribute 'default nil :family "Iosevka SS05")
+       (set-face-attribute 'fixed-pitch nil :family "Iosevka SS05"))
+      ((member "Fira Code" (font-family-list))
+       (set-face-attribute 'default nil :family "Fira Code")
+       (set-face-attribute 'fixed-pitch nil :family "Fira Code"))
+      ((member "Source Code Pro" (font-family-list))
+       (set-face-attribute 'default nil :family "Source Code Pro")
+       (set-face-attribute 'fixed-pitch nil :family "Source Code Pro"))
+      ((member "Inconsolata" (font-family-list))
+       (set-face-attribute 'default nil :family "Inconsolata")
+       (set-face-attribute 'fixed-pitch nil :family "Inconsolata")))
 
 ;; Customize UI.
 (setf inhibit-startup-screen t)
