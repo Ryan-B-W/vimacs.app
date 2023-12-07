@@ -97,17 +97,15 @@
 
 ;; Load Evil Mode.
 (use-package evil
+  :demand t
   :init
   (setf evil-want-keybinding nil)
   (setf evil-search-module 'evil-search)
-  :bind (:map evil-normal-state-map
-         ("SPC" . custom-leader-map)
-         :map evil-visual-state-map
-         ("SPC" . custom-leader-map)
-         :map evil-motion-state-map
-         ("SPC" . custom-leader-map))
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  (define-key evil-normal-state-map (kbd "SPC") custom-leader-map)
+  (define-key evil-visual-state-map (kbd "SPC") custom-leader-map)
+  (define-key evil-motion-state-map (kbd "SPC") custom-leader-map))
 (use-package evil-collection
   :after (evil)
   :custom
