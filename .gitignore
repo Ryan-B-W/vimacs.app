@@ -6,6 +6,7 @@ custom.el
 eln-cache/
 elpa/
 emms/
+eshell/
 network-security.data
 org-clock-save.el
 projectile-bookmarks.eld
