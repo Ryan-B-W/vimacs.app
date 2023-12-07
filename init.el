@@ -248,7 +248,6 @@
 (use-package image
   :pin manual
   :ensure nil
-  :defer t
   :bind (:map image-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)))
