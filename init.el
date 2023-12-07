@@ -272,12 +272,11 @@
 (use-package eldoc
   :pin manual
   :ensure nil
-  :after (inline-docs)
   :bind (:map custom-leader-map
          ("h" . eldoc-mode)
          ("H" . eldoc-print-current-symbol-info))
   :config
-  (setf eldoc-message-function #'inline-docs)
+  (when (featurep 'inline-docs) (setf eldoc-message-function #'inline-docs))
   (setf eldoc-echo-area-use-multiline-p 3)
   (setf eldoc-echo-area-display-truncation-message nil))
 
