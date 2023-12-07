@@ -1,6 +1,43 @@
 ;; Early UI tweaks.
 (setf inhibit-startup-screen t)
 
+;; Load Vimacs.app configuration.
+(setf vimacs-config-file (concat user-emacs-directory "vimacs.app-config.el"))
+(unless (file-exists-p vimacs-config-file)
+  (write-region "(setf vimacs-config-user-notes-path (expand-file-name \"~/doc/\")
+      vimacs-config-additional-org-agenda-files nil)
+(setf vimacs-config-setup-fonts t
+      vimacs-config-setup-theme t
+      vimacs-config-theme-deuteranopia nil
+      ;; Backup policy.  A symbol.  Can be one of \"full\", \"minimal\",
+      ;; or \"none\".  Effect is as follows:
+      ;; Full: standard backup policy for Emacs.
+      ;; Minimal: standard backup policy for vimacs.app.  Only make autosaves.
+      ;; None: don't make any backups or autosaves.
+      vimacs-config-backup-policy 'minimal
+      vimacs-config-inline-help nil
+      vimacs-config-auto-fill nil
+      ;; Style of line wrapping.  A symbol.  Can be one of \"default\",
+      ;; \"words\", \"fancy\", or \"none\".  Effect is as follows:
+      ;; Default: default Emacs behavior.
+      ;; Words: wrap on word boundaries.
+      ;; Fancy: wrap on word boundaries and indent to same level.
+      vimacs-config-wrap-style 'fancy)"
+                nil vimacs-config-file))
+(if (file-exists-p vimacs-config-file)
+    (load vimacs-config-file)
+  ;; Default Vimacs.app settings.
+  (setf vimacs-config-user-notes-path (expand-file-name "~/doc/")
+        vimacs-config-additional-org-agenda-files nil)
+  (setf vimacs-config-setup-fonts t
+        vimacs-config-setup-theme t
+        vimacs-config-theme-deuteranopia nil
+        vimacs-config-backup-policy 'minimal
+        vimacs-config-inline-help nil
+        vimacs-config-auto-fill nil
+        vimacs-config-wrap-style 'fancy)
+  (error "Unable to write \"%s\" config file.  Vimacs.app will not be customizable without it." vimacs-config-file))
+
 ;; Do compatibility checks.
 (unless (file-exists-p (concat user-emacs-directory "suppress-feature-checks"))
   (when (version< emacs-version "29.0")
@@ -46,28 +83,27 @@
   "w" custom-workspace-map)
 
 ;; Set font.
-(cond ((member "Iosevka SS09" (font-family-list))
-       (set-face-attribute 'default nil :family "Iosevka SS09")
-       (set-face-attribute 'fixed-pitch nil :family "Iosevka SS09")
-       (cond ((member "Iosevka Aile SS09" (font-family-list))
-              (set-face-attribute 'variable-pitch nil :family "Iosevka Aile SS09"))
-             ((member "Iosevka Aile" (font-family-list))
-              (set-face-attribute 'variable-pitch nil :family "Iosevka Aile"))))
-      ((member "Iosevka SS05" (font-family-list))
-       (set-face-attribute 'default nil :family "Iosevka SS05")
-       (set-face-attribute 'fixed-pitch nil :family "Iosevka SS05"))
-      ((member "Fira Code" (font-family-list))
-       (set-face-attribute 'default nil :family "Fira Code")
-       (set-face-attribute 'fixed-pitch nil :family "Fira Code"))
-      ((member "Source Code Pro" (font-family-list))
-       (set-face-attribute 'default nil :family "Source Code Pro")
-       (set-face-attribute 'fixed-pitch nil :family "Source Code Pro"))
-      ((member "Inconsolata" (font-family-list))
-       (set-face-attribute 'default nil :family "Inconsolata")
-       (set-face-attribute 'fixed-pitch nil :family "Inconsolata")))
+(when vimacs-config-setup-fonts
+  (cond ((member "Iosevka SS09" (font-family-list))
+         (set-face-attribute 'default nil :family "Iosevka SS09")
+         (set-face-attribute 'fixed-pitch nil :family "Iosevka SS09")
+         (cond ((member "Iosevka Aile SS09" (font-family-list))
+                (set-face-attribute 'variable-pitch nil :family "Iosevka Aile SS09"))
+               ((member "Iosevka Aile" (font-family-list))
+                (set-face-attribute 'variable-pitch nil :family "Iosevka Aile"))))
+        ((member "Iosevka SS05" (font-family-list))
+         (set-face-attribute 'default nil :family "Iosevka SS05")
+         (set-face-attribute 'fixed-pitch nil :family "Iosevka SS05"))
+        ((member "Fira Code" (font-family-list))
+         (set-face-attribute 'default nil :family "Fira Code")
+         (set-face-attribute 'fixed-pitch nil :family "Fira Code"))
+        ((member "Source Code Pro" (font-family-list))
+         (set-face-attribute 'default nil :family "Source Code Pro")
+         (set-face-attribute 'fixed-pitch nil :family "Source Code Pro"))
+        ((member "Inconsolata" (font-family-list))
+         (set-face-attribute 'default nil :family "Inconsolata")
+         (set-face-attribute 'fixed-pitch nil :family "Inconsolata"))))
 
-(setf vimacs-config-setup-theme t
-      vimacs-config-theme-deuteranopia nil)
 (use-package modus-themes
   :demand t
   :when vimacs-config-setup-theme
@@ -136,7 +172,7 @@
 (global-display-line-numbers-mode 1)
 (setf display-line-numbers-type 'relative)
 (setq-default display-line-numbers-widen t)
-(setq-default word-wrap t)
+(when (member vimacs-config-wrap-style '(words fancy)) (setq-default word-wrap t))
 (use-package telephone-line
   :pin melpa-stable
   :config
@@ -150,8 +186,16 @@
 (xterm-mouse-mode 1)
 (when (string-match-p "\\<GPM\\>" system-configuration-features) (ignore-errors (gpm-mouse-mode 1)))
 
-;; Disable backup files.
-(setf make-backup-files nil)
+;; Configure backup policy.
+(cl-case vimacs-config-backup-policy
+  ;; If "'full" don't make changes.
+  (minimal
+   ;; Disable backup files.
+   (setf make-backup-files nil))
+  (none
+   ;; Disable backup files and autosaves.
+   (setf make-backup-files nil)
+   (setf auto-save-default nil)))
 ;; Prompt to delete autosaves when killing buffers.
 (setf kill-buffer-delete-auto-save-files t)
 
@@ -207,12 +251,14 @@
 (use-package inline-docs
   :pin manual
   :ensure nil
+  :when vimacs-config-inline-help
   :init
   (unless (package-installed-p (intern "inline-docs"))
     (package-vc-install '(inline-docs . (:url "https://github.com/Ryan-B-W/inline-docs.git"))))
   (setf inline-docs-border-symbol 9472))
 (use-package eldoc-box
-  :if (featurep 'term/common-win)
+  :when (and (featurep 'term/common-win)
+             vimacs-config-inline-help)
   :config
   (defun eldoc-box-hover-ensure ()
     (if eldoc-box-hover-at-point-mode
@@ -265,9 +311,10 @@
 (server-start)
 
 ;; Disable auto-fill-mode globally.
-(auto-fill-mode -1)
+(unless vimacs-config-auto-fill (auto-fill-mode -1))
 
 (use-package adaptive-wrap
+  :when (eql vimacs-config-wrap-style 'fancy)
   :hook ((text-mode . adaptive-wrap-prefix-mode)
          (prog-mode . adaptive-wrap-prefix-mode)))
 
@@ -313,20 +360,21 @@
   ;; Configure clocking.
   (org-clock-persist t)
   ;; Setup org-mode capture.
-  (org-directory "~/doc")
+  (org-directory vimacs-config-user-notes-path)
   ;; Set org-mode capture templates.
   (org-capture-templates
-   '(("n" "Note to self" entry (file+headline "~/doc/notes.org" "Note to self/yet to be filed")
+   '(("n" "Note to self" entry (file+headline (concat org-directory "notes.org") "Note to self/yet to be filed")
       "* %u %?")
-     ("N" "Note to self with context" entry (file+headline "~/doc/notes.org" "Note to self/yet to be filed")
+     ("N" "Note to self with context" entry (file+headline (concat org-directory "notes.org") "Note to self/yet to be filed")
       "* %u %?\n  %l\n:  %i")
-     ("m" "Note to self, with time" entry (file+headline "~/doc/notes.org" "Note to self/yet to be filed")
+     ("m" "Note to self, with time" entry (file+headline (concat org-directory "notes.org") "Note to self/yet to be filed")
       "* %U %?")
-     ("M" "Note to self with context, with time" entry (file+headline "~/doc/notes.org" "Note to self/yet to be filed")
+     ("M" "Note to self with context, with time" entry (file+headline (concat org-directory "notes.org") "Note to self/yet to be filed")
       "* %U %?\n  %l\n:  %i")))
   ;; Set org-mode agenda and default notes files.
   (org-agenda-files
-   '("~/doc/notes.org"))
+   `(,(concat org-directory "notes.org")
+     ,@vimacs-config-additional-org-agenda-files))
   (org-export-backends '(ascii html icalendar latex md odt texinfo))
   (org-format-latex-header
    "\\documentclass{article}
@@ -389,7 +437,7 @@
   ;; Configure clocking.
   (org-clock-persistence-insinuate)
   ;; Setup org-mode capture.
-  (setf org-default-notes-file (concat org-directory "/notes.org"))
+  (setf org-default-notes-file (concat org-directory "notes.org"))
   :bind (("C-c l" . org-store-link)
          ("C-c c" . org-capture)
          ("C-c a" . org-agenda)

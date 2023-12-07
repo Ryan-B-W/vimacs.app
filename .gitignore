@@ -16,3 +16,4 @@ tramp
 transient/
 tree-sitter/
 url/
+vimacs.app-config.el
