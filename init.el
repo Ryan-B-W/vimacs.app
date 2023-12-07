@@ -76,6 +76,7 @@
 (global-display-line-numbers-mode 1)
 (setf display-line-numbers-type 'relative)
 (setq-default display-line-numbers-widen t)
+(setq-default word-wrap t)
 (use-package telephone-line
   :pin melpa-stable
   :config
@@ -241,6 +242,10 @@
 
 ;; Disable auto-fill-mode globally.
 (auto-fill-mode -1)
+
+(use-package adaptive-wrap
+  :hook ((text-mode . adaptive-wrap-prefix-mode)
+         (prog-mode . adaptive-wrap-prefix-mode)))
 
 (use-package image
   :pin manual
