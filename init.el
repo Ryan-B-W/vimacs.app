@@ -32,8 +32,6 @@
 (use-package compat
   :if (version< emacs-version "29.0"))
 
-(load-theme 'kunagawa-dark-julian-mix t)
-
 ;; Custom keymap.
 (defvar-keymap custom-search-map
   :doc "Custom keymap for aggregating search actions.")
@@ -64,6 +62,66 @@
       ((member "Inconsolata" (font-family-list))
        (set-face-attribute 'default nil :family "Inconsolata")
        (set-face-attribute 'fixed-pitch nil :family "Inconsolata")))
+
+(setf vimacs-config-setup-theme t
+      vimacs-config-theme-deuteranopia nil)
+(use-package modus-themes
+  :demand t
+  :when vimacs-config-setup-theme
+  :custom
+  (modus-themes-italic-constructs t)
+  (modus-themes-bold-constructs t)
+  (modus-themes-mixed-fonts t)
+  (modus-themes-variable-pitch-ui nil)
+  :config
+  (if vimacs-config-theme-deuteranopia
+      (progn
+        (setf modus-themes-to-toggle '(modus-vivendi-deuteranopia modus-operandi-deuteranopia))
+        (setf modus-vivendi-deuteranopia-palette-overrides
+              `((bg-main "#141617")
+                ;; Use some of the warmer colors from modus-vivendi.
+                (bg-mode-line-active "#505050")
+                (fg-mode-line-active "#ffffff")
+                (border-mode-line-active "#959595")))
+        ;; Borrow colors from modus-operandi-tinted for a warmer variation.
+        (setf modus-operandi-deuteranopia-palette-overrides
+              `((bg-main "#fbf7f0")
+                (bg-dim "#efe9dd")
+                (bg-active "#c9b9b0")
+                (bg-inactive "#dfd5cf")
+                (border "#9f9690")
+                (bg-hl-line "#f1d5d0")
+                (bg-region "#c2bcb5")
+                (bg-mode-line-active "#cab9b2")
+                (fg-mode-line-active "#000000")
+                (border-mode-line-active "#545454")
+                (bg-mode-line-inactive "#dfd9cf")
+                (fg-mode-line-inactive "#585858")
+                (border-mode-line-inactive "#a59a94")
+                (bg-tab-bar "#e0d4ce")
+                (bg-tab-current "#fbf7f0")
+                (bg-tab-other "#c8b8b2")
+                (bg-diff-context "#efe9df")
+                (bg-paren-match "#7fdfcf")
+                (fringe "#efe9dd")
+                (bg-button-active "#c9b9b0")
+                (bg-button-inactive "#efe9dd")
+                (bg-line-number-inactive "#efe9dd")
+                (bg-line-number-active "#c9b9b0")
+                (fg-space "#9f9690")))
+        (load-theme 'modus-vivendi-deuteranopia :no-confirm))
+    (setf modus-themes-to-toggle '(modus-vivendi modus-operandi-tinted))
+    (setf modus-vivendi-palette-overrides `((bg-main "#141617")))
+    (load-theme 'modus-vivendi :no-confirm))
+  (defun custom-modus-themes-faces ()
+    (modus-themes-with-colors
+      (custom-set-faces
+       `(telephone-line-projectile ((,c :foreground ,accent-2)))
+       `(highlight-indent-guides-character-face ((,c :foreground ,border))))))
+  (add-hook 'modus-themes-after-load-theme-hook #'custom-modus-themes-faces)
+  (custom-modus-themes-faces)
+  :bind (:map custom-workspace-map
+              ("s" . modus-themes-toggle)))
 
 ;; Customize UI.
 (setf inhibit-startup-screen t)
@@ -816,14 +874,14 @@
 
 (use-package highlight-indent-guides
   :hook ((prog-mode . (lambda ()
-                        (highlight-indent-guides-mode 1)
-                        (set-face-foreground 'highlight-indent-guides-character-face "#727169")
-                        (set-face-background 'highlight-indent-guides-even-face nil)
-                        (set-face-background 'highlight-indent-guides-odd-face nil))))
+                        (modus-themes-with-colors
+                          (highlight-indent-guides-mode 1)
+                          (set-face-foreground 'highlight-indent-guides-character-face border)
+                          (set-face-background 'highlight-indent-guides-even-face nil)
+                          (set-face-background 'highlight-indent-guides-odd-face nil)))))
   :config
   (setf highlight-indent-guides-method 'character)
   (setf highlight-indent-guides-character ?\┊)
-  (set-face-foreground 'highlight-indent-guides-character-face "#727169")
   (set-face-background 'highlight-indent-guides-even-face nil)
   (set-face-background 'highlight-indent-guides-odd-face nil))
 
