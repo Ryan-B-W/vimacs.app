@@ -277,7 +277,7 @@
          ("H" . eldoc-print-current-symbol-info))
   :config
   (when (featurep 'inline-docs) (setf eldoc-message-function #'inline-docs))
-  (setf eldoc-echo-area-use-multiline-p 3)
+  (setf eldoc-echo-area-use-multiline-p 5)
   (setf eldoc-echo-area-display-truncation-message nil))
 
 ;; Folding in programming modes.
