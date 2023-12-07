@@ -6,7 +6,8 @@
 (unless (file-exists-p vimacs-config-file)
   (write-region "(setf vimacs-config-user-notes-path (expand-file-name \"~/doc/\")
       vimacs-config-additional-org-agenda-files nil)
-(setf vimacs-config-setup-fonts t
+(setf vimacs-config-suppress-compatibility-checks nil
+      vimacs-config-setup-fonts t
       vimacs-config-setup-theme t
       vimacs-config-theme-deuteranopia nil
       ;; Backup policy.  A symbol.  Can be one of \"full\", \"minimal\",
@@ -29,7 +30,8 @@
   ;; Default Vimacs.app settings.
   (setf vimacs-config-user-notes-path (expand-file-name "~/doc/")
         vimacs-config-additional-org-agenda-files nil)
-  (setf vimacs-config-setup-fonts t
+  (setf vimacs-config-suppress-compatibility-checks nil
+        vimacs-config-setup-fonts t
         vimacs-config-setup-theme t
         vimacs-config-theme-deuteranopia nil
         vimacs-config-backup-policy 'minimal
@@ -39,7 +41,7 @@
   (error "Unable to write \"%s\" config file.  Vimacs.app will not be customizable without it." vimacs-config-file))
 
 ;; Do compatibility checks.
-(unless (file-exists-p (concat user-emacs-directory "suppress-feature-checks"))
+(unless vimacs-config-suppress-compatibility-checks
   (when (version< emacs-version "29.0")
     (warn "Emacs version is %s.  This init assumes at least Emacs 29 release series." emacs-version))
   (let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it."))
