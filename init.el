@@ -34,6 +34,16 @@
 
 (load-theme 'kunagawa-dark-julian-mix t)
 
+;; Custom keymap.
+(defvar-keymap custom-search-map
+  :doc "Custom keymap for aggregating search actions.")
+(defvar-keymap custom-workspace-map
+  :doc "Custom keymap for managing projects and workspaces.")
+(defvar-keymap custom-leader-map
+  :doc "Custom keymap for triggering various actions."
+  "s" custom-search-map
+  "w" custom-workspace-map)
+
 ;; Set font.
 (cond ((member "Iosevka SS09" (font-family-list))
        (set-face-attribute 'default nil :family "Iosevka SS09")
@@ -89,6 +99,12 @@
   :init
   (setf evil-want-keybinding nil)
   (setf evil-search-module 'evil-search)
+  :bind (:map evil-normal-state-map
+         ("SPC" . custom-leader-map)
+         :map evil-visual-state-map
+         ("SPC" . custom-leader-map)
+         :map evil-motion-state-map
+         ("SPC" . custom-leader-map))
   :config
   (evil-mode 1))
 (use-package evil-collection
@@ -99,19 +115,6 @@
   (evil-collection-outline-bind-tab-p t)
   :config
   (evil-collection-init))
-
-;; Custom keymap.
-(defvar-keymap custom-search-map
-  :doc "Custom keymap for aggregating search actions.")
-(defvar-keymap custom-workspace-map
-  :doc "Custom keymap for managing projects and workspaces.")
-(defvar-keymap custom-leader-map
-  :doc "Custom keymap for triggering various actions."
-  "s" custom-search-map
-  "w" custom-workspace-map)
-(define-key evil-normal-state-map (kbd "SPC") custom-leader-map)
-(define-key evil-visual-state-map (kbd "SPC") custom-leader-map)
-(define-key evil-motion-state-map (kbd "SPC") custom-leader-map)
 
 ;; More fancy auto-completion and matching than default.
 (use-package flx)
