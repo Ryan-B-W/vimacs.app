@@ -86,7 +86,12 @@
 
 ;; Set font.
 (when vimacs-config-setup-fonts
-  (cond ((member "Iosevka SS09" (font-family-list))
+  (cond ((member "Iosevka Comfy" (font-family-list))
+         (set-face-attribute 'default nil :family "Iosevka Comfy")
+         (set-face-attribute 'fixed-pitch nil :family "Iosevka Comfy")
+         (set-face-attribute 'fixed-pitch-serif nil :family "Iosevka Comfy Motion")
+         (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Duo"))
+        ((member "Iosevka SS09" (font-family-list))
          (set-face-attribute 'default nil :family "Iosevka SS09")
          (set-face-attribute 'fixed-pitch nil :family "Iosevka SS09")
          (cond ((member "Iosevka Aile SS09" (font-family-list))
