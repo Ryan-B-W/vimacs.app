@@ -1,3 +1,6 @@
+;; Early UI tweaks.
+(setf inhibit-startup-screen t)
+
 ;; Do compatibility checks.
 (unless (file-exists-p (concat user-emacs-directory "suppress-feature-checks"))
   (when (version< emacs-version "29.0")
@@ -124,7 +127,6 @@
               ("s" . modus-themes-toggle)))
 
 ;; Customize UI.
-(setf inhibit-startup-screen t)
 (setf initial-major-mode 'org-mode)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
