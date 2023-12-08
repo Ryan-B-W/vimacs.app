@@ -51,24 +51,36 @@ if it's not running.")
 
 ;; Load Vimacs.app configuration.
 (setf vimacs-config-file (concat user-emacs-directory "vimacs.app-config.el"))
-(unless (file-exists-p vimacs-config-file)
-  (write-region "(setf vimacs-config-user-notes-path (expand-file-name \"~/doc/\")
-      vimacs-config-additional-org-agenda-files nil)
-(setf vimacs-config-suppress-compatibility-checks nil
-      vimacs-config-setup-fonts t
-      vimacs-config-setup-theme t
-      vimacs-config-theme-deuteranopia nil
-      vimacs-config-backup-policy 'minimal
-      vimacs-config-inline-help nil
-      vimacs-config-auto-fill nil
-      vimacs-config-wrap-style 'fancy
-      ;; Not recommended to automatically enable GPM mode.  Enable
-      ;; manually from a TTY frame instead.
-      vimacs-config-enable-gpm nil)"
-                nil vimacs-config-file))
 (if (file-exists-p vimacs-config-file)
     (load vimacs-config-file)
   (warn "Unable to load and/or write \"%s\" config file.  Vimacs.app will not be customizable without it." vimacs-config-file))
+
+(unless (file-exists-p vimacs-config-file)
+  (write-region (format "(setf vimacs-config-user-notes-path \"%s\"
+      vimacs-config-additional-org-agenda-files '%s)
+(setf vimacs-config-suppress-compatibility-checks '%s
+      vimacs-config-setup-fonts '%s
+      vimacs-config-setup-theme '%s
+      vimacs-config-theme-deuteranopia '%s
+      vimacs-config-backup-policy '%s
+      vimacs-config-inline-help '%s
+      vimacs-config-auto-fill '%s
+      vimacs-config-wrap-style '%s
+      ;; Not recommended to automatically enable GPM mode.  Enable
+      ;; manually from a TTY frame instead.
+      vimacs-config-enable-gpm '%s)"
+                        vimacs-config-user-notes-path
+                        vimacs-config-additional-org-agenda-files
+                        vimacs-config-suppress-compatibility-checks
+                        vimacs-config-setup-fonts
+                        vimacs-config-setup-theme
+                        vimacs-config-theme-deuteranopia
+                        vimacs-config-backup-policy
+                        vimacs-config-inline-help
+                        vimacs-config-auto-fill
+                        vimacs-config-wrap-style
+                        vimacs-config-enable-gpm)
+                nil vimacs-config-file))
 
 ;; Do compatibility checks.
 (unless vimacs-config-suppress-compatibility-checks
