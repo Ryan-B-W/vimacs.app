@@ -1,6 +1,54 @@
 ;; Early UI tweaks.
 (setf inhibit-startup-screen t)
 
+;; Default Vimacs.app settings.
+(defvar vimacs-config-user-notes-path (expand-file-name "~/doc/")
+  "The directory where a user's general and/or non-project specific
+notes are assumed to be.")
+(defvar vimacs-config-additional-org-agenda-files nil
+  "A list of additional full file paths for files containing
+information that should be on the Org Mode agenda.")
+(defvar vimacs-config-suppress-compatibility-checks nil
+  "If nil, make compatibility checks and raise warnings when they
+fail.  If t, skip compatibility checks.")
+(defvar vimacs-config-setup-fonts t
+  "If t, automatically pick font families for default faces.  If
+nil, don't change the fonts.")
+(defvar vimacs-config-setup-theme t
+  "If t, configure and load Modus Themes with some customizations.
+If nil, don't change the theme.")
+(defvar vimacs-config-theme-deuteranopia nil
+  "If t, use red-green color blindness (deuteranopia) accessible
+theme variant.  If nil, don't use it.  If
+vimacs-config-setup-theme is nil, this does nothing.")
+(defvar vimacs-config-backup-policy 'minimal
+  "Backup policy.  A symbol.  Can be one of \"full\", \"minimal\",
+or \"none\".  Effect is as follows:
+Full: standard backup policy for Emacs.
+Minimal: standard backup policy for vimacs.app.  Only make autosaves.
+None: don't make any backups or autosaves.")
+(defvar vimacs-config-inline-help nil
+  "If t, use overlay frame or text overlay, for X11 frame or TTY
+ frame respectively, to show ElDoc help under point instead of in
+ the minibuffer.  If nil, use normal ElDoc behavior.")
+(defvar vimacs-config-auto-fill nil
+  "If t, auto wrap lines at fill-column columns.  If nil, don't
+automatically insert newlines to wrap lines that go over
+fill-column.")
+(defvar vimacs-config-wrap-style 'fancy
+  "Style of line visual wrapping.  A symbol.  Can be one of
+\"default\", \"words\", \"fancy\", or \"none\".  Effect is as follows:
+Default: default Emacs behavior.
+Words: wrap on word boundaries.
+Fancy: wrap on word boundaries and indent to same level.
+None: don't do any line wrapping.  Truncate instead.")
+(defvar vimacs-config-enable-gpm nil
+  "If t, enable GPM mode.  If nil, don't enable GPM mode
+automatically.  Disabled by default since when launching Emacs in
+X11 it starts GPM Mode and then when attempting to create a TTY
+frame the new frame crashes failing to connect to the GPM server
+if it's not running.")
+
 ;; Load Vimacs.app configuration.
 (setf vimacs-config-file (concat user-emacs-directory "vimacs.app-config.el"))
 (unless (file-exists-p vimacs-config-file)
@@ -10,37 +58,17 @@
       vimacs-config-setup-fonts t
       vimacs-config-setup-theme t
       vimacs-config-theme-deuteranopia nil
-      ;; Backup policy.  A symbol.  Can be one of \"full\", \"minimal\",
-      ;; or \"none\".  Effect is as follows:
-      ;; Full: standard backup policy for Emacs.
-      ;; Minimal: standard backup policy for vimacs.app.  Only make autosaves.
-      ;; None: don't make any backups or autosaves.
       vimacs-config-backup-policy 'minimal
       vimacs-config-inline-help nil
       vimacs-config-auto-fill nil
-      ;; Style of line wrapping.  A symbol.  Can be one of \"default\",
-      ;; \"words\", \"fancy\", or \"none\".  Effect is as follows:
-      ;; Default: default Emacs behavior.
-      ;; Words: wrap on word boundaries.
-      ;; Fancy: wrap on word boundaries and indent to same level.
       vimacs-config-wrap-style 'fancy
+      ;; Not recommended to automatically enable GPM mode.  Enable
+      ;; manually from a TTY frame instead.
       vimacs-config-enable-gpm nil)"
                 nil vimacs-config-file))
 (if (file-exists-p vimacs-config-file)
     (load vimacs-config-file)
-  ;; Default Vimacs.app settings.
-  (setf vimacs-config-user-notes-path (expand-file-name "~/doc/")
-        vimacs-config-additional-org-agenda-files nil)
-  (setf vimacs-config-suppress-compatibility-checks nil
-        vimacs-config-setup-fonts t
-        vimacs-config-setup-theme t
-        vimacs-config-theme-deuteranopia nil
-        vimacs-config-backup-policy 'minimal
-        vimacs-config-inline-help nil
-        vimacs-config-auto-fill nil
-        vimacs-config-wrap-style 'fancy
-	vimacs-config-enable-gpm nil)
-  (error "Unable to write \"%s\" config file.  Vimacs.app will not be customizable without it." vimacs-config-file))
+  (warn "Unable to load and/or write \"%s\" config file.  Vimacs.app will not be customizable without it." vimacs-config-file))
 
 ;; Do compatibility checks.
 (unless vimacs-config-suppress-compatibility-checks
