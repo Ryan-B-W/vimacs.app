@@ -11,6 +11,14 @@ information that should be on the Org Mode agenda.")
 (defvar vimacs-config-suppress-compatibility-checks nil
   "If nil, make compatibility checks and raise warnings when they
 fail.  If t, skip compatibility checks.")
+(defvar vimacs-config-auto-install-packages 'not-set
+  "If nil, don't automatically install system packages to fulfill
+external dependencies for Emacs packages.  If t, auto install
+system packages.  If \"not-set\", assume this setting hasn't been
+customized by the user and prompt them for a setting.")
+(defvar vimacs-config-auto-install-packages-prompt t
+  "If t, prompt user before installing system packages.  If nil,
+don't prompt user before installing system packages.")
 (defvar vimacs-config-setup-fonts t
   "If t, automatically pick font families for default faces.  If
 nil, don't change the fonts.")
@@ -55,10 +63,18 @@ if it's not running.")
     (load vimacs-config-file)
   (warn "Unable to load and/or write \"%s\" config file.  Vimacs.app will not be customizable without it." vimacs-config-file))
 
+;; On (probable) first start ask user to set system package
+;; auto-install setting.
+(when (eql vimacs-config-auto-install-packages 'not-set)
+  (setf vimacs-config-auto-install-packages
+        (yes-or-no-p "This seems to be the initial launch of this config.  Enable auto install of system packages?")))
+
 (unless (file-exists-p vimacs-config-file)
   (write-region (format "(setf vimacs-config-user-notes-path \"%s\"
       vimacs-config-additional-org-agenda-files '%s)
 (setf vimacs-config-suppress-compatibility-checks '%s
+      vimacs-config-auto-install-packages '%s
+      vimacs-config-auto-install-packages-prompt '%s
       vimacs-config-setup-fonts '%s
       vimacs-config-setup-theme '%s
       vimacs-config-theme-deuteranopia '%s
@@ -72,6 +88,8 @@ if it's not running.")
                         vimacs-config-user-notes-path
                         vimacs-config-additional-org-agenda-files
                         vimacs-config-suppress-compatibility-checks
+                        vimacs-config-auto-install-packages
+                        vimacs-config-auto-install-packages-prompt
                         vimacs-config-setup-fonts
                         vimacs-config-setup-theme
                         vimacs-config-theme-deuteranopia
@@ -115,6 +133,10 @@ if it's not running.")
 ;; If insufficient Emacs version, install and load compat.
 (use-package compat
   :if (version< emacs-version "29.0"))
+
+;; Setup capability to auto install system packages.
+(use-package system-packages
+  :when vimacs-config-auto-install-packages)
 
 ;; Custom keymap.
 (defvar-keymap custom-search-map
