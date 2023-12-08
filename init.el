@@ -182,6 +182,7 @@
 (setf display-line-numbers-type 'relative)
 (setq-default display-line-numbers-widen t)
 (when (member vimacs-config-wrap-style '(words fancy)) (setq-default word-wrap t))
+(when (eql vimacs-config-wrap-style 'none) (setq-default truncate-lines t))
 (use-package telephone-line
   :pin melpa-stable
   :config
