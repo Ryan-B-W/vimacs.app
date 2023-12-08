@@ -67,7 +67,9 @@ if it's not running.")
 ;; auto-install setting.
 (when (eql vimacs-config-auto-install-packages 'not-set)
   (setf vimacs-config-auto-install-packages
-        (yes-or-no-p "This seems to be the initial launch of this config.  Enable auto install of system packages?")))
+        (yes-or-no-p "This seems to be the initial launch of this config.  Enable auto install of system packages?")
+        vimacs-config-auto-install-packages-prompt
+        (yes-or-no-p "Prompt each time before installing system packages?")))
 
 (unless (file-exists-p vimacs-config-file)
   (write-region (format "(setf vimacs-config-user-notes-path \"%s\"
