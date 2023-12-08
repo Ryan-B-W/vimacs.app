@@ -999,6 +999,13 @@ if it's not running.")
 
 (setf mouse-yank-at-point t)
 
+;; Setup flyspell.
+(use-package flyspell
+  :pin manual
+  :ensure nil
+  :hook ((text-mode . flyspell-mode)
+         (prog-mode . flyspell-prog-mode)))
+
 ;; Enable whitespace mode.
 (use-package whitespace
   :pin manual
