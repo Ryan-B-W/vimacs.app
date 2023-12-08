@@ -23,7 +23,8 @@
       ;; Default: default Emacs behavior.
       ;; Words: wrap on word boundaries.
       ;; Fancy: wrap on word boundaries and indent to same level.
-      vimacs-config-wrap-style 'fancy)"
+      vimacs-config-wrap-style 'fancy
+      vimacs-config-enable-gpm nil)"
                 nil vimacs-config-file))
 (if (file-exists-p vimacs-config-file)
     (load vimacs-config-file)
@@ -37,7 +38,8 @@
         vimacs-config-backup-policy 'minimal
         vimacs-config-inline-help nil
         vimacs-config-auto-fill nil
-        vimacs-config-wrap-style 'fancy)
+        vimacs-config-wrap-style 'fancy
+	vimacs-config-enable-gpm nil)
   (error "Unable to write \"%s\" config file.  Vimacs.app will not be customizable without it." vimacs-config-file))
 
 ;; Do compatibility checks.
@@ -191,7 +193,13 @@
 (setf dired-mouse-drag-files t)
 (setf mouse-drag-and-drop-region-cross-program t)
 (xterm-mouse-mode 1)
-(when (string-match-p "\\<GPM\\>" system-configuration-features) (ignore-errors (gpm-mouse-mode 1)))
+;; TODO: fix issue with Emacs instance/server launched in X11 having
+;; new tty frames launched in a terminal crash due to GPM server not
+;; running when GPM mode is enabled.  For now, disabling
+;; initialization time starting of GPM mode.
+(when (and vimacs-config-enable-gpm
+           (string-match-p "\\<GPM\\>" system-configuration-features))
+  (ignore-errors (gpm-mouse-mode 1)))
 
 ;; Configure backup policy.
 (cl-case vimacs-config-backup-policy
