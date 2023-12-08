@@ -649,6 +649,8 @@ if it's not running.")
   :config
   (global-diff-hl-mode 1))
 
+(use-package hl-todo)
+
 (use-package dap-mode
   :bind (:map custom-leader-map
          ("b" . dap-breakpoint-toggle)
