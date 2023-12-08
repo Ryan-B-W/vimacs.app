@@ -360,6 +360,13 @@ if it's not running.")
   (setf eldoc-echo-area-use-multiline-p 5)
   (setf eldoc-echo-area-display-truncation-message nil))
 
+(use-package info
+  :pin manual
+  :ensure nil
+  :bind (:map Info-mode-map
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil)))
+
 ;; Folding in programming modes.
 (use-package hideshow ; hs-minor-mode.
   :pin manual
