@@ -53,6 +53,13 @@ None: don't make any backups or autosaves.")
 If t, use overlay frame or text overlay, for X11 frame or TTY
 frame respectively, to show ElDoc help under point instead of in
 the minibuffer.  If nil, use normal ElDoc behavior.")
+(defvar vimacs-config-minimap nil
+  "If not-nil, enable Minimap package for buffer overview.
+
+Not recommended if using Emacs in TTY frame since Minimap depends
+on face height attributes.")
+(defvar vimacs-config-org-modern nil
+  "If non-nil, enable Org-Modern package for a simi-WYSIWYG Org Mode Experience.")
 (defvar vimacs-config-auto-fill nil
   "If not-nil, automatically insert newlines to wrap long lines.
 
@@ -103,6 +110,8 @@ if it's not running.")
       vimacs-config-theme-deuteranopia '%s
       vimacs-config-backup-policy '%s
       vimacs-config-inline-help '%s
+      vimacs-config-minimap '%s
+      vimacs-config-org-modern '%s
       vimacs-config-auto-fill '%s
       vimacs-config-wrap-style '%s
       ;; Not recommended to automatically enable GPM mode.  Enable
@@ -118,6 +127,8 @@ if it's not running.")
                         vimacs-config-theme-deuteranopia
                         vimacs-config-backup-policy
                         vimacs-config-inline-help
+                        vimacs-config-minimap
+                        vimacs-config-org-modern
                         vimacs-config-auto-fill
                         vimacs-config-wrap-style
                         vimacs-config-enable-gpm)
@@ -585,8 +596,8 @@ if it's not running.")
     :after (org magit forge)))
 
 (use-package org-modern
-  :disabled
   :defer t
+  :when vimacs-config-org-modern
   :after (org))
 
 (use-package htmlize
@@ -984,8 +995,8 @@ if it's not running.")
   :defer t
   :after (treemacs magit))
 (use-package minimap
-  :disabled
   :defer t
+  :when vimacs-config-minimap
   :custom-face
   (minimap-font-face ((t (:height 18))))
   :custom
