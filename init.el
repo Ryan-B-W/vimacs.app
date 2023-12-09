@@ -1060,14 +1060,6 @@ if it's not running.")
   (set-face-background 'highlight-indent-guides-even-face nil)
   (set-face-background 'highlight-indent-guides-odd-face nil))
 
-;; Window cycling.
-(global-set-key (kbd "C-;") 'other-window)
-(global-set-key (kbd "C-'") 'last-window)
-
-(defun last-window ()
-  (interactive)
-  (other-window -1))
-
 ;;(setf ps-header-lines 1)
 
 ;;; Evil mode customization.
