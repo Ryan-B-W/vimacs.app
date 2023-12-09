@@ -16,4 +16,5 @@ tramp
 transient/
 tree-sitter/
 url/
+var/
 vimacs.app-config.el
