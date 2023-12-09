@@ -681,7 +681,9 @@ if it's not running.")
   :config
   (global-diff-hl-mode 1))
 
-(use-package hl-todo)
+(use-package hl-todo
+  :config
+  (global-hl-todo-mode 1))
 
 (use-package dap-mode
   :bind (:map custom-leader-map
