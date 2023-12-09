@@ -1093,3 +1093,6 @@ if it's not running.")
 (setf custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+;; Restore garbage collector settings to defaults.
+(setf gc-cons-threshold vimacs-gc-cons-threshold-default)
