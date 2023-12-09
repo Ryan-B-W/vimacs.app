@@ -608,10 +608,12 @@ if it's not running.")
   :config
   (defun org-which-function ()
     (interactive)
-    (when (eq major-mode 'org-mode)
+    (when (and (eq major-mode 'org-mode)
+               (org-current-level))
       (mapconcat 'identity (org-get-outline-path t)
                  " ⟼ ")))
-  (add-to-list 'which-func-functions #'org-which-function))
+  (add-to-list 'which-func-functions #'org-which-function)
+  (which-function-mode 1))
 
 ;; Use transparent encryption.
 (use-package epa-file
