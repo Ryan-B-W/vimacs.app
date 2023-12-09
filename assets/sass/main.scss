@@ -1,6 +1,13 @@
+$bg-main: #141617;
+$bg-dim: #1e1e1e;
+$fg-main: #ffffff;
+$border: #646464;
+$fg-link: #79a8ff;
+$fg-link-visited: #feacd0;
+
 html {
-    background: #1d2235;
-    color: #ffffff;
+    background: $bg-dim;
+    color: $fg-main;
 }
 body {
     padding: 0;
@@ -8,28 +15,28 @@ body {
     max-width: 42em;
 }
 header {
-    border: 1px solid #61647a;
+    border: 1px solid $border;
     border-radius: 0.5em;
     padding: 0.6em;
     margin: 0.6em;
-    background: #0d0e1c;
+    background: $bg-main;
 }
 nav {
     min-height: 10em;
     width: 9em;
-    border: 1px solid #61647a;
+    border: 1px solid $border;
     border-radius: 0.5em;
     padding: 0.3em;
     margin: 0.6em;
     float: left;
-    background: #0d0e1c;
+    background: $bg-main;
     h1, h2, h3, h4, h5, h6 {
         font-variant: small-caps;
     }
     hr {
-        color: #61647a;
-        background: #0d0e1c;
-        border-color: #61647a;
+        color: $border;
+        background: $bg-main;
+        border-color: $border;
         border-width: 1px 0px 0px 0px;
         width: calc(100% + 0.6em);
         margin-left: -0.3em;
@@ -39,11 +46,11 @@ nav {
         list-style: none;
         padding: 0;
         a {
-            color: #ffffff;
-            background: #0d0e1c;
+            color: $fg-main;
+            background: $bg-main;
             text-decoration: none;
             text-align: center;
-            border: 1px solid #61647a;
+            border: 1px solid $border;
             border-radius: 0.125em;
             padding: 0.25em;
             margin: 0.25em;
@@ -59,21 +66,21 @@ nav {
     }
 }
 footer {
-    border: 1px solid #61647a;
+    border: 1px solid $border;
     border-radius: 0.5em;
     padding: 0.3em;
     margin: 0.6em;
     clear: both;
-    background: #0d0e1c;
+    background: $bg-main;
     .icon {
         position: relative;
         top: 0.1em;
     }
 }
 main {
-    color: #ffffff;
-    background: #0d0e1c;
-    border: 1px solid #61647a;
+    color: $fg-main;
+    background: $bg-main;
+    border: 1px solid $border;
     border-radius: 0.5em;
     max-width: 28.5em;
     padding: 0.6em;
@@ -92,9 +99,9 @@ main {
     }
 }
 a {
-    color: #79a8ff;
+    color: $fg-link;
     &:visited {
-        color: #feacd0;
+        color: $fg-link-visited;
     }
 }
 img {
