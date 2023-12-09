@@ -3,55 +3,76 @@
 
 ;; Default Vimacs.app settings.
 (defvar vimacs-config-user-notes-path (expand-file-name "~/doc/")
-  "The directory where a user's general and/or non-project specific
-notes are assumed to be.")
+  "Directory containing user's general or non-project specific notes.")
 (defvar vimacs-config-additional-org-agenda-files nil
-  "A list of additional full file paths for files containing
-information that should be on the Org Mode agenda.")
+  "List of file paths to include in the Org Mode agenda.")
 (defvar vimacs-config-suppress-compatibility-checks nil
-  "If nil, make compatibility checks and raise warnings when they
+  "If non-nil, do compatibility checks against Emacs features.
+
+If nil, make compatibility checks and raise warnings when they
 fail.  If t, skip compatibility checks.")
 (defvar vimacs-config-auto-install-packages 'not-set
-  "If nil, don't automatically install system packages to fulfill
+  "If not-nil, automatically install needed system packages.
+
+If nil, don't automatically install system packages to fulfill
 external dependencies for Emacs packages.  If t, auto install
 system packages.  If \"not-set\", assume this setting hasn't been
 customized by the user and prompt them for a setting.")
 (defvar vimacs-config-auto-install-packages-prompt t
-  "If t, prompt user before installing system packages.  If nil,
+  "If not-nil, prompt before attempting to install system packages.
+
+If t, prompt user before installing system packages.  If nil,
 don't prompt user before installing system packages.")
 (defvar vimacs-config-setup-fonts t
-  "If t, automatically pick font families for default faces.  If
+  "If not-nil, configure default fonts based on availability.
+
+If t, automatically pick font families for default faces.  If
 nil, don't change the fonts.")
 (defvar vimacs-config-setup-theme t
-  "If t, configure and load Modus Themes with some customizations.
+  "If not-nil, setup Modus Themes with customizations.
+
+If t, configure and load Modus Themes with some customizations.
 If nil, don't change the theme.")
 (defvar vimacs-config-theme-deuteranopia nil
-  "If t, use red-green color blindness (deuteranopia) accessible
+  "If not-nil, use red-green color blindness accessible theme.
+
+If t, use red-green color blindness (deuteranopia) accessible
 theme variant.  If nil, don't use it.  If
 vimacs-config-setup-theme is nil, this does nothing.")
 (defvar vimacs-config-backup-policy 'minimal
-  "Backup policy.  A symbol.  Can be one of \"full\", \"minimal\",
+  "Policy for when and where to keep backups and autosaves.
+
+Backup policy.  A symbol.  Can be one of \"full\", \"minimal\",
 or \"none\".  Effect is as follows:
 Full: standard backup policy for Emacs.
 Minimal: standard backup policy for vimacs.app.  Only make autosaves.
 None: don't make any backups or autosaves.")
 (defvar vimacs-config-inline-help nil
-  "If t, use overlay frame or text overlay, for X11 frame or TTY
- frame respectively, to show ElDoc help under point instead of in
- the minibuffer.  If nil, use normal ElDoc behavior.")
+  "If not-nil, show ElDoc help under point instead of minibuffer.
+
+If t, use overlay frame or text overlay, for X11 frame or TTY
+frame respectively, to show ElDoc help under point instead of in
+the minibuffer.  If nil, use normal ElDoc behavior.")
 (defvar vimacs-config-auto-fill nil
-  "If t, auto wrap lines at fill-column columns.  If nil, don't
+  "If not-nil, automatically insert newlines to wrap long lines.
+
+If t, auto wrap lines at fill-column columns.  If nil, don't
 automatically insert newlines to wrap lines that go over
 fill-column.")
 (defvar vimacs-config-wrap-style 'fancy
-  "Style of line visual wrapping.  A symbol.  Can be one of
-\"default\", \"words\", \"fancy\", or \"none\".  Effect is as follows:
+  "Whether to wrap lines, on words, and with indentation alignment.
+
+Style of line visual wrapping.  A symbol.  Can be one of
+\"default\", \"words\", \"fancy\", or \"none\".  Effect is as
+follows:
 Default: default Emacs behavior.
 Words: wrap on word boundaries.
 Fancy: wrap on word boundaries and indent to same level.
 None: don't do any line wrapping.  Truncate instead.")
 (defvar vimacs-config-enable-gpm nil
-  "If t, enable GPM mode.  If nil, don't enable GPM mode
+  "If not-nil, enable GPM mouse mode on startup.
+
+If t, enable GPM mode.  If nil, don't enable GPM mode
 automatically.  Disabled by default since when launching Emacs in
 X11 it starts GPM Mode and then when attempting to create a TTY
 frame the new frame crashes failing to connect to the GPM server
