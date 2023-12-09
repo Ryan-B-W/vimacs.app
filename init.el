@@ -804,7 +804,9 @@ if it's not running.")
          (toml-ts-mode . eglot-ensure)
          (tsx-ts-mode . eglot-ensure)
          (typescript-ts-mode . eglot-ensure)
-         (yaml-ts-mode . eglot-ensure)))
+         (yaml-ts-mode . eglot-ensure))
+  :custom
+  (eglot-extend-to-xref t))
 
 (use-package verb
   :defer t
