@@ -367,6 +367,13 @@ if it's not running.")
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)))
 
+(use-package help
+  :pin manual
+  :ensure nil
+  :bind (:map help-mode-map
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil)))
+
 ;; Folding in programming modes.
 (use-package hideshow ; hs-minor-mode.
   :pin manual
