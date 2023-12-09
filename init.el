@@ -600,15 +600,6 @@ if it's not running.")
   :when vimacs-config-org-modern
   :after (org))
 
-(use-package htmlize
-  :disabled
-  :defer t
-  :after (org)
-  :init
-  (setf org-src-fontify-natively t)
-  :config
-  (setf org-html-htmlize-output-type 'css))
-
 ;; Setup org-mode with which-function-mode.
 ;; Originally taken from https://emacs.stackexchange.com/a/30901
 (use-package which-func
