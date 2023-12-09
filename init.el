@@ -998,7 +998,7 @@ if it's not running.")
   :defer t
   :when vimacs-config-minimap
   :custom-face
-  (minimap-font-face ((t (:height 18))))
+  (minimap-font-face ((t (:height 0.18))))
   :custom
   (minimap-minimum-width 18)
   (minimap-window-location 'right)
