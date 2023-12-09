@@ -9,4 +9,4 @@ Vimacs.app is an opinionated Emacs config with an IDE-like experience intended f
 
 # Screenshot
 
-{{< figure src="/screenshots/2023-12-06T005536Z.png" link="/screenshots/2023-12-06T005536Z.png" alt="Screenshot of Emacs using the Vimacs.app configuration" >}}
+{{< figure src="/screenshots/2023-12-09T224513Z.png" link="/screenshots/2023-12-09T224513Z.png" alt="Screenshot of Emacs using the Vimacs.app configuration" >}}
