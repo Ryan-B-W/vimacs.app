@@ -469,6 +469,7 @@ if it's not running.")
   :demand t
   :custom
   (org-startup-folded t)
+  (org-startup-truncated truncate-lines)
   ;; Set org-mode TODO keywords workflow.
   (org-todo-keywords
    '((sequence "TODO(t)" "CURRENT(s!)" "|" "CANCELED(c!)"
