@@ -14,3 +14,98 @@ Make sure there aren't any other Emacs configs that could get picked up at =~/.e
 Start Emacs and wait for all the packages to install and compile.
 
 Enjoy :)
+* Emacs Installation
+** Linux
+*** Debian (stable)
+Ensure stable backports repository is enabled.  If it's not, enable it with—assuming you're using Debian 12 Bookworm:
+#+begin_src bash
+  echo -e "Types: deb\nURIs: http://deb.debian.org/debian\nSuites: bookworm-backports\nComponents: main contrib\nSigned-By: /usr/share/keyrings/debian-archive-keyring.gpg" > /etc/apt/sources.list.d/backports.sources
+#+end_src
+or
+#+begin_src bash
+  echo "deb http://deb.debian.org/debian bookworm-backports main" > /etc/apt/sources.list.d/backports.list
+#+end_src
+Install Emacs and dependencies:
+#+begin_src bash
+  apt install git build-essential curl
+  apt install -t bookworm-backports emacs
+#+end_src
+Install this config:
+#+begin_src bash
+  git clone git@github.com/Ryan-B-W/vimacs.app.git ~/.emacs.d
+#+end_src
+Launch Emacs.
+*** Arch Linux
+Install Emacs and dependencies:
+#+begin_src bash
+  pacman -S emacs-nativecomp git base-devel curl
+#+end_src
+Install this config:
+#+begin_src bash
+  git clone git@github.com/Ryan-B-W/vimacs.app.git ~/.emacs.d
+#+end_src
+Launch Emacs.
+*** Gentoo
+Assuming you're using a desktop profile, add the following portage use flag configuration in a file under =/etc/portage/package.use/=, probably named something like =emacs=:
+#+begin_example
+  >=app-editors/emacs-29.1 harfbuzz imagemagick jit json libxml2 source sqlite toolkit-scroll-bars tree-sitter webp xwidgets
+  >=sys-devel/gcc-12.3.1 jit
+#+end_example
+Install Emacs:
+#+begin_src bash
+  sudo emerge -avn app-editors/emacs dev-vcs/git net-misc/curl
+#+end_src
+Install this config:
+#+begin_src bash
+  git clone git@github.com/Ryan-B-W/vimacs.app.git ~/.emacs.d
+#+end_src
+And launch Emacs.
+*** Guix
+#+begin_src bash
+  guix install emacs
+#+end_src
+Really.  That's it.  It even has ahead-of-time native compilation enabled.
+#+begin_src
+  git clone git@github.com/Ryan-B-W/vimacs.app.git ~/.emacs.d
+#+end_src
+You still need to grab this config and launch Emacs though.
+*** Fedora
+Install Emacs and dependencies:
+#+begin_src bash
+  sudo dnf group install "Development Tools"
+  sudo dnf install emacs
+#+end_src
+Install this config:
+#+begin_src bash
+  git clone git@github.com/Ryan-B-W/vimacs.app.git ~/.emacs.d
+#+end_src
+Launch Emacs.
+*** Ubuntu
+Install Emacs and dependencies:
+#+begin_src bash
+  sudo apt install emacs git build-essential curl
+#+end_src
+Install this config:
+#+begin_src bash
+  git clone git@github.com/Ryan-B-W/vimacs.app.git ~/.emacs.d
+#+end_src
+Launch Emacs.
+*** Nix
+Sorry, but you're on your own.  Then again, you expected as much.  Didn't you?
+** Mac OS
+Using Homebrew:
+#+begin_src bash
+  brew tap railwaycat/emacsmacport
+  brew install emacs-mac --with-modules
+  ln -s /usr/local/opt/emacs-mac/Emacs.app /Applications/Emacs.app
+#+end_src
+[[https://github.com/doomemacs/doomemacs/blob/master/docs/getting_started.org#on-macos][See also the guide from Doom Emacs where this was unapologeticlly taken from]].
+** Windows
+Follow instructions online for installing Emacs in WSL.  Probably use latest Debian stable with backports repo enabled and install Emacs from the stable backports.  You can install native, but your mileage will vary and some things may not be available.  The maintainer of this configuration doesn't use Windows so testing is up to the users.
+
+Install this configuration to the appropriate location.  For example, if using WSL, execute the following from the Linux environment shell:
+#+begin_src bash
+  git clone git@github.com:Ryan-B-W/vimacs.app.git ~/.emacs.d
+#+end_src
+** Other
+You probably know what you're doing.  Good luck.
