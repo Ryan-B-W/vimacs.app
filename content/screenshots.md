@@ -1,6 +1,8 @@
 ---
 title: "Screenshots"
 date: 2023-12-05T17:23:00-08:00
+menu: "main"
+weight: 3
 ---
 # Screenshots
 

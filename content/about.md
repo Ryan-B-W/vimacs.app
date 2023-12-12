@@ -1,6 +1,8 @@
 ---
 title: "About"
 date: 2023-12-05T14:49:35-08:00
+menu: "main"
+weight: 2
 ---
 # About Vimacs.app
 Vimacs.app is designed to cater to modern development environment sensibilities.  Those include things like having out of the box LSP and DAP support, having a pleasant and accessible dark theme by default, including out of the box support for most popular languages, being relatively fast for such a featureful setup, using Vim style bindings where possible in addition to including Emacs bindings where they don't conflict with the former, and being portable across systems and OSs where possible.

@@ -1,5 +1,0 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="0.875em" height="0.90625em" class="icon">
-  <path d="M 2 2   A 10  10  0 0 1 12  12" fill="none" stroke="#FB9E3A" stroke-width="2.5"></path>
-  <path d="M 2 6.5 A 5.5 5.5 0 0 1 7.5 12" fill="none" stroke="#FB9E3A" stroke-width="2.5"></path>
-  <circle cx="2" cy="12" r="2" fill="#FB9E3A"></circle>
-</svg>

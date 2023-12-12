@@ -1,0 +1,3 @@
+[submodule "boxen-theme"]
+	path = themes/boxen-theme
+	url = git@github.com:Ryan-B-W/boxen-theme.git

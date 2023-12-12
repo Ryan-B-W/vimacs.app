@@ -2,7 +2,29 @@ baseURL = 'https://vimacs.app/'
 languageCode = 'en-us'
 title = 'Vimacs.app'
 copyright = 'Ryan "sandbox" Wilcox'
+theme = 'boxen-theme'
+sectionPagesMenu = 'main'
 [params]
 author = 'sandbox'
 subtitle = 'Emacs config for the Neovim neophyte wanting more'
 images = ['/screenshots/2023-12-09T224513Z.png', '/screenshots/2023-12-09T224553Z.png', '/screenshots/2023-12-09T224736Z.png', '/screenshots/2023-12-09T224827Z.png', '/screenshots/2023-12-09T224858Z.png', '/screenshots/2023-12-09T224958Z.png']
+[menu]
+[[menu.main]]
+name = "Home"
+pageRef = "/"
+weight = 1
+[[menu.main]]
+name = "GitHub"
+url = "https://github.com/Ryan-B-W/vimacs.app"
+weight = 20
+[[menu.main]]
+name = "Install"
+url = "https://github.com/Ryan-B-W/vimacs.app#installation"
+weight = 21
+[[menu.other_sites]]
+name = "Personal site"
+url = "https://sand.boxen.page"
+weight = 1
+[[menu.other_sites]]
+name = "Mastodon"
+url = "https://defcon.social/@sandbox"
