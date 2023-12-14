@@ -590,10 +590,12 @@ if it's not running.")
   (org-babel-tmux-terminal "urxvt"))
 
 (use-package orgit
+  :pin melpa
   :defer t
   :after (org magit)
   :config
   (use-package orgit-forge
+    :pin melpa
     :after (org magit forge)))
 
 (use-package org-modern
@@ -643,6 +645,7 @@ if it's not running.")
   ("C-x C-b" . bs-show))
 
 (use-package magit
+  :pin melpa
   :bind (:map magit-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)
@@ -665,12 +668,15 @@ if it's not running.")
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)))
 (use-package forge
+  :pin melpa
   :defer t
   :after (magit))
 (use-package magit-annex
+  :pin melpa
   :defer t
   :after (magit))
 (use-package magit-lfs
+  :pin melpa
   :defer t
   :after (magit))
 
