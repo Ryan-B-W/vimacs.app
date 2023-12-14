@@ -675,15 +675,12 @@ if it's not running.")
          ("<normal-state> SPC" . nil)))
 (use-package forge
   :pin melpa
-  :defer t
   :after (magit))
 (use-package magit-annex
   :pin melpa
-  :defer t
   :after (magit))
 (use-package magit-lfs
   :pin melpa
-  :defer t
   :after (magit))
 
 (use-package diff-hl
