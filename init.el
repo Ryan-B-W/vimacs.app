@@ -618,6 +618,12 @@ if it's not running.")
   (add-to-list 'which-func-functions #'org-which-function)
   (which-function-mode 1))
 
+(use-package auth-source
+  :pin manual
+  :ensure nil
+  :config
+  (auth-source-pass-enable))
+
 ;; Use transparent encryption.
 (use-package epa-file
   :pin manual
