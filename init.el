@@ -1,6 +1,9 @@
 ;; Early UI tweaks.
 (setf inhibit-startup-screen t)
 
+;; Set customizer file location.
+(setf custom-file (concat user-emacs-directory "custom.el"))
+
 ;; Default Vimacs.app settings.
 (defvar vimacs-config-user-notes-path (expand-file-name "~/doc/")
   "Directory containing user's general or non-project specific notes.")
@@ -1105,9 +1108,7 @@ if it's not running.")
 (put 'narrow-to-defun 'disabled nil)
 (put 'narrow-to-defun-include-comments 'disabled nil)
 
-;;;; Customizer settings.
-
-(setf custom-file (concat user-emacs-directory "custom.el"))
+;; Load customizer settings.
 (when (file-exists-p custom-file)
   (load custom-file))
 
