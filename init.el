@@ -336,6 +336,7 @@ If nil, enable Dape for DAP debugger functionality.")
   (define-key evil-visual-state-map (kbd "SPC") custom-leader-map)
   (define-key evil-motion-state-map (kbd "SPC") custom-leader-map))
 (use-package evil-collection
+  :demand t
   :after (evil magit)
   :custom
   (evil-collection-setup-minibuffer t)
