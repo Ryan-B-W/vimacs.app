@@ -329,7 +329,7 @@ if it's not running.")
   (define-key evil-visual-state-map (kbd "SPC") custom-leader-map)
   (define-key evil-motion-state-map (kbd "SPC") custom-leader-map))
 (use-package evil-collection
-  :after (evil)
+  :after (evil magit)
   :custom
   (evil-collection-setup-minibuffer t)
   (evil-collection-calendar-want-org-bindings t)
