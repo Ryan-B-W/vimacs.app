@@ -87,6 +87,11 @@ automatically.  Disabled by default since when launching Emacs in
 X11 it starts GPM Mode and then when attempting to create a TTY
 frame the new frame crashes failing to connect to the GPM server
 if it's not running.")
+(defvar vimacs-config-dap-mode-instead-of-dape nil
+  "If non-nil, enable dap-mode instead of Dape.
+
+If t, enable dap-mode for providing DAP debugger functionality.
+If nil, enable Dape for DAP debugger functionality.")
 
 ;; Load Vimacs.app configuration.
 (setf vimacs-config-file (concat user-emacs-directory "vimacs.app-config.el"))
@@ -120,7 +125,8 @@ if it's not running.")
       vimacs-config-wrap-style '%s
       ;; Not recommended to automatically enable GPM mode.  Enable
       ;; manually from a TTY frame instead.
-      vimacs-config-enable-gpm '%s)"
+      vimacs-config-enable-gpm '%s)
+      vimacs-config-dap-mode-instead-of-dape '%s"
                         vimacs-config-user-notes-path
                         vimacs-config-additional-org-agenda-files
                         vimacs-config-suppress-compatibility-checks
@@ -135,7 +141,8 @@ if it's not running.")
                         vimacs-config-org-modern
                         vimacs-config-auto-fill
                         vimacs-config-wrap-style
-                        vimacs-config-enable-gpm)
+                        vimacs-config-enable-gpm
+                        vimacs-config-dap-mode-instead-of-dape)
                 nil vimacs-config-file))
 
 ;; Do compatibility checks.
@@ -705,11 +712,21 @@ if it's not running.")
   (global-hl-todo-mode 1))
 
 (use-package dap-mode
+  :when vimacs-config-dap-mode-instead-of-dape
   :bind (:map custom-leader-map
          ("b" . dap-breakpoint-toggle)
          ("B" . dap-breakpoint-condition))
   :custom
   (dap-auto-configure-mode t))
+
+(use-package dape
+  :unless vimacs-config-dap-mode-instead-of-dape
+  :bind (:map custom-leader-map
+         ("b" . dape-breakpoint-toggle)
+         ("B" . dape-breakpoint-expression))
+  :custom
+  (dape-buffer-window-arrangement 'right)
+  (dape-cwd-fn 'projectile-project-root))
 
 ;; Setup sr-speedbar.
 (use-package sr-speedbar
