@@ -330,6 +330,11 @@ If nil, enable Dape for DAP debugger functionality.")
   :init
   (setf evil-want-keybinding nil)
   (setf evil-search-module 'evil-search)
+  (defun vimacs--custom-leader-map-override (mode-map)
+    "This function exists purely to override major modes that generate
+their keymaps at runtime instead of load time."
+    (define-key mode-map (kbd "SPC") custom-leader-map)
+    (define-key mode-map (kbd "<normal-state> SPC") custom-leader-map))
   :config
   (evil-mode 1)
   (define-key evil-normal-state-map (kbd "SPC") custom-leader-map)
