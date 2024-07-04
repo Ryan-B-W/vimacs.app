@@ -5,7 +5,7 @@
 (setf custom-file (concat user-emacs-directory "custom.el"))
 
 ;; Default Vimacs.app settings.
-(defvar vimacs-config-user-notes-path (expand-file-name "~/doc/")
+(defvar vimacs-config-user-notes-path (file-truename "~/doc/")
   "Directory containing user's general or non-project specific notes.")
 (defvar vimacs-config-additional-org-agenda-files nil
   "List of file paths to include in the Org Mode agenda.")
