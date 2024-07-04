@@ -473,6 +473,13 @@ If nil, enable Dape for DAP debugger functionality.")
                               (define-key image-mode-map (kbd "SPC") nil)
                               (define-key image-mode-map (kbd "<normal-state> SPC") nil))))
 
+(use-package doc-view
+  :pin manual
+  :ensure nil
+  :bind (:map doc-view-mode-map
+         ("SPC" . nil)
+         ("<normal-state> SPC" . nil)))
+
 (use-package printing
   :pin manual
   :ensure nil)
