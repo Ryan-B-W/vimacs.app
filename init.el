@@ -613,8 +613,8 @@ their keymaps at runtime instead of load time."
 (use-package org-tempo
   :pin manual
   :ensure nil
-  :defer t
-  :after (org))
+  :after (org)
+  :demand t)
 
 ;; Org-babel tmux.
 (use-package ob-tmux
