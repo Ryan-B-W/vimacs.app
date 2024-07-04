@@ -457,7 +457,7 @@ If nil, enable Dape for DAP debugger functionality.")
   :hook ((text-mode . adaptive-wrap-prefix-mode)
          (prog-mode . adaptive-wrap-prefix-mode)))
 
-(use-package image
+(use-package image-mode
   :pin manual
   :ensure nil
   :bind (:map image-mode-map
