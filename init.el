@@ -462,7 +462,16 @@ If nil, enable Dape for DAP debugger functionality.")
   :ensure nil
   :bind (:map image-mode-map
          ("SPC" . nil)
-         ("<normal-state> SPC" . nil)))
+         ("<normal-state> SPC" . nil))
+  :config
+  (defcustom image-mode-hook nil
+    "Run at the very end of `image-mode'."
+    :group 'image
+    :type 'hook
+    :version "29.1")
+  (add-hook 'image-mode-hook (lambda (x)
+                              (define-key image-mode-map (kbd "SPC") nil)
+                              (define-key image-mode-map (kbd "<normal-state> SPC") nil))))
 
 (use-package printing
   :pin manual
