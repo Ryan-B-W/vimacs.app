@@ -440,7 +440,8 @@ their keymaps at runtime instead of load time."
          ("SPC" . nil)
          ("<normal-state> SPC" . nil))
   :custom
-  (dired-listing-switches "-alh"))
+  (dired-listing-switches "-alh")
+  (vimacs--custom-leader-map-override 'dired-mode-map))
 
 ;; enable dired-x.
 (use-package dired-x
