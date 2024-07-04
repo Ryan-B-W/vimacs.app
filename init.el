@@ -526,13 +526,13 @@ their keymaps at runtime instead of load time."
   (org-directory vimacs-config-user-notes-path)
   ;; Set org-mode capture templates.
   (org-capture-templates
-   '(("n" "Note to self" entry (file+headline (concat org-directory "notes.org") "Note to self/yet to be filed")
+   `(("n" "Note to self" entry (file+headline ,(concat org-directory "notes.org") "Note to self/yet to be filed")
       "* %u %?")
-     ("N" "Note to self with context" entry (file+headline (concat org-directory "notes.org") "Note to self/yet to be filed")
+     ("N" "Note to self with context" entry (file+headline ,(concat org-directory "notes.org") "Note to self/yet to be filed")
       "* %u %?\n  %l\n:  %i")
-     ("m" "Note to self, with time" entry (file+headline (concat org-directory "notes.org") "Note to self/yet to be filed")
+     ("m" "Note to self, with time" entry (file+headline ,(concat org-directory "notes.org") "Note to self/yet to be filed")
       "* %U %?")
-     ("M" "Note to self with context, with time" entry (file+headline (concat org-directory "notes.org") "Note to self/yet to be filed")
+     ("M" "Note to self with context, with time" entry (file+headline ,(concat org-directory "notes.org") "Note to self/yet to be filed")
       "* %U %?\n  %l\n:  %i")))
   ;; Set org-mode agenda and default notes files.
   (org-agenda-files
