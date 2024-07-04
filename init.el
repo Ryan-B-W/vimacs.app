@@ -1046,6 +1046,12 @@ If nil, enable Dape for DAP debugger functionality.")
   :defer t)
 (use-package osm
   :defer t)
+(use-package rfc-mode
+  :defer t
+  :bind
+  (:map rfc-mode-map
+   ("SPC" . nil)
+   ("<normal-state> SPC" . nil)))
 
 ;; Configuring gnus.
 (use-package gnus
