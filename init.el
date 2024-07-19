@@ -616,6 +616,12 @@ their keymaps at runtime instead of load time."
   :after (org)
   :demand t)
 
+(use-package org-protocol
+  :after (org)
+  :pin manual
+  :ensure nil
+  :demand t)
+
 ;; Org-babel tmux.
 (use-package ob-tmux
   :defer t
