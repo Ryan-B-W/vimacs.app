@@ -538,7 +538,7 @@ their keymaps at runtime instead of load time."
   (org-agenda-files
    `(,(concat org-directory "notes.org")
      ,@vimacs-config-additional-org-agenda-files))
-  (org-export-backends '(ascii html icalendar latex md odt texinfo))
+  (org-export-backends '(ascii beamer html icalendar latex man md odt org texinfo))
   (org-format-latex-header
    "\\documentclass{article}
 \\usepackage[usenames]{color}
