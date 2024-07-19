@@ -568,7 +568,6 @@ their keymaps at runtime instead of load time."
      (calc . t)
      (clojure . t)
      (comint . t)
-     ;;(cpp . t)
      (css . t)
      (ditaa . t)
      (dot . t)
