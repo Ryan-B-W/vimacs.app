@@ -621,6 +621,13 @@ their keymaps at runtime instead of load time."
   :ensure nil
   :demand t)
 
+;; Enable more Org-Mode link types.
+(use-package ol-man
+  :after (org)
+  :pin manual
+  :ensure nil
+  :demand t)
+
 ;; Org-babel tmux.
 (use-package ob-tmux
   :defer t
