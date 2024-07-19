@@ -621,6 +621,37 @@ their keymaps at runtime instead of load time."
   :ensure nil
   :demand t)
 
+(use-package org-roam
+  :after (org)
+  :demand t
+  :bind
+  (("C-c r c" . org-roam-capture)
+   ("C-c r f" . org-roam-node-find)
+   ("C-c r i" . org-roam-node-insert)
+   ("C-c r t" . org-roam-buffer-toggle)
+   :map custom-leader-map
+   ("r c" . org-roam-capture)
+   ("r f" . org-roam-node-find)
+   ("r i" . org-roam-node-insert))
+   ("r t" . org-roam-buffer-toggle)
+  :custom
+  (org-roam-directory vimacs-config-user-notes-path)
+  (org-roam-file-exclude-regexp
+   `("data/"
+     ,(concat "^" (expand-file-name org-roam-directory) "/other/")
+     ,(concat "^" (expand-file-name org-roam-directory) "/.git/")
+     ".*\\.gpg"))
+  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:40}" 'face 'org-tag)))
+  (org-roam-database-connector 'sqlite-builtin)
+  :config
+  (org-roam-db-autosync-mode 1)
+  (add-to-list 'display-buffer-alist
+               '("\\*org-roam\\*"
+                 (display-buffer-in-direction)
+                 (direction . right)
+                 (window-width . 0.33)
+                 (window-hight . fit-window-to-buffer))))
+
 ;; Enable more Org-Mode link types.
 (use-package ol-man
   :after (org)
