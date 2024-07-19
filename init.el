@@ -652,6 +652,13 @@ their keymaps at runtime instead of load time."
                  (window-width . 0.33)
                  (window-hight . fit-window-to-buffer))))
 
+(use-package org-roam-ui
+  :after (org-roam)
+  :bind
+  (("C-c r g" . org-roam-ui-mode)
+   :map custom-leader-map
+   ("r g" . org-roam-ui-mode)))
+
 ;; Enable more Org-Mode link types.
 (use-package ol-man
   :after (org)
