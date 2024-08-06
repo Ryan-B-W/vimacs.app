@@ -631,6 +631,7 @@ their keymaps at runtime instead of load time."
    ("C-c r q" . org-roam-tag-add)
    ("C-c r r" . org-roam-refile)
    ("C-c r t" . org-roam-buffer-toggle)
+   ("C-c r g" . org-roam-graph)
    ("C-c r d d" . org-roam-dailies-goto-today)
    ("C-c r d y" . org-roam-dailies-goto-yesterday)
    ("C-c r d t" . org-roam-dailies-goto-tomorrow)
@@ -641,6 +642,7 @@ their keymaps at runtime instead of load time."
    ("r q" . org-roam-tag-add)
    ("r r" . org-roam-refile)
    ("r t" . org-roam-buffer-toggle)
+   ("r g" . org-roam-graph)
    ("r d d" . org-roam-dailies-goto-today)
    ("r d y" . org-roam-dailies-goto-yesterday)
    ("r d t" . org-roam-dailies-goto-tomorrow))
@@ -671,9 +673,9 @@ their keymaps at runtime instead of load time."
 (use-package org-roam-ui
   :after (org-roam)
   :bind
-  (("C-c r g" . org-roam-ui-mode)
+  (("C-c r w" . org-roam-ui-mode)
    :map custom-leader-map
-   ("r g" . org-roam-ui-mode)))
+   ("r w" . org-roam-ui-mode)))
 
 ;; Enable more Org-Mode link types.
 (use-package ol-man
