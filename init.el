@@ -350,6 +350,10 @@ their keymaps at runtime instead of load time."
   :config
   (evil-collection-init))
 
+;; Fancy icons.
+(use-package nerd-icons)
+(use-package octicons)
+
 ;; More fancy auto-completion and matching than default.
 (use-package flx)
 
@@ -491,11 +495,16 @@ their keymaps at runtime instead of load time."
   :ensure nil)
 
 (use-package dashboard
+  :after (octicons nerd-icons)
   :custom
   (dashboard-items '((recents . 5)
                      (bookmarks . 5)
                      (projects . 5)
                      (agenda . 5)))
+  (dashboard-display-icons-p t)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-icon-type 'nerd-icons)
   :config
   (dashboard-setup-startup-hook))
 
