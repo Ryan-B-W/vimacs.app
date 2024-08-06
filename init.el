@@ -652,6 +652,12 @@ their keymaps at runtime instead of load time."
                  (window-width . 0.33)
                  (window-hight . fit-window-to-buffer))))
 
+(use-package org-roam-protocol
+  :after (org-roam)
+  :pin manual
+  :ensure nil
+  :demand t)
+
 (use-package org-roam-ui
   :after (org-roam)
   :bind
