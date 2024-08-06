@@ -655,6 +655,14 @@ their keymaps at runtime instead of load time."
      ".*\\.gpg"))
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:40}" 'face 'org-tag)))
   (org-roam-database-connector 'sqlite-builtin)
+  (org-roam-capture-templates
+   '(("d" "default" plain "%?" :target
+      (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)))
+  (org-roam-capture-ref-templates
+   '(("r" "ref" plain "%?\n#+begin_quote\n${body}\n#+end_quote" :target
+      (file+head "${slug}.org" "#+title: ${title}")
+      :unnarrowed t)))
   :config
   (org-roam-db-autosync-mode 1)
   (add-to-list 'display-buffer-alist
