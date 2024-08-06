@@ -490,6 +490,15 @@ their keymaps at runtime instead of load time."
   :pin manual
   :ensure nil)
 
+(use-package dashboard
+  :custom
+  (dashboard-items '((recents . 5)
+                     (bookmarks . 5)
+                     (projects . 5)
+                     (agenda . 5)))
+  :config
+  (dashboard-setup-startup-hook))
+
 ;; Emacs calc configuration.
 (use-package calc
   :pin manual
