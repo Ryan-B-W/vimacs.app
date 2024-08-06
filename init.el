@@ -628,12 +628,22 @@ their keymaps at runtime instead of load time."
   (("C-c r c" . org-roam-capture)
    ("C-c r f" . org-roam-node-find)
    ("C-c r i" . org-roam-node-insert)
+   ("C-c r q" . org-roam-tag-add)
+   ("C-c r r" . org-roam-refile)
    ("C-c r t" . org-roam-buffer-toggle)
+   ("C-c r d d" . org-roam-dailies-goto-today)
+   ("C-c r d y" . org-roam-dailies-goto-yesterday)
+   ("C-c r d t" . org-roam-dailies-goto-tomorrow)
    :map custom-leader-map
    ("r c" . org-roam-capture)
    ("r f" . org-roam-node-find)
-   ("r i" . org-roam-node-insert))
+   ("r i" . org-roam-node-insert)
+   ("r q" . org-roam-tag-add)
+   ("r r" . org-roam-refile)
    ("r t" . org-roam-buffer-toggle)
+   ("r d d" . org-roam-dailies-goto-today)
+   ("r d y" . org-roam-dailies-goto-yesterday)
+   ("r d t" . org-roam-dailies-goto-tomorrow))
   :custom
   (org-roam-directory vimacs-config-user-notes-path)
   (org-roam-file-exclude-regexp
