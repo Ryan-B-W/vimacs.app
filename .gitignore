@@ -7,7 +7,7 @@ eln-cache/
 elpa/
 emms/
 eshell/
-forge-database.sqlite
+forge-database*.sqlite
 network-security.data
 org-clock-save.el
 projectile-bookmarks.eld
