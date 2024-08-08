@@ -1,7 +1,9 @@
 .cache/
 .dap-breakpoints
+.org-id-locations
 abbrev_defs
 auto-save-list/
+bookmarks
 custom.el
 eln-cache/
 elpa/
@@ -10,6 +12,7 @@ eshell/
 forge-database*.sqlite
 network-security.data
 org-clock-save.el
+org-roam.db
 projectile-bookmarks.eld
 projects
 recentf
