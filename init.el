@@ -496,6 +496,8 @@ their keymaps at runtime instead of load time."
 
 (use-package dashboard
   :after (octicons nerd-icons)
+  :bind (:map custom-leader-map
+         ("u" . dashboard-open))
   :custom
   (dashboard-items '((recents . 5)
                      (bookmarks . 5)
