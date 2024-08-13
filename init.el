@@ -554,6 +554,10 @@ their keymaps at runtime instead of load time."
       "* %U %?")
      ("M" "Note to self with context, with time" entry (file+headline ,(concat org-directory "notes.org") "Note to self/yet to be filed")
       "* %U %?\n  %l\n:  %i")))
+  ;; Customize org-mode refiling.
+  (org-refile-use-outline-path 'file)
+  (org-refile-allow-creating-parent-nodes 'confirm)
+  (org-outline-path-complete-in-steps nil)
   ;; Set org-mode agenda and default notes files.
   (org-agenda-files
    `(,(concat org-directory "notes.org")
