@@ -556,9 +556,6 @@ their keymaps at runtime instead of load time."
   (org-refile-allow-creating-parent-nodes 'confirm)
   (org-outline-path-complete-in-steps nil)
   ;; Set org-mode agenda and default notes files.
-  (org-agenda-files
-   `(,(concat org-directory "notes.org")
-     ,@vimacs-config-additional-org-agenda-files))
   (org-export-backends '(ascii beamer html icalendar latex man md odt org texinfo))
   (org-format-latex-header
    "\\documentclass{article}
