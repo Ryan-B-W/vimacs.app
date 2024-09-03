@@ -719,7 +719,26 @@ their keymaps at runtime instead of load time."
                  (display-buffer-in-direction)
                  (direction . right)
                  (window-width . 0.33)
-                 (window-hight . fit-window-to-buffer))))
+                 (window-hight . fit-window-to-buffer)))
+  (defun custom-org-roam-refs-at-point ()
+    (if (eq major-mode 'org-mode)
+        (if (org--link-at-point)
+            ;; The following would be cleaner to do with org-roam-node
+            ;; accessors but the one for refs doesn't return a full
+            ;; URI in the current version of org-roam.
+            (when-let ((node (org-roam-node-from-id (url-filename (url-generic-parse-url (org--link-at-point))))))
+              (with-current-buffer (find-file-noselect (org-roam-node-file node))
+                (org-property-values "roam_refs")))
+          (if (org-roam-node-at-point)
+              (org-property-values "roam_refs")
+            (message "No Org Roam node with refs or link to node with refs at point.")))
+      (message "Not in an Org Mode buffer.  Nothing to do.")
+      nil))
+  (defun custom-org-roam-visit-first-ref-at-point ()
+    (interactive)
+    (when-let ((first-ref (car (custom-org-roam-refs-at-point))))
+      (org-link-open-from-string first-ref)))
+  (bind-key (kbd "r o") 'custom-org-roam-visit-first-ref-at-point custom-leader-map))
 
 (use-package org-roam-protocol
   :after (org-roam)
