@@ -161,12 +161,10 @@ If nil, enable Dape for DAP debugger functionality.")
 
 ;; Setup MELPA support.
 (require 'package)
-(unless (and (member '("melpa-stable" . "https://stable.melpa.org/packages/") package-archives)
-             (member '("melpa" . "https://melpa.org/packages/") package-archives))
-  (add-to-list 'package-archives
-               '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/") t))
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
 (setf package-archive-priorities
       '(("gnu" . 20)
         ("nongnu" . 20)
@@ -517,9 +515,7 @@ their keymaps at runtime instead of load time."
   :ensure nil
   :defer t
   :config
-  (unless (member '(org-mode . latex) calc-language-alist)
-    (add-to-list 'calc-language-alist
-                 '(org-mode . latex))))
+  (add-to-list 'calc-language-alist '(org-mode . latex)))
 
 (use-package org
   :pin gnu
@@ -620,8 +616,7 @@ their keymaps at runtime instead of load time."
      (sql . t)
      (sqlite . t)))
   ;; Setup org-mode habits.
-  (unless (memq 'org-habit org-modules )
-    (add-to-list 'org-modules 'org-habit))
+  (add-to-list 'org-modules 'org-habit)
   ;; Configure clocking.
   (org-clock-persistence-insinuate)
   ;; Setup org-mode capture.
@@ -812,8 +807,7 @@ their keymaps at runtime instead of load time."
                (org-current-level))
       (mapconcat 'identity (org-get-outline-path t)
                  " ⟼ ")))
-  (unless (memql #'org-which-function which-func-functions)
-    (add-to-list 'which-func-functions #'org-which-function))
+  (add-to-list 'which-func-functions #'org-which-function)
   (which-function-mode 1))
 
 (use-package auth-source
@@ -953,8 +947,7 @@ their keymaps at runtime instead of load time."
      (r5rs ("plt-r5rs"))))
   :config
   ;; Slime documentation.
-  (unless (member (expand-file-name "~/quicklisp/dists/quicklisp/software/slime-2.13/doc") Info-directory-list)
-    (add-to-list 'Info-directory-list (expand-file-name "~/quicklisp/dists/quicklisp/software/slime-2.13/doc"))))
+  (add-to-list 'Info-directory-list (expand-file-name "~/quicklisp/dists/quicklisp/software/slime-2.13/doc")))
 
 ;; Setup integration for Common Lisp Documentation.
 (use-package info-look
