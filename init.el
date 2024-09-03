@@ -481,7 +481,7 @@ their keymaps at runtime instead of load time."
     :group 'image
     :type 'hook
     :version "29.1")
-  (add-hook 'image-mode-hook (lambda (x)
+  (add-hook 'image-mode-hook (lambda ()
                               (define-key image-mode-map (kbd "SPC") nil)
                               (define-key image-mode-map (kbd "<normal-state> SPC") nil))))
 
