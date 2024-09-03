@@ -1257,8 +1257,13 @@ their keymaps at runtime instead of load time."
   :defer t
   :after (evil))
 (use-package evil-org
+  :ensure t
   :pin melpa
-  :after (evil org))
+  :after (evil org)
+  :hook (org-mode . (lambda () evil-org-mode))
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
 (use-package treemacs-evil
   :defer t
