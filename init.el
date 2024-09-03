@@ -791,7 +791,6 @@ their keymaps at runtime instead of load time."
     :after (org magit forge)))
 
 (use-package org-modern
-  :defer t
   :when vimacs-config-org-modern
   :after (org))
 
