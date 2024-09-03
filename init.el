@@ -127,7 +127,7 @@ If nil, enable Dape for DAP debugger functionality.")
       vimacs-config-enable-gpm '%s)
       vimacs-config-dap-mode-instead-of-dape '%s"
                         vimacs-config-user-notes-path
-                        (if org-agenda-files
+                        (if (boundp org-agenda-files)
                             org-agenda-files
                           (list vimacs-config-user-notes-path
                                 (concat (expand-file-name vimacs-config-user-notes-path) "daily/")))
