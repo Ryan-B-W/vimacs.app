@@ -698,6 +698,8 @@ their keymaps at runtime instead of load time."
    '(("d" "default" plain "%?" :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)))
+  ;; The capture ref templates are technically unsafe due to handling
+  ;; of body property expansion inside Emacs Lisp snippet.
   (org-roam-capture-ref-templates
    '(("r" "ref" plain "%?%(unless (string-blank-p \"${body}\") \"\n#+begin_quote\n${body}\n#+end_quote\")" :target
       (file+head "${slug}.org" "#+title: ${title}")
