@@ -655,8 +655,20 @@ their keymaps at runtime instead of load time."
    ("b i" . org-cite-insert)
    ("b o" . citar-open-entry)))
 
+(use-package emacsql-sqlite
+  :ensure t
+  :config
+  (cond ((member "SQLITE3" (split-string system-configuration-features " "))
+         (if (featurep 'emacsql-sqlite-builtin)
+             (use-package emacsql-sqlite-builtin)
+           (use-package emacsql-sqlite-builtin
+             :pin manual
+             :ensure nil)))
+        (t
+         (use-package emacsql-sqlite-module))))
+
 (use-package org-roam
-  :after (org)
+  :after (org emacsql-sqlite)
   :demand t
   :bind
   (("C-c r c" . org-roam-capture)
@@ -690,7 +702,9 @@ their keymaps at runtime instead of load time."
      ,(concat "^" (expand-file-name org-roam-directory) "/.git/")
      ".*\\.gpg"))
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:40}" 'face 'org-tag)))
-  (org-roam-database-connector 'sqlite-builtin)
+  (org-roam-database-connector (if (featurep 'emacsql-sqlite-builtin)
+                                   'sqlite-builtin
+                                 'sqlite-module))
   (org-roam-capture-templates
    '(("d" "default" plain "%?" :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
