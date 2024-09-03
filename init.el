@@ -441,7 +441,6 @@ their keymaps at runtime instead of load time."
 (use-package dired
   :pin manual
   :ensure nil
-  :defer t
   :bind (:map dired-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil))
@@ -1114,7 +1113,6 @@ their keymaps at runtime instead of load time."
 (use-package typescript-ts-mode
   :pin manual
   :ensure nil
-  :defer t
   :mode ("\\.ts\\'" "\\.js\\'"))
 ;;(use-package js2-mode
 ;;  :defer t)
