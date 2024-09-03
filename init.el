@@ -1093,7 +1093,10 @@ their keymaps at runtime instead of load time."
 ;;(use-package edbi-database-url
 ;;  :defer t)
 (use-package biblio
-  :defer t)
+  :bind
+  (("C-c b f" . biblio-lookup)
+   :map custom-leader-map
+   ("b f" . biblio-lookup)))
 ;;(use-package autodisass-java-bytecode
 ;;  :defer t)
 (use-package tex
