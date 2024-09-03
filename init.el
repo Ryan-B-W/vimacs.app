@@ -647,6 +647,23 @@ their keymaps at runtime instead of load time."
   :ensure nil
   :demand t)
 
+(use-package citar
+  :after (org)
+  :demand t
+  :custom
+  (citar-bibliography (list (concat vimacs-config-user-notes-path "bibliography/references.bib")))
+  (org-cite-global-bibliography citar-bibliography)
+  :hook
+  (LaTeX-mode . citar-capf-setup)
+  (org-mode . citar-capf-setup)
+  :bind
+  (:map org-mode-map :package org
+   ("C-c b i" . org-cite-insert)
+   ("C-c b o" . citar-open-entry)
+   :map custom-leader-map
+   ("b i" . org-cite-insert)
+   ("b o" . citar-open-entry)))
+
 (use-package org-roam
   :after (org)
   :demand t
@@ -706,6 +723,11 @@ their keymaps at runtime instead of load time."
   :pin manual
   :ensure nil
   :demand t)
+
+(use-package citar-org-roam
+  :after (citar org-roam)
+  :config
+  (citar-org-roam-mode))
 
 (use-package org-roam-ui
   :after (org-roam)
