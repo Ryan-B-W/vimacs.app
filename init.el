@@ -523,7 +523,7 @@ their keymaps at runtime instead of load time."
                  '(org-mode . latex))))
 
 (use-package org
-  :pin manual
+  :pin gnu
   :ensure nil
   :demand t
   :custom
