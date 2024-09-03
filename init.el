@@ -691,6 +691,7 @@ their keymaps at runtime instead of load time."
    '(("r" "ref" plain "%?\n#+begin_quote\n${body}\n#+end_quote" :target
       (file+head "${slug}.org" "#+title: ${title}")
       :unnarrowed t)))
+  (org-roam-graph-executable "sfdp")
   :config
   (org-roam-db-autosync-mode 1)
   (add-to-list 'display-buffer-alist
