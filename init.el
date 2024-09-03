@@ -7,8 +7,7 @@
 ;; Default Vimacs.app settings.
 (defvar vimacs-config-user-notes-path (file-truename "~/doc/")
   "Directory containing user's general or non-project specific notes.")
-(defvar vimacs-config-additional-org-agenda-files nil
-  "List of file paths to include in the Org Mode agenda.")
+
 (defvar vimacs-config-suppress-compatibility-checks nil
   "If non-nil, do compatibility checks against Emacs features.
 
@@ -110,7 +109,7 @@ If nil, enable Dape for DAP debugger functionality.")
 
 (unless (file-exists-p vimacs-config-file)
   (write-region (format "(setf vimacs-config-user-notes-path \"%s\"
-      vimacs-config-additional-org-agenda-files '%s)
+      org-agenda-files '%s)
 (setf vimacs-config-suppress-compatibility-checks '%s
       vimacs-config-auto-install-packages '%s
       vimacs-config-auto-install-packages-prompt '%s
@@ -128,7 +127,10 @@ If nil, enable Dape for DAP debugger functionality.")
       vimacs-config-enable-gpm '%s)
       vimacs-config-dap-mode-instead-of-dape '%s"
                         vimacs-config-user-notes-path
-                        vimacs-config-additional-org-agenda-files
+                        (if org-agenda-files
+                            org-agenda-files
+                          (list vimacs-config-user-notes-path
+                                (concat (expand-file-name vimacs-config-user-notes-path) "daily/")))
                         vimacs-config-suppress-compatibility-checks
                         vimacs-config-auto-install-packages
                         vimacs-config-auto-install-packages-prompt
