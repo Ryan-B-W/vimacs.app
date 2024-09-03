@@ -710,9 +710,9 @@ their keymaps at runtime instead of load time."
 (use-package org-roam-ui
   :after (org-roam)
   :bind
-  (("C-c r w" . org-roam-ui-mode)
+  (("C-c r G" . org-roam-ui-mode)
    :map custom-leader-map
-   ("r w" . org-roam-ui-mode)))
+   ("r G" . org-roam-ui-mode)))
 
 ;; Enable more Org-Mode link types.
 (use-package ol-man
