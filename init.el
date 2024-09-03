@@ -108,8 +108,8 @@ If nil, enable Dape for DAP debugger functionality.")
           (yes-or-no-p "Prompt each time before installing system packages?"))))
 
 (unless (file-exists-p vimacs-config-file)
-  (write-region (format "(setf vimacs-config-user-notes-path \"%s\"
-      org-agenda-files '%s)
+  (write-region (format "(setf vimacs-config-user-notes-path %S
+      org-agenda-files '%S)
 (setf vimacs-config-suppress-compatibility-checks '%s
       vimacs-config-auto-install-packages '%s
       vimacs-config-auto-install-packages-prompt '%s
