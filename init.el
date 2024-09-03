@@ -841,16 +841,16 @@ their keymaps at runtime instead of load time."
 (use-package dap-mode
   :when vimacs-config-dap-mode-instead-of-dape
   :bind (:map custom-leader-map
-         ("b" . dap-breakpoint-toggle)
-         ("B" . dap-breakpoint-condition))
+         ("d b" . dap-breakpoint-toggle)
+         ("d B" . dap-breakpoint-condition))
   :custom
   (dap-auto-configure-mode t))
 
 (use-package dape
   :unless vimacs-config-dap-mode-instead-of-dape
   :bind (:map custom-leader-map
-         ("b" . dape-breakpoint-toggle)
-         ("B" . dape-breakpoint-expression))
+         ("d b" . dape-breakpoint-toggle)
+         ("d B" . dape-breakpoint-expression))
   :custom
   (dape-buffer-window-arrangement 'right)
   (dape-cwd-fn 'projectile-project-root))
