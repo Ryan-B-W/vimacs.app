@@ -1153,8 +1153,7 @@ their keymaps at runtime instead of load time."
 ;;  :defer t)
 (use-package biblio
   :bind
-  (("C-c b f" . biblio-lookup)
-   :map custom-leader-map
+  (:map custom-leader-map
    ("b f" . biblio-lookup)))
 ;;(use-package autodisass-java-bytecode
 ;;  :defer t)
