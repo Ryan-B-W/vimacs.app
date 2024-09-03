@@ -705,7 +705,7 @@ their keymaps at runtime instead of load time."
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)))
   (org-roam-capture-ref-templates
-   '(("r" "ref" plain "%?\n#+begin_quote\n${body}\n#+end_quote" :target
+   '(("r" "ref" plain "%?%(unless (string-blank-p \"${body}\") \"\n#+begin_quote\n${body}\n#+end_quote\")" :target
       (file+head "${slug}.org" "#+title: ${title}")
       :unnarrowed t)))
   (org-roam-graph-executable "sfdp")
