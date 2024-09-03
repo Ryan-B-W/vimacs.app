@@ -736,6 +736,17 @@ their keymaps at runtime instead of load time."
    :map custom-leader-map
    ("r G" . org-roam-ui-mode)))
 
+(use-package org-web-tools
+  :after (org)
+  :bind
+  (:map custom-leader-map
+   ("o l" . org-web-tools-insert-link-for-url)
+   ("o i" . org-web-tools-insert-web-page-as-entry)
+   ("o r" . org-web-tools-read-url-as-org)
+   ("o w" . org-web-tools-convert-links-to-page-entries)
+   ("o a" . org-web-tools-archive-attach)
+   ("o v" . org-web-tools-archive-view)))
+
 ;; Enable more Org-Mode link types.
 (use-package ol-man
   :after (org)
