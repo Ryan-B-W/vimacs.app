@@ -767,6 +767,8 @@ their keymaps at runtime instead of load time."
 
 (use-package org-web-tools
   :after (org)
+  :custom
+  (org-web-tools--pandoc-no-wrap-option "--wrap=none")
   :bind
   (:map custom-leader-map
    ("o l" . org-web-tools-insert-link-for-url)
