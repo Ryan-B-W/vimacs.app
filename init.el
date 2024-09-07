@@ -659,11 +659,12 @@ their keymaps at runtime instead of load time."
   :ensure t
   :config
   (cond ((member "SQLITE3" (split-string system-configuration-features " "))
-         (if (featurep 'emacsql-sqlite-builtin)
-             (use-package emacsql-sqlite-builtin)
-           (use-package emacsql-sqlite-builtin
-             :pin manual
-             :ensure nil)))
+         (if (and (featurep 'emacsql-sqlite-builtin)
+                  (not (package-installed-p 'emacsql-sqlite-builtin)))
+             (use-package emacsql-sqlite-builtin
+               :pin manual
+               :ensure nil)
+           (use-package emacsql-sqlite-builtin)))
         (t
          (use-package emacsql-sqlite-module))))
 
