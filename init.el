@@ -618,6 +618,15 @@ their keymaps at runtime instead of load time."
   (org-clock-persistence-insinuate)
   ;; Setup org-mode capture.
   (setf org-default-notes-file (concat org-directory "notes.org"))
+  (with-eval-after-load 'ox-latex
+    (add-to-list 'org-latex-classes
+                 '("mla" "\\documentclass[12pt,letterpaper]{mla}"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                 nil (lambda (x y) (equal (car x) (car y)))))
   :bind (("C-c l" . org-store-link)
          ("C-c c" . org-capture)
          ("C-c a" . org-agenda)
