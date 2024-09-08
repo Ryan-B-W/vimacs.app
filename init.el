@@ -950,6 +950,8 @@ their keymaps at runtime instead of load time."
          (scheme-mode . smartparens-strict-mode)
          (slime-repl-mode . smartparens-strict-mode))
   :config
+  (require 'smartparens-config)
+  (sp-use-smartparens-bindings)
   (sp-with-modes sp-lisp-modes
     (sp-local-pair "'" nil :actions nil)
     (sp-local-pair "`" nil :actions nil)))
