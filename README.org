@@ -105,3 +105,18 @@ Follow [[https://learn.microsoft.com/en-us/windows/wsl/install][the official]] i
 If you opt for Windows native Emacs, see the official [[https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html][Emacs FAQ for MS Windows]].  As above, checkout this repository as the Emacs init directory using git.
 ** Other
 You probably know what you're doing.  Good luck.
+* Todo
+ - [ ] Make =Escape= and =C-g= equivalent
+ - [ ] Fix diff-hl not syncing with magit changes
+ - [ ] Have some way of reliably managing external dependencies, such as language servers, across all supported platforms
+ - [ ] Make initial startup much quieter by silencing expected native- and byte-compilation warnings
+ - [ ] Add configurable grammar checker
+ - [ ] Add optional AI assistant and completion
+   - This is contingent on finding an /actually/ legally safe language model, not simply one that claims to be safe but has training data of questionable at best legality
+ - [ ] Integrate with Emacs's built in ~customize~ UI for configuring Vimacs.app
+ - [ ] Add more language/tool/platform specific helpers and tools like python virtual environment management
+ - [ ] Add more communications stuff like a properly integrated IRC setup, Matrix client, mail client, RSS reader, etc.
+   - There are a few of a couple of those built-in but they need to be configured and a couple have packages that are better than the built-in option
+ - [ ] Add more media stuff like music, video, and podcast listening/watching
+ - [ ] External CalDAV/WebCAL/ICS compatible calendar integration
+ - [ ] Determine if the version of Slime helper from Quicklisp should be replaced with the Slime package from NonGNU Elpa, Melpa Stable, Melpa, or if it is still the best option
