@@ -329,7 +329,7 @@ If nil, enable Dape for DAP debugger functionality.")
   :demand t
   :init
   (setf evil-want-keybinding nil)
-  (setf evil-search-module 'evil-search)
+  (setf evil-search-module 'isearch)
   (defun vimacs--custom-leader-map-override (mode-map)
     "This function exists purely to override major modes that generate
 their keymaps at runtime instead of load time."
