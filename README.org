@@ -123,3 +123,4 @@ You probably know what you're doing.  Good luck.
  - [ ] Add introduction tutorial for new users who may not be familiar with Emacs and Vim
  - [ ] Document the various features of Vimacs.app and how to use them
    - This would serve as both a way for new users to get familiar with what the configuration has to offer as well as an entrypoint into the relevant documentation for the packages that provide that functionality
+ - [ ] Add binding for opening attachment(s) of Org Roam node at point
