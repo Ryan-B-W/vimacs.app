@@ -1,6 +1,11 @@
 ;; Early UI tweaks.
 (setf inhibit-startup-screen t)
 
+;; Silence non-critical warnings and errors.
+(setf native-comp-async-report-warnings-errors 'silent)
+(setf byte-compile-warnings
+      '(not obsolete docstrings))
+
 ;; Set customizer file location.
 (setf custom-file (concat user-emacs-directory "custom.el"))
 
