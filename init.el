@@ -150,7 +150,7 @@ If nil, enable Dape for DAP debugger functionality.")
 ;; Do compatibility checks.
 (unless vimacs-config-suppress-compatibility-checks
   (when (version< emacs-version "29.0")
-    (warn "Emacs version is %s.  This init assumes at least Emacs 29 release series." emacs-version))
+    (warn "Emacs version is %s.  This init assumes at least Emacs 29 release series; however, it will probably mostly work with Emacs 28." emacs-version))
   (let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it."))
     (mapcar (lambda (feature) (unless (featurep feature) (warn warn-message feature)))
             '(native-compile json threads)))
