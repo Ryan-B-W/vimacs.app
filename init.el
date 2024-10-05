@@ -157,7 +157,9 @@ If nil, enable Dape for DAP debugger functionality.")
   (let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it.")
         (comp-features (split-string system-configuration-features " ")))
     (mapcar (lambda (feature) (unless (member feature comp-features) (warn warn-message feature)))
-            '("SQLITE3" "FREETYPE"))))
+            (if (display-graphic-p)
+                '("SQLITE3" "FREETYPE")
+              '("SQLITE3")))))
 
 ;; Setup MELPA support.
 (require 'package)
