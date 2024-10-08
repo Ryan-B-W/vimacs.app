@@ -699,6 +699,9 @@ their keymaps at runtime instead of load time."
    ("C-c r d d" . org-roam-dailies-goto-today)
    ("C-c r d y" . org-roam-dailies-goto-yesterday)
    ("C-c r d t" . org-roam-dailies-goto-tomorrow)
+   ("C-c r d g" . org-roam-dailies-goto-date)
+   ("C-c r d n" . org-roam-dailies-goto-next-note)
+   ("C-c r d p" . org-roam-dailies-goto-previous-note)
    :map custom-leader-map
    ("r c" . org-roam-capture)
    ("r f" . org-roam-node-find)
@@ -710,7 +713,10 @@ their keymaps at runtime instead of load time."
    ("r g" . org-roam-graph)
    ("r d d" . org-roam-dailies-goto-today)
    ("r d y" . org-roam-dailies-goto-yesterday)
-   ("r d t" . org-roam-dailies-goto-tomorrow))
+   ("r d t" . org-roam-dailies-goto-tomorrow)
+   ("r d g" . org-roam-dailies-goto-date)
+   ("r d n" . org-roam-dailies-goto-next-note)
+   ("r d p" . org-roam-dailies-goto-previous-note))
   :custom
   (org-roam-directory vimacs-config-user-notes-path)
   (org-roam-file-exclude-regexp
