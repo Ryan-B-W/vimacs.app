@@ -496,6 +496,9 @@ their keymaps at runtime instead of load time."
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)))
 
+(use-package nov
+  :mode ("\\.epub\\'" . nov-mode))
+
 (use-package printing
   :pin manual
   :ensure nil)
