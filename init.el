@@ -688,6 +688,7 @@ their keymaps at runtime instead of load time."
          (use-package emacsql-sqlite-module))))
 
 (use-package org-roam
+  :pin melpa
   :after (org emacsql-sqlite)
   :demand t
   :bind
