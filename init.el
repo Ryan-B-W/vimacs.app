@@ -368,7 +368,8 @@ their keymaps at runtime instead of load time."
   :demand t
   :after (flx)
   :bind
-  (:map custom-leader-map
+  (("C-x b" . counsel-switch-buffer)
+   :map custom-leader-map
    ("?" . counsel-buffer-or-recentf)
    ("SPC" . counsel-switch-buffer)
    :map custom-search-map
