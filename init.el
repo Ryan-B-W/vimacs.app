@@ -1313,6 +1313,20 @@ their keymaps at runtime instead of load time."
   :hook ((text-mode . flyspell-mode)
          (prog-mode . flyspell-prog-mode)))
 
+;; Setup flymake.
+(use-package flymake
+  :hook
+  (text-mode . flymake-mode))
+
+;; Setup LanguageTool.
+(use-package flymake-languagetool
+  :pin melpa
+  :hook
+  (text-mode . flymake-languagetool-load)
+  (find-file . flymake-languagetool-maybe-load)
+  :init
+  (setf flymake-languagetool-server-command (list "languagetool-server" "--port" "8081" "--allow-origin")))
+
 ;; Enable whitespace mode.
 (use-package whitespace
   :pin manual
