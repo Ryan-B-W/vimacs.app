@@ -917,6 +917,9 @@ their keymaps at runtime instead of load time."
   :pin melpa
   :after (magit))
 
+(use-package git-modes
+  :defer t)
+
 (use-package diff-hl
   :after (magit)
   :defer nil
