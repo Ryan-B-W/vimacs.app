@@ -301,6 +301,18 @@ If nil, enable Dape for DAP debugger functionality.")
 (when (eql vimacs-config-wrap-style 'none) (setq-default truncate-lines t))
 (use-package telephone-line
   :pin melpa
+  :custom
+  (telephone-line-lhs '((evil . (telephone-line-evil-tag-segment))
+                        (accent . (telephone-line-vc-segment
+                                   telephone-line-erc-modified-channels-segment
+                                   telephone-line-process-segment))
+                        (nil . (telephone-line-projectile-segment
+                                telephone-line-buffer-segment))))
+  (telephone-line-rhs '((nil . (telephone-line-flymake-segment
+                                telephone-line-flycheck-segment
+                                telephone-line-misc-info-segment))
+                        (accent . (telephone-line-major-mode-segment))
+                        (evil . (telephone-line-airline-position-segment))))
   :config
   (telephone-line-mode 1))
 (setf frame-resize-pixelwise t)
