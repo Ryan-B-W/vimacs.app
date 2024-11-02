@@ -6,3 +6,6 @@
 (setf initial-frame-alist '((background-color . "#141617")
                             (vertical-scroll-bars . nil)
                             (horizontal-scroll-bars . nil)))
+
+;; Don't load outdated byte-compiled files.
+(setq load-prefer-newer t)
