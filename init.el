@@ -226,6 +226,12 @@ If nil, enable Dape for DAP debugger functionality.")
   (require 'eldoc)
   (global-eldoc-mode))
 
+;; Load and update seq early.
+(unload-feature 'seq t)
+(setf custom-delayed-init-variables nil)
+(elpaca (seq :wait t)
+  (require 'seq))
+
 ;; Setup capability to auto install system packages.
 (use-package system-packages
   :when vimacs-config-auto-install-packages)
@@ -897,8 +903,6 @@ their keymaps at runtime instead of load time."
   :bind
   ;; Swap list-buffers with bs-show.
   ("C-x C-b" . bs-show))
-
-(use-package seq)
 
 (use-package transient
   :after (seq))
