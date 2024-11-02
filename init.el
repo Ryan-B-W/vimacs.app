@@ -166,27 +166,65 @@ If nil, enable Dape for DAP debugger functionality.")
                 '("SQLITE3" "FREETYPE")
               '("SQLITE3")))))
 
-;; Setup MELPA support.
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-(setf package-archive-priorities
-      '(("gnu" . 20)
-        ("nongnu" . 20)
-        ("melpa-stable" . 10)
-        ("melpa" . 0)))
-;; Auto install configured packages.
-(unless (fboundp 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+;; Bootstrap Elpaca.
+(defvar elpaca-installer-version 0.7)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+                              :ref nil :depth 1
+                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
+                              :build (:not elpaca--activate-package)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+       (build (expand-file-name "elpaca/" elpaca-builds-directory))
+       (order (cdr elpaca-order))
+       (default-directory repo))
+  (add-to-list 'load-path (if (file-exists-p build) build repo))
+  (unless (file-exists-p repo)
+    (make-directory repo t)
+    (when (< emacs-major-version 28) (require 'subr-x))
+    (condition-case-unless-debug err
+        (if-let* ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                  ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
+                                                  ,@(when-let* ((depth (plist-get order :depth)))
+                                                      (list (format "--depth=%d" depth) "--no-single-branch"))
+                                                  ,(plist-get order :repo) ,repo))))
+                  ((zerop (call-process "git" nil buffer t "checkout"
+                                        (or (plist-get order :ref) "--"))))
+                  (emacs (concat invocation-directory invocation-name))
+                  ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                        "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                  ((require 'elpaca))
+                  ((elpaca-generate-autoloads "elpaca" repo)))
+            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+          (error "%s" (with-current-buffer buffer (buffer-string))))
+      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
+  (unless (require 'elpaca-autoloads nil t)
+    (require 'elpaca)
+    (elpaca-generate-autoloads "elpaca" repo)
+    (load "./elpaca-autoloads")))
+(add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
+
+;; Load use-package.
 (require 'use-package)
-(setf use-package-always-ensure t)
+
+;; Enable Elpaca use-package support.
+(elpaca (elpaca-use-package :wait t)
+  (elpaca-use-package-mode)
+  (setf elpaca-use-package-by-default t))
 
 ;; If insufficient Emacs version, install and load compat.
 (use-package compat
   :if (version< emacs-version "29.0"))
+
+;; Load Eldoc early.
+(unload-feature 'eldoc t)
+(setf custom-delayed-init-variables nil)
+(defvar global-eldoc-mode nil)
+(elpaca (eldoc :wait t)
+  (require 'eldoc)
+  (global-eldoc-mode))
 
 ;; Setup capability to auto install system packages.
 (use-package system-packages
@@ -303,7 +341,6 @@ If nil, enable Dape for DAP debugger functionality.")
 (when (featurep 'pixel-scroll) (pixel-scroll-precision-mode 1))
 
 (use-package telephone-line
-  :pin melpa
   :custom
   (telephone-line-lhs '((evil . (telephone-line-evil-tag-segment))
                         (accent . (telephone-line-vc-segment
@@ -407,12 +444,9 @@ their keymaps at runtime instead of load time."
 
 ;; Eldoc customization.
 (use-package inline-docs
-  :pin manual
-  :ensure nil
   :when vimacs-config-inline-help
+  :ensure (inline-docs :remotes ("fork" :type git :host github :repo "Ryan-B-W/inline-docs"))
   :init
-  (unless (package-installed-p (intern "inline-docs"))
-    (package-vc-install '(inline-docs . (:url "https://github.com/Ryan-B-W/inline-docs.git"))))
   (setf inline-docs-border-symbol 9472))
 
 (use-package eldoc-box
@@ -429,7 +463,6 @@ their keymaps at runtime instead of load time."
   (add-hook 'window-state-change-hook #'eldoc-box-hover-ensure))
 
 (use-package eldoc
-  :pin manual
   :ensure nil
   :bind (:map custom-leader-map
          ("h" . eldoc-mode)
@@ -440,14 +473,12 @@ their keymaps at runtime instead of load time."
   (setf eldoc-echo-area-display-truncation-message nil))
 
 (use-package info
-  :pin manual
   :ensure nil
   :bind (:map Info-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)))
 
 (use-package help
-  :pin manual
   :ensure nil
   :bind (:map help-mode-map
          ("SPC" . nil)
@@ -455,13 +486,11 @@ their keymaps at runtime instead of load time."
 
 ;; Folding in programming modes.
 (use-package hideshow ; hs-minor-mode.
-  :pin manual
   :ensure nil
   :hook ((prog-mode . hs-minor-mode)))
 
 ;; Configure dired.
 (use-package dired
-  :pin manual
   :ensure nil
   :bind (:map dired-mode-map
          ("SPC" . nil)
@@ -473,7 +502,6 @@ their keymaps at runtime instead of load time."
 ;; enable dired-x.
 (use-package dired-x
   :disabled
-  :pin manual
   :ensure nil
   :defer t
   :custom
@@ -491,7 +519,6 @@ their keymaps at runtime instead of load time."
          (prog-mode . adaptive-wrap-prefix-mode)))
 
 (use-package image-mode
-  :pin manual
   :ensure nil
   :bind (:map image-mode-map
          ("SPC" . nil)
@@ -507,7 +534,6 @@ their keymaps at runtime instead of load time."
                               (define-key image-mode-map (kbd "<normal-state> SPC") nil))))
 
 (use-package doc-view
-  :pin manual
   :ensure nil
   :bind (:map doc-view-mode-map
          ("SPC" . nil)
@@ -517,7 +543,6 @@ their keymaps at runtime instead of load time."
   :mode ("\\.epub\\'" . nov-mode))
 
 (use-package printing
-  :pin manual
   :ensure nil)
 
 (use-package dashboard
@@ -538,14 +563,12 @@ their keymaps at runtime instead of load time."
 
 ;; Emacs calc configuration.
 (use-package calc
-  :pin manual
   :ensure nil
   :defer t
   :config
   (add-to-list 'calc-language-alist '(org-mode . latex)))
 
 (use-package org
-  :pin gnu
   :demand t
   :custom
   (org-startup-folded t)
@@ -662,14 +685,12 @@ their keymaps at runtime instead of load time."
 
 ;; Enable org-mode structure template expansions.
 (use-package org-tempo
-  :pin manual
   :ensure nil
   :after (org)
   :demand t)
 
 (use-package org-protocol
   :after (org)
-  :pin manual
   :ensure nil
   :demand t)
 
@@ -690,21 +711,10 @@ their keymaps at runtime instead of load time."
    ("b i" . org-cite-insert)
    ("b o" . citar-open-entry)))
 
-(use-package emacsql-sqlite
-  :config
-  (cond ((member "SQLITE3" (split-string system-configuration-features " "))
-         (if (and (featurep 'emacsql-sqlite-builtin)
-                  (not (package-installed-p 'emacsql-sqlite-builtin)))
-             (use-package emacsql-sqlite-builtin
-               :pin manual
-               :ensure nil)
-           (use-package emacsql-sqlite-builtin)))
-        (t
-         (use-package emacsql-sqlite-module))))
+(use-package emacsql)
 
 (use-package org-roam
-  :pin melpa
-  :after (org emacsql-sqlite)
+  :after (org emacsql)
   :demand t
   :bind
   (("C-c r c" . org-roam-capture)
@@ -744,9 +754,7 @@ their keymaps at runtime instead of load time."
      ,(concat "^" (expand-file-name org-roam-directory) "/.git/")
      ".*\\.gpg"))
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:40}" 'face 'org-tag)))
-  (org-roam-database-connector (if (featurep 'emacsql-sqlite-builtin)
-                                   'sqlite-builtin
-                                 'sqlite-module))
+  (org-roam-database-connector 'sqlite-builtin)
   (org-roam-capture-templates
    '(("d" "default" plain "%?" :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
@@ -791,7 +799,6 @@ their keymaps at runtime instead of load time."
 
 (use-package org-roam-protocol
   :after (org-roam)
-  :pin manual
   :ensure nil
   :demand t)
 
@@ -823,7 +830,6 @@ their keymaps at runtime instead of load time."
 ;; Enable more Org-Mode link types.
 (use-package ol-man
   :after (org)
-  :pin manual
   :ensure nil
   :demand t)
 
@@ -839,12 +845,10 @@ their keymaps at runtime instead of load time."
   (org-babel-tmux-terminal "urxvt"))
 
 (use-package orgit
-  :pin melpa
   :defer t
   :after (org magit)
   :config
   (use-package orgit-forge
-    :pin melpa
     :after (org magit forge)))
 
 (use-package org-modern
@@ -854,7 +858,6 @@ their keymaps at runtime instead of load time."
 ;; Setup org-mode with which-function-mode.
 ;; Originally taken from https://emacs.stackexchange.com/a/30901
 (use-package which-func
-  :pin manual
   :ensure nil
   :config
   (defun org-which-function ()
@@ -867,14 +870,12 @@ their keymaps at runtime instead of load time."
   (which-function-mode 1))
 
 (use-package auth-source
-  :pin manual
   :ensure nil
   :config
   (auth-source-pass-enable))
 
 ;; Use transparent encryption.
 (use-package epa-file
-  :pin manual
   :ensure nil
   :config
   (epa-file-enable)
@@ -884,7 +885,6 @@ their keymaps at runtime instead of load time."
 
 ;; Customize bs-show.
 (use-package bs
-  :pin manual
   :ensure nil
   :custom
   (bs-configurations
@@ -901,7 +901,6 @@ their keymaps at runtime instead of load time."
 (use-package transient)
 
 (use-package magit
-  :pin melpa
   :after (transient)
   :bind (:map magit-mode-map
          ("SPC" . nil)
@@ -926,15 +925,11 @@ their keymaps at runtime instead of load time."
          ("<normal-state> SPC" . nil)))
 
 (use-package forge
-  :pin melpa
-  :after (magit))
-
+  :after (magit emacsql))
 (use-package magit-annex
-  :pin melpa
   :after (magit))
 
 (use-package magit-lfs
-  :pin melpa
   :after (magit))
 
 (use-package git-modes
@@ -960,7 +955,10 @@ their keymaps at runtime instead of load time."
   :custom
   (dap-auto-configure-mode t))
 
+(use-package jsonrpc)
+
 (use-package dape
+  :after (jsonrpc)
   :unless vimacs-config-dap-mode-instead-of-dape
   :bind (:map custom-leader-map
          ("d b" . dape-breakpoint-toggle)
@@ -1003,7 +1001,6 @@ their keymaps at runtime instead of load time."
   :hook ((smartparens-mode . evil-cleverparens-mode)))
 
 (use-package slime
-  :pin manual
   :ensure nil
   :defer t
   :if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
@@ -1023,13 +1020,11 @@ their keymaps at runtime instead of load time."
 
 ;; Setup integration for Common Lisp Documentation.
 (use-package info-look
-  :pin manual
   :ensure nil
   :defer t)
 
 ;; Setup run-scheme.
 (use-package scheme
-  :pin manual
   :ensure nil
   :defer t
   :custom
@@ -1042,7 +1037,6 @@ their keymaps at runtime instead of load time."
 ;;(require 'decompile)
 
 (use-package treesit
-  :pin manual
   :ensure nil
   :if (fboundp 'treesit-install-language-grammar)
   :init
@@ -1103,7 +1097,6 @@ their keymaps at runtime instead of load time."
                             treesit-language-source-alist))))
 
 (use-package eglot
-  :pin manual
   :ensure nil
   :if (fboundp 'eglot)
   :hook ((bash-ts-mode . eglot-ensure)
@@ -1140,7 +1133,6 @@ their keymaps at runtime instead of load time."
   :config
   (which-key-mode 1))
 (use-package yaml-ts-mode
-  :pin manual
   :ensure nil
   :defer t
   :mode "\\.ya?ml\\'")
@@ -1177,7 +1169,6 @@ their keymaps at runtime instead of load time."
 (use-package web-mode
   :defer t)
 (use-package typescript-ts-mode
-  :pin manual
   :ensure nil
   :mode ("\\.ts\\'" "\\.js\\'"))
 ;;(use-package js2-mode
@@ -1199,7 +1190,6 @@ their keymaps at runtime instead of load time."
 (use-package irony
   :defer t)
 (use-package gdscript-mode
-  :pin melpa
   :defer t)
 (use-package emms
   :defer t)
@@ -1311,7 +1301,6 @@ their keymaps at runtime instead of load time."
 
 ;; Configuring gnus.
 (use-package gnus
-  :pin manual
   :ensure nil
   :defer t
   :custom
@@ -1345,7 +1334,6 @@ their keymaps at runtime instead of load time."
 
 ;; Setup flyspell.
 (use-package flyspell
-  :pin manual
   :ensure nil
   :hook ((text-mode . flyspell-mode)
          (prog-mode . flyspell-prog-mode)))
@@ -1357,7 +1345,6 @@ their keymaps at runtime instead of load time."
 
 ;; Setup LanguageTool.
 (use-package flymake-languagetool
-  :pin melpa
   :hook
   (text-mode . flymake-languagetool-load)
   (find-file . flymake-languagetool-maybe-load)
@@ -1366,7 +1353,6 @@ their keymaps at runtime instead of load time."
 
 ;; Enable whitespace mode.
 (use-package whitespace
-  :pin manual
   :ensure nil
   :custom
   (whitespace-style '(face tabs trailing space-before-tab empty space-after-tab tab-mark))
@@ -1404,7 +1390,6 @@ their keymaps at runtime instead of load time."
   :after (evil))
 
 (use-package evil-org
-  :pin melpa
   :after (evil org)
   :hook (org-mode . (lambda () evil-org-mode))
   :config
@@ -1422,8 +1407,8 @@ their keymaps at runtime instead of load time."
 (put 'narrow-to-defun-include-comments 'disabled nil)
 
 ;; Load customizer settings.
-(when (file-exists-p custom-file)
-  (load custom-file))
+(add-hook 'elpaca-after-init-hook (lambda () (when (file-exists-p custom-file)
+                                               (load custom-file))))
 
 ;; Restore garbage collector settings to defaults.
-(setf gc-cons-threshold vimacs-gc-cons-threshold-default)
+(add-hook 'elpaca-after-init-hook (lambda () (setf gc-cons-threshold vimacs-gc-cons-threshold-default)))
