@@ -997,6 +997,11 @@ their keymaps at runtime instead of load time."
     (sp-local-pair "'" nil :actions nil)
     (sp-local-pair "`" nil :actions nil)))
 
+(use-package evil-cleverparens
+  :after (evil smartparens)
+  :demand t
+  :hook ((smartparens-mode . evil-cleverparens-mode)))
+
 (use-package slime
   :pin manual
   :ensure nil
