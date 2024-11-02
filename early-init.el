@@ -12,3 +12,6 @@
 
 ;; Don't load outdated byte-compiled files.
 (setq load-prefer-newer t)
+
+;; Disable package.el in favor of Elpaca.
+(setf package-enable-at-startup nil)
