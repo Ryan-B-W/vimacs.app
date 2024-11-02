@@ -546,7 +546,6 @@ their keymaps at runtime instead of load time."
 
 (use-package org
   :pin gnu
-  :ensure nil
   :demand t
   :custom
   (org-startup-folded t)
