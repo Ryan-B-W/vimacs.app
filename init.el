@@ -688,7 +688,6 @@ their keymaps at runtime instead of load time."
    ("b o" . citar-open-entry)))
 
 (use-package emacsql-sqlite
-  :ensure t
   :config
   (cond ((member "SQLITE3" (split-string system-configuration-features " "))
          (if (and (featurep 'emacsql-sqlite-builtin)
@@ -1379,7 +1378,6 @@ their keymaps at runtime instead of load time."
   :defer t
   :after (evil))
 (use-package evil-org
-  :ensure t
   :pin melpa
   :after (evil org)
   :hook (org-mode . (lambda () evil-org-mode))
