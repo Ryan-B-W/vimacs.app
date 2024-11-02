@@ -299,6 +299,9 @@ If nil, enable Dape for DAP debugger functionality.")
 (setq-default display-line-numbers-widen t)
 (when (member vimacs-config-wrap-style '(words fancy)) (setq-default word-wrap t))
 (when (eql vimacs-config-wrap-style 'none) (setq-default truncate-lines t))
+(setf frame-resize-pixelwise t)
+(when (featurep 'pixel-scroll) (pixel-scroll-precision-mode 1))
+
 (use-package telephone-line
   :pin melpa
   :custom
@@ -315,8 +318,6 @@ If nil, enable Dape for DAP debugger functionality.")
                         (evil . (telephone-line-airline-position-segment))))
   :config
   (telephone-line-mode 1))
-(setf frame-resize-pixelwise t)
-(when (featurep 'pixel-scroll) (pixel-scroll-precision-mode 1))
 
 ;; Enable additional mouse support.
 (setf dired-mouse-drag-files t)
@@ -340,6 +341,7 @@ If nil, enable Dape for DAP debugger functionality.")
    ;; Disable backup files and autosaves.
    (setf make-backup-files nil)
    (setf auto-save-default nil)))
+
 ;; Prompt to delete autosaves when killing buffers.
 (setf kill-buffer-delete-auto-save-files t)
 
@@ -359,6 +361,7 @@ their keymaps at runtime instead of load time."
   (define-key evil-normal-state-map (kbd "SPC") custom-leader-map)
   (define-key evil-visual-state-map (kbd "SPC") custom-leader-map)
   (define-key evil-motion-state-map (kbd "SPC") custom-leader-map))
+
 (use-package evil-collection
   :demand t
   :after (evil magit)
@@ -411,6 +414,7 @@ their keymaps at runtime instead of load time."
   (unless (package-installed-p (intern "inline-docs"))
     (package-vc-install '(inline-docs . (:url "https://github.com/Ryan-B-W/inline-docs.git"))))
   (setf inline-docs-border-symbol 9472))
+
 (use-package eldoc-box
   :when (and (featurep 'term/common-win)
              vimacs-config-inline-help)
@@ -918,12 +922,15 @@ their keymaps at runtime instead of load time."
          :map magit-blame-read-only-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)))
+
 (use-package forge
   :pin melpa
   :after (magit))
+
 (use-package magit-annex
   :pin melpa
   :after (magit))
+
 (use-package magit-lfs
   :pin melpa
   :after (magit))
@@ -1087,6 +1094,7 @@ their keymaps at runtime instead of load time."
                         (not (treesit-language-available-p language)))
                     (mapcar #'car
                             treesit-language-source-alist))))
+
 (use-package eglot
   :pin manual
   :ensure nil
@@ -1229,6 +1237,7 @@ their keymaps at runtime instead of load time."
 (use-package editorconfig
   :config
   (editorconfig-mode 1))
+
 (use-package projectile
   :demand t
   :after (counsel)
@@ -1244,6 +1253,7 @@ their keymaps at runtime instead of load time."
   (projectile-completion-system 'ivy)
   :config
   (projectile-mode 1))
+
 (use-package treemacs
   :hook ((treemacs-mode . (lambda () (eldoc-mode -1)))) ; Since inline-docs is used, this prevents annoying popups.
   :bind
@@ -1260,12 +1270,15 @@ their keymaps at runtime instead of load time."
   (treemacs-recenter-after-file-follow t)
   :config
   (treemacs-project-follow-mode 1))
+
 (use-package treemacs-projectile
   :defer t
   :after (treemacs projectile))
+
 (use-package treemacs-magit
   :defer t
   :after (treemacs magit))
+
 (use-package minimap
   :defer t
   :when vimacs-config-minimap
@@ -1275,10 +1288,13 @@ their keymaps at runtime instead of load time."
   (minimap-minimum-width 18)
   (minimap-window-location 'right)
   (minimap-mode 1))
+
 (use-package lorem-ipsum
   :defer t)
+
 (use-package osm
   :defer t)
+
 (use-package rfc-mode
   :defer t
   :bind
@@ -1369,14 +1385,17 @@ their keymaps at runtime instead of load time."
 (use-package evil-numbers
   :defer t
   :after (evil))
+
 (use-package evil-surround
   :defer t
   :after (evil)
   :config
   (global-evil-surround-mode 1))
+
 (use-package evil-textobj-tree-sitter
   :defer t
   :after (evil))
+
 (use-package evil-org
   :pin melpa
   :after (evil org)
