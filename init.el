@@ -898,8 +898,11 @@ their keymaps at runtime instead of load time."
   ;; Swap list-buffers with bs-show.
   ("C-x C-b" . bs-show))
 
+(use-package transient)
+
 (use-package magit
   :pin melpa
+  :after (transient)
   :bind (:map magit-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)
