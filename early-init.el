@@ -3,6 +3,8 @@
 (setf gc-cons-threshold 128000000)
 
 ;; Do some early tweaks to the UI before starting.
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 (setf initial-frame-alist '((foreground-color . "#ffffff")
                             (background-color . "#141617")
                             (vertical-scroll-bars . nil)
