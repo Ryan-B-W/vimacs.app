@@ -13,11 +13,6 @@
 (defvar vimacs-config-user-notes-path (file-truename "~/doc/")
   "Directory containing user's general or non-project specific notes.")
 
-(defvar vimacs-config-suppress-compatibility-checks nil
-  "If non-nil, do compatibility checks against Emacs features.
-
-If nil, make compatibility checks and raise warnings when they
-fail.  If t, skip compatibility checks.")
 (defvar vimacs-config-auto-install-packages 'not-set
   "If not-nil, automatically install needed system packages.
 
@@ -115,8 +110,7 @@ If nil, enable Dape for DAP debugger functionality.")
 (unless (file-exists-p vimacs-config-file)
   (write-region (format "(setf vimacs-config-user-notes-path %S
       org-agenda-files '%S)
-(setf vimacs-config-suppress-compatibility-checks '%s
-      vimacs-config-auto-install-packages '%s
+(setf vimacs-config-auto-install-packages '%s
       vimacs-config-auto-install-packages-prompt '%s
       vimacs-config-setup-fonts '%s
       vimacs-config-setup-theme '%s
@@ -136,7 +130,6 @@ If nil, enable Dape for DAP debugger functionality.")
                             org-agenda-files
                           (list vimacs-config-user-notes-path
                                 (concat (expand-file-name vimacs-config-user-notes-path) "daily/")))
-                        vimacs-config-suppress-compatibility-checks
                         vimacs-config-auto-install-packages
                         vimacs-config-auto-install-packages-prompt
                         vimacs-config-setup-fonts
@@ -151,20 +144,6 @@ If nil, enable Dape for DAP debugger functionality.")
                         vimacs-config-enable-gpm
                         vimacs-config-dap-mode-instead-of-dape)
                 nil vimacs-config-file))
-
-;; Do compatibility checks.
-(unless vimacs-config-suppress-compatibility-checks
-  (when (version< emacs-version "29.0")
-    (warn "Emacs version is %s.  This init assumes at least Emacs 29 release series; however, it will probably mostly work with Emacs 28." emacs-version))
-  (let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it."))
-    (mapcar (lambda (feature) (unless (featurep feature) (warn warn-message feature)))
-            '(native-compile json threads)))
-  (let ((warn-message "Feature `%s' is not available.  It is highly recommended by the author of this init file to enable it.")
-        (comp-features (split-string system-configuration-features " ")))
-    (mapcar (lambda (feature) (unless (member feature comp-features) (warn warn-message feature)))
-            (if (display-graphic-p)
-                '("SQLITE3" "FREETYPE")
-              '("SQLITE3")))))
 
 ;; Setup MELPA support.
 (require 'package)
