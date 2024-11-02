@@ -9,3 +9,6 @@
 
 ;; Don't load outdated byte-compiled files.
 (setq load-prefer-newer t)
+
+;; Disable package.el in favor of straight.el.
+(setf package-enable-at-startup nil)

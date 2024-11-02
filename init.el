@@ -166,23 +166,26 @@ If nil, enable Dape for DAP debugger functionality.")
                 '("SQLITE3" "FREETYPE")
               '("SQLITE3")))))
 
-;; Setup MELPA support.
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-(setf package-archive-priorities
-      '(("gnu" . 20)
-        ("nongnu" . 20)
-        ("melpa-stable" . 10)
-        ("melpa" . 0)))
-;; Auto install configured packages.
-(unless (fboundp 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+;; Setup straight.el.
+(defvar bootstrap-version)
+(setf straight-use-package-by-default t)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; Load use-package.
 (require 'use-package)
-(setf use-package-always-ensure t)
 
 ;; If insufficient Emacs version, install and load compat.
 (use-package compat
@@ -300,7 +303,6 @@ If nil, enable Dape for DAP debugger functionality.")
 (when (member vimacs-config-wrap-style '(words fancy)) (setq-default word-wrap t))
 (when (eql vimacs-config-wrap-style 'none) (setq-default truncate-lines t))
 (use-package telephone-line
-  :pin melpa
   :custom
   (telephone-line-lhs '((evil . (telephone-line-evil-tag-segment))
                         (accent . (telephone-line-vc-segment
@@ -404,12 +406,9 @@ their keymaps at runtime instead of load time."
 
 ;; Eldoc customization.
 (use-package inline-docs
-  :pin manual
-  :ensure nil
   :when vimacs-config-inline-help
+  :straight (inline-docs :fork (:type git :host github :repo "Ryan-B-W/inline-docs"))
   :init
-  (unless (package-installed-p (intern "inline-docs"))
-    (package-vc-install '(inline-docs . (:url "https://github.com/Ryan-B-W/inline-docs.git"))))
   (setf inline-docs-border-symbol 9472))
 (use-package eldoc-box
   :when (and (featurep 'term/common-win)
@@ -425,8 +424,7 @@ their keymaps at runtime instead of load time."
   (add-hook 'window-state-change-hook #'eldoc-box-hover-ensure))
 
 (use-package eldoc
-  :pin manual
-  :ensure nil
+  :straight nil
   :bind (:map custom-leader-map
          ("h" . eldoc-mode)
          ("H" . eldoc-print-current-symbol-info))
@@ -436,29 +434,25 @@ their keymaps at runtime instead of load time."
   (setf eldoc-echo-area-display-truncation-message nil))
 
 (use-package info
-  :pin manual
-  :ensure nil
+  :straight nil
   :bind (:map Info-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)))
 
 (use-package help
-  :pin manual
-  :ensure nil
+  :straight nil
   :bind (:map help-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)))
 
 ;; Folding in programming modes.
 (use-package hideshow ; hs-minor-mode.
-  :pin manual
-  :ensure nil
+  :straight nil
   :hook ((prog-mode . hs-minor-mode)))
 
 ;; Configure dired.
 (use-package dired
-  :pin manual
-  :ensure nil
+  :straight nil
   :bind (:map dired-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil))
@@ -469,8 +463,7 @@ their keymaps at runtime instead of load time."
 ;; enable dired-x.
 (use-package dired-x
   :disabled
-  :pin manual
-  :ensure nil
+  :straight nil
   :defer t
   :custom
   (dired-omit-files (concat dired-omit-files "\\|^\\..+$")))
@@ -487,8 +480,7 @@ their keymaps at runtime instead of load time."
          (prog-mode . adaptive-wrap-prefix-mode)))
 
 (use-package image-mode
-  :pin manual
-  :ensure nil
+  :straight nil
   :bind (:map image-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil))
@@ -503,8 +495,7 @@ their keymaps at runtime instead of load time."
                               (define-key image-mode-map (kbd "<normal-state> SPC") nil))))
 
 (use-package doc-view
-  :pin manual
-  :ensure nil
+  :straight nil
   :bind (:map doc-view-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)))
@@ -513,8 +504,7 @@ their keymaps at runtime instead of load time."
   :mode ("\\.epub\\'" . nov-mode))
 
 (use-package printing
-  :pin manual
-  :ensure nil)
+  :straight nil)
 
 (use-package dashboard
   :after (octicons nerd-icons)
@@ -534,15 +524,12 @@ their keymaps at runtime instead of load time."
 
 ;; Emacs calc configuration.
 (use-package calc
-  :pin manual
-  :ensure nil
+  :straight nil
   :defer t
   :config
   (add-to-list 'calc-language-alist '(org-mode . latex)))
 
 (use-package org
-  :pin gnu
-  :ensure nil
   :demand t
   :custom
   (org-startup-folded t)
@@ -659,15 +646,13 @@ their keymaps at runtime instead of load time."
 
 ;; Enable org-mode structure template expansions.
 (use-package org-tempo
-  :pin manual
-  :ensure nil
+  :straight nil
   :after (org)
   :demand t)
 
 (use-package org-protocol
   :after (org)
-  :pin manual
-  :ensure nil
+  :straight nil
   :demand t)
 
 (use-package citar
@@ -687,22 +672,10 @@ their keymaps at runtime instead of load time."
    ("b i" . org-cite-insert)
    ("b o" . citar-open-entry)))
 
-(use-package emacsql-sqlite
-  :ensure t
-  :config
-  (cond ((member "SQLITE3" (split-string system-configuration-features " "))
-         (if (and (featurep 'emacsql-sqlite-builtin)
-                  (not (package-installed-p 'emacsql-sqlite-builtin)))
-             (use-package emacsql-sqlite-builtin
-               :pin manual
-               :ensure nil)
-           (use-package emacsql-sqlite-builtin)))
-        (t
-         (use-package emacsql-sqlite-module))))
+(use-package emacsql)
 
 (use-package org-roam
-  :pin melpa
-  :after (org emacsql-sqlite)
+  :after (org emacsql)
   :demand t
   :bind
   (("C-c r c" . org-roam-capture)
@@ -742,9 +715,7 @@ their keymaps at runtime instead of load time."
      ,(concat "^" (expand-file-name org-roam-directory) "/.git/")
      ".*\\.gpg"))
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:40}" 'face 'org-tag)))
-  (org-roam-database-connector (if (featurep 'emacsql-sqlite-builtin)
-                                   'sqlite-builtin
-                                 'sqlite-module))
+  (org-roam-database-connector 'sqlite-builtin)
   (org-roam-capture-templates
    '(("d" "default" plain "%?" :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
@@ -789,8 +760,7 @@ their keymaps at runtime instead of load time."
 
 (use-package org-roam-protocol
   :after (org-roam)
-  :pin manual
-  :ensure nil
+  :straight nil
   :demand t)
 
 (use-package citar-org-roam
@@ -821,8 +791,7 @@ their keymaps at runtime instead of load time."
 ;; Enable more Org-Mode link types.
 (use-package ol-man
   :after (org)
-  :pin manual
-  :ensure nil
+  :straight nil
   :demand t)
 
 ;; Org-babel tmux.
@@ -837,12 +806,10 @@ their keymaps at runtime instead of load time."
   (org-babel-tmux-terminal "urxvt"))
 
 (use-package orgit
-  :pin melpa
   :defer t
   :after (org magit)
   :config
   (use-package orgit-forge
-    :pin melpa
     :after (org magit forge)))
 
 (use-package org-modern
@@ -852,8 +819,7 @@ their keymaps at runtime instead of load time."
 ;; Setup org-mode with which-function-mode.
 ;; Originally taken from https://emacs.stackexchange.com/a/30901
 (use-package which-func
-  :pin manual
-  :ensure nil
+  :straight nil
   :config
   (defun org-which-function ()
     (interactive)
@@ -865,15 +831,13 @@ their keymaps at runtime instead of load time."
   (which-function-mode 1))
 
 (use-package auth-source
-  :pin manual
-  :ensure nil
+  :straight nil
   :config
   (auth-source-pass-enable))
 
 ;; Use transparent encryption.
 (use-package epa-file
-  :pin manual
-  :ensure nil
+  :straight nil
   :config
   (epa-file-enable)
   (setf epa-pinentry-mode 'loopback))
@@ -882,8 +846,7 @@ their keymaps at runtime instead of load time."
 
 ;; Customize bs-show.
 (use-package bs
-  :pin manual
-  :ensure nil
+  :straight nil
   :custom
   (bs-configurations
    '(("all" nil nil "^.*\\.#.*" nil nil)
@@ -897,7 +860,6 @@ their keymaps at runtime instead of load time."
   ("C-x C-b" . bs-show))
 
 (use-package magit
-  :pin melpa
   :bind (:map magit-mode-map
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)
@@ -920,13 +882,10 @@ their keymaps at runtime instead of load time."
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)))
 (use-package forge
-  :pin melpa
-  :after (magit))
+  :after (magit emacsql))
 (use-package magit-annex
-  :pin melpa
   :after (magit))
 (use-package magit-lfs
-  :pin melpa
   :after (magit))
 
 (use-package git-modes
@@ -990,8 +949,7 @@ their keymaps at runtime instead of load time."
     (sp-local-pair "`" nil :actions nil)))
 
 (use-package slime
-  :pin manual
-  :ensure nil
+  :straight nil
   :defer t
   :if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
   :init
@@ -1010,14 +968,12 @@ their keymaps at runtime instead of load time."
 
 ;; Setup integration for Common Lisp Documentation.
 (use-package info-look
-  :pin manual
-  :ensure nil
+  :straight nil
   :defer t)
 
 ;; Setup run-scheme.
 (use-package scheme
-  :pin manual
-  :ensure nil
+  :straight nil
   :defer t
   :custom
   (scheme-program-name "plt-r5rs"))
@@ -1029,8 +985,7 @@ their keymaps at runtime instead of load time."
 ;;(require 'decompile)
 
 (use-package treesit
-  :pin manual
-  :ensure nil
+  :straight nil
   :if (fboundp 'treesit-install-language-grammar)
   :init
   (setf treesit-language-source-alist
@@ -1089,8 +1044,7 @@ their keymaps at runtime instead of load time."
                     (mapcar #'car
                             treesit-language-source-alist))))
 (use-package eglot
-  :pin manual
-  :ensure nil
+  :straight nil
   :if (fboundp 'eglot)
   :hook ((bash-ts-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
@@ -1126,8 +1080,7 @@ their keymaps at runtime instead of load time."
   :config
   (which-key-mode 1))
 (use-package yaml-ts-mode
-  :pin manual
-  :ensure nil
+  :straight nil
   :defer t
   :mode "\\.ya?ml\\'")
 (use-package arduino-mode
@@ -1163,8 +1116,7 @@ their keymaps at runtime instead of load time."
 (use-package web-mode
   :defer t)
 (use-package typescript-ts-mode
-  :pin manual
-  :ensure nil
+  :straight nil
   :mode ("\\.ts\\'" "\\.js\\'"))
 ;;(use-package js2-mode
 ;;  :defer t)
@@ -1185,7 +1137,6 @@ their keymaps at runtime instead of load time."
 (use-package irony
   :defer t)
 (use-package gdscript-mode
-  :pin melpa
   :defer t)
 (use-package emms
   :defer t)
@@ -1205,7 +1156,7 @@ their keymaps at runtime instead of load time."
 ;;(use-package autodisass-java-bytecode
 ;;  :defer t)
 (use-package tex
-  :ensure auctex
+  :straight (auctex)
   :defer t)
 (use-package apache-mode
   :defer t)
@@ -1289,8 +1240,7 @@ their keymaps at runtime instead of load time."
 
 ;; Configuring gnus.
 (use-package gnus
-  :pin manual
-  :ensure nil
+  :straight nil
   :defer t
   :custom
   (gnus-select-method '(nntp "news.gwene.org"))
@@ -1323,8 +1273,7 @@ their keymaps at runtime instead of load time."
 
 ;; Setup flyspell.
 (use-package flyspell
-  :pin manual
-  :ensure nil
+  :straight nil
   :hook ((text-mode . flyspell-mode)
          (prog-mode . flyspell-prog-mode)))
 
@@ -1335,7 +1284,6 @@ their keymaps at runtime instead of load time."
 
 ;; Setup LanguageTool.
 (use-package flymake-languagetool
-  :pin melpa
   :hook
   (text-mode . flymake-languagetool-load)
   (find-file . flymake-languagetool-maybe-load)
@@ -1344,8 +1292,7 @@ their keymaps at runtime instead of load time."
 
 ;; Enable whitespace mode.
 (use-package whitespace
-  :pin manual
-  :ensure nil
+  :straight nil
   :custom
   (whitespace-style '(face tabs trailing space-before-tab empty space-after-tab tab-mark))
   :config
@@ -1379,8 +1326,7 @@ their keymaps at runtime instead of load time."
   :defer t
   :after (evil))
 (use-package evil-org
-  :ensure t
-  :pin melpa
+  ;:ensure t
   :after (evil org)
   :hook (org-mode . (lambda () evil-org-mode))
   :config
