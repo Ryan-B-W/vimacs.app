@@ -898,7 +898,10 @@ their keymaps at runtime instead of load time."
   ;; Swap list-buffers with bs-show.
   ("C-x C-b" . bs-show))
 
-(use-package transient)
+(use-package seq)
+
+(use-package transient
+  :after (seq))
 
 (use-package magit
   :after (transient)
