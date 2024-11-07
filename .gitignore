@@ -7,10 +7,12 @@ bookmarks
 custom.el
 eln-cache/
 elpa/
+elpaca/
 emms/
 eshell/
 forge-database*.sqlite
 network-security.data
+nov-places
 org-clock-save.el
 org-roam.db
 projectile-bookmarks.eld
