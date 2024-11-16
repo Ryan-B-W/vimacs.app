@@ -309,8 +309,6 @@ If nil, enable Dape for DAP debugger functionality."
 
 ;; Customize UI.
 (setf initial-major-mode 'org-mode)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
 (when (featurep 'scroll-bar) (scroll-bar-mode -1))
 (setf split-width-threshold 80)
 (column-number-mode)
