@@ -8,67 +8,106 @@
 
 ;; Set customizer file location.
 (setf custom-file (concat user-emacs-directory "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
-;; Default Vimacs.app settings.
-(defvar vimacs-config-user-notes-path (file-truename "~/doc/")
-  "Directory containing user's general or non-project specific notes.")
+;; Vimacs.app settings.
+(defgroup vimacs nil
+  "Emacs configuration and distribution."
+  :tag "Vimacs")
 
-(defvar vimacs-config-auto-install-packages 'not-set
+(defcustom vimacs-config-user-notes-path (file-truename "~/notes/")
+  "Directory containing user's general or non-project specific notes."
+  :group 'vimacs
+  :type 'directory)
+
+(defcustom vimacs-config-auto-install-packages nil
   "If not-nil, automatically install needed system packages.
 
 If nil, don't automatically install system packages to fulfill
 external dependencies for Emacs packages.  If t, auto install
-system packages.  If \"not-set\", assume this setting hasn't been
-customized by the user and prompt them for a setting.")
-(defvar vimacs-config-auto-install-packages-prompt t
+system packages."
+  :group 'vimacs
+  :type 'symbol)
+
+(defcustom vimacs-config-auto-install-packages-prompt t
   "If not-nil, prompt before attempting to install system packages.
 
 If t, prompt user before installing system packages.  If nil,
-don't prompt user before installing system packages.")
-(defvar vimacs-config-setup-fonts t
+don't prompt user before installing system packages."
+  :group 'vimacs
+  :type 'symbol)
+
+(defcustom vimacs-config-setup-fonts t
   "If not-nil, configure default fonts based on availability.
 
 If t, automatically pick font families for default faces.  If
-nil, don't change the fonts.")
-(defvar vimacs-config-setup-theme t
+nil, don't change the fonts."
+  :group 'vimacs
+  :type 'symbol)
+
+(defcustom vimacs-config-setup-theme t
   "If not-nil, setup Modus Themes with customizations.
 
 If t, configure and load Modus Themes with some customizations.
-If nil, don't change the theme.")
-(defvar vimacs-config-theme-deuteranopia nil
+If nil, don't change the theme."
+  :group 'vimacs
+  :type 'symbol)
+
+(defcustom vimacs-config-theme-deuteranopia nil
   "If not-nil, use red-green color blindness accessible theme.
 
 If t, use red-green color blindness (deuteranopia) accessible
 theme variant.  If nil, don't use it.  If
-vimacs-config-setup-theme is nil, this does nothing.")
-(defvar vimacs-config-backup-policy 'minimal
+vimacs-config-setup-theme is nil, this does nothing."
+  :group 'vimacs
+  :type 'symbol)
+
+(defcustom vimacs-config-backup-policy 'minimal
   "Policy for when and where to keep backups and autosaves.
 
 Backup policy.  A symbol.  Can be one of \"full\", \"minimal\",
 or \"none\".  Effect is as follows:
 Full: standard backup policy for Emacs.
 Minimal: standard backup policy for vimacs.app.  Only make autosaves.
-None: don't make any backups or autosaves.")
-(defvar vimacs-config-inline-help nil
+None: don't make any backups or autosaves."
+  :group 'vimacs
+  :type '(choice (const :tag "Standard Emacs backup behavior" full)
+                 (const :tag "Autosaves only, Vimacs.app default" minimal)
+                 (const :tag "Don't make backups or autosaves" none)))
+
+(defcustom vimacs-config-inline-help nil
   "If not-nil, show ElDoc help under point instead of minibuffer.
 
 If t, use overlay frame or text overlay, for X11 frame or TTY
 frame respectively, to show ElDoc help under point instead of in
-the minibuffer.  If nil, use normal ElDoc behavior.")
-(defvar vimacs-config-minimap nil
+the minibuffer.  If nil, use normal ElDoc behavior."
+  :group 'vimacs
+  :type 'symbol)
+
+(defcustom vimacs-config-minimap nil
   "If not-nil, enable Minimap package for buffer overview.
 
 Not recommended if using Emacs in TTY frame since Minimap depends
-on face height attributes.")
-(defvar vimacs-config-org-modern nil
-  "If non-nil, enable Org-Modern package for a simi-WYSIWYG Org Mode Experience.")
-(defvar vimacs-config-auto-fill nil
+on face height attributes."
+  :group 'vimacs
+  :type 'symbol)
+
+(defcustom vimacs-config-org-modern nil
+  "If non-nil, enable Org-Modern package for a simi-WYSIWYG Org Mode Experience."
+  :group 'vimacs
+  :type 'symbol)
+
+(defcustom vimacs-config-auto-fill nil
   "If not-nil, automatically insert newlines to wrap long lines.
 
 If t, auto wrap lines at fill-column columns.  If nil, don't
 automatically insert newlines to wrap lines that go over
-fill-column.")
-(defvar vimacs-config-wrap-style 'fancy
+fill-column."
+  :group 'vimacs
+  :type 'symbol)
+
+(defcustom vimacs-config-wrap-style 'fancy
   "Whether to wrap lines, on words, and with indentation alignment.
 
 Style of line visual wrapping.  A symbol.  Can be one of
@@ -77,73 +116,31 @@ follows:
 Default: default Emacs behavior.
 Words: wrap on word boundaries.
 Fancy: wrap on word boundaries and indent to same level.
-None: don't do any line wrapping.  Truncate instead.")
-(defvar vimacs-config-enable-gpm nil
+None: don't do any line wrapping.  Truncate instead."
+  :group 'vimacs
+  :type '(choice (const :tag "Fancy wrapping on word bounds and maintaining indentation" fancy)
+                 (const :tag "Default Emacs behavior" default)
+                 (const :tag "Wrap on word bounds" words)
+                 (const :tag "Truncate lines instead of wrapping" none)))
+
+(defcustom vimacs-config-enable-gpm nil
   "If not-nil, enable GPM mouse mode on startup.
 
 If t, enable GPM mode.  If nil, don't enable GPM mode
 automatically.  Disabled by default since when launching Emacs in
 X11 it starts GPM Mode and then when attempting to create a TTY
 frame the new frame crashes failing to connect to the GPM server
-if it's not running.")
-(defvar vimacs-config-dap-mode-instead-of-dape nil
+if it's not running."
+  :group 'vimacs
+  :type 'symbol)
+
+(defcustom vimacs-config-dap-mode-instead-of-dape nil
   "If non-nil, enable dap-mode instead of Dape.
 
 If t, enable dap-mode for providing DAP debugger functionality.
-If nil, enable Dape for DAP debugger functionality.")
-
-;; Load Vimacs.app configuration.
-(setf vimacs-config-file (concat user-emacs-directory "vimacs.app-config.el"))
-(if (file-exists-p vimacs-config-file)
-    (load vimacs-config-file)
-  (warn "Unable to load and/or write \"%s\" config file.  Vimacs.app will not be customizable without it." vimacs-config-file))
-
-;; On (probable) first start ask user to set system package
-;; auto-install setting.
-(when (eql vimacs-config-auto-install-packages 'not-set)
-  (setf vimacs-config-auto-install-packages
-        (yes-or-no-p "This seems to be the initial launch of this config.  Enable auto install of system packages?"))
-  (when vimacs-config-auto-install-packages
-    (setf vimacs-config-auto-install-packages-prompt
-          (yes-or-no-p "Prompt each time before installing system packages?"))))
-
-(unless (file-exists-p vimacs-config-file)
-  (write-region (format "(setf vimacs-config-user-notes-path %S
-      org-agenda-files '%S)
-(setf vimacs-config-auto-install-packages '%s
-      vimacs-config-auto-install-packages-prompt '%s
-      vimacs-config-setup-fonts '%s
-      vimacs-config-setup-theme '%s
-      vimacs-config-theme-deuteranopia '%s
-      vimacs-config-backup-policy '%s
-      vimacs-config-inline-help '%s
-      vimacs-config-minimap '%s
-      vimacs-config-org-modern '%s
-      vimacs-config-auto-fill '%s
-      vimacs-config-wrap-style '%s
-      ;; Not recommended to automatically enable GPM mode.  Enable
-      ;; manually from a TTY frame instead.
-      vimacs-config-enable-gpm '%s)
-      vimacs-config-dap-mode-instead-of-dape '%s"
-                        vimacs-config-user-notes-path
-                        (if (boundp 'org-agenda-files)
-                            org-agenda-files
-                          (list vimacs-config-user-notes-path
-                                (concat (expand-file-name vimacs-config-user-notes-path) "daily/")))
-                        vimacs-config-auto-install-packages
-                        vimacs-config-auto-install-packages-prompt
-                        vimacs-config-setup-fonts
-                        vimacs-config-setup-theme
-                        vimacs-config-theme-deuteranopia
-                        vimacs-config-backup-policy
-                        vimacs-config-inline-help
-                        vimacs-config-minimap
-                        vimacs-config-org-modern
-                        vimacs-config-auto-fill
-                        vimacs-config-wrap-style
-                        vimacs-config-enable-gpm
-                        vimacs-config-dap-mode-instead-of-dape)
-                nil vimacs-config-file))
+If nil, enable Dape for DAP debugger functionality."
+  :group 'vimacs
+  :type 'symbol)
 
 ;; Bootstrap Elpaca.
 (defvar elpaca-installer-version 0.8)
