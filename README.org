@@ -101,7 +101,14 @@ Using Homebrew:
 #+end_src
 [[https://github.com/doomemacs/doomemacs/blob/master/docs/getting_started.org#on-macos][See also the guide from Doom Emacs where this was unapologeticlly taken from]].
 ** Windows
-Follow [[https://learn.microsoft.com/en-us/windows/wsl/install][the official]] instructions for getting setup with WSL2.  For distributions, latest Debian stable—Debian 12, Bookworm at time of writing—with the stable backports suite enabled is recommended by the author of this config.  If using Debian under WSL2, follow the instructions above for installing under Debian.  You can install Windows native Emacs but your mileage will vary and some things may not be available.  Importantly, Windows native filesystem performance is fairly poor and will noticeably impact performance when doing things like git operations and file searches.  In addition, Emacs performance under Windows in general has historically been pretty poor in general if perhaps tolerable.  However, accessing Windows filesystem files from within WSL2 has even worse performance than native Windows filesystem access and is a compelling reason to use Windows native Emacs instead of WSL2.  The maintainer of this configuration doesn't use Windows so testing is up to the users.
+Follow [[https://learn.microsoft.com/en-us/windows/wsl/install][the official]] instructions for getting setup with WSL2.  Once that is done, pick a Linux distribution of your choice and continue installation by following the Linux instructions for it above.
+
+For distribution recommendations, latest Debian stable—Debian 12, Bookworm at time of writing—with the stable backports suite enabled is recommended by the author of this config.
+
+You can install Windows native Emacs, but your mileage will vary and some things may not be available.  Importantly, Windows native filesystem performance is fairly poor and will noticeably impact performance when doing things like git operations and file searches.  In addition, Emacs performance under Windows in general has historically been pretty poor in general if perhaps tolerable.  However, accessing Windows filesystem files from within WSL2 has even worse performance than native Windows filesystem access and is a compelling reason to use Windows native Emacs instead of WSL2.
+
+The maintainer of this configuration doesn't use Windows, so testing is up to the users.
+
 If you opt for Windows native Emacs, see the official [[https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html][Emacs FAQ for MS Windows]].  As above, checkout this repository as the Emacs init directory using git.
 ** Other
 You probably know what you're doing.  Good luck.
