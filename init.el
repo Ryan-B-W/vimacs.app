@@ -28,7 +28,7 @@ If nil, don't automatically install system packages to fulfill
 external dependencies for Emacs packages.  If t, auto install
 system packages."
   :group 'vimacs
-  :type 'symbol)
+  :type 'boolean)
 
 (defcustom vimacs-config-auto-install-packages-prompt t
   "If not-nil, prompt before attempting to install system packages.
@@ -36,7 +36,7 @@ system packages."
 If t, prompt user before installing system packages.  If nil,
 don't prompt user before installing system packages."
   :group 'vimacs
-  :type 'symbol)
+  :type 'boolean)
 
 (defcustom vimacs-config-setup-fonts t
   "If not-nil, configure default fonts based on availability.
@@ -44,7 +44,7 @@ don't prompt user before installing system packages."
 If t, automatically pick font families for default faces.  If
 nil, don't change the fonts."
   :group 'vimacs
-  :type 'symbol)
+  :type 'boolean)
 
 (defcustom vimacs-config-setup-theme t
   "If not-nil, setup Modus Themes with customizations.
@@ -52,7 +52,7 @@ nil, don't change the fonts."
 If t, configure and load Modus Themes with some customizations.
 If nil, don't change the theme."
   :group 'vimacs
-  :type 'symbol)
+  :type 'boolean)
 
 (defcustom vimacs-config-theme-deuteranopia nil
   "If not-nil, use red-green color blindness accessible theme.
@@ -61,7 +61,7 @@ If t, use red-green color blindness (deuteranopia) accessible
 theme variant.  If nil, don't use it.  If
 vimacs-config-setup-theme is nil, this does nothing."
   :group 'vimacs
-  :type 'symbol)
+  :type 'boolean)
 
 (defcustom vimacs-config-backup-policy 'minimal
   "Policy for when and where to keep backups and autosaves.
@@ -83,7 +83,7 @@ If t, use overlay frame or text overlay, for X11 frame or TTY
 frame respectively, to show ElDoc help under point instead of in
 the minibuffer.  If nil, use normal ElDoc behavior."
   :group 'vimacs
-  :type 'symbol)
+  :type 'boolean)
 
 (defcustom vimacs-config-minimap nil
   "If not-nil, enable Minimap package for buffer overview.
@@ -91,12 +91,12 @@ the minibuffer.  If nil, use normal ElDoc behavior."
 Not recommended if using Emacs in TTY frame since Minimap depends
 on face height attributes."
   :group 'vimacs
-  :type 'symbol)
+  :type 'boolean)
 
 (defcustom vimacs-config-org-modern nil
   "If non-nil, enable Org-Modern package for a simi-WYSIWYG Org Mode Experience."
   :group 'vimacs
-  :type 'symbol)
+  :type 'boolean)
 
 (defcustom vimacs-config-auto-fill nil
   "If not-nil, automatically insert newlines to wrap long lines.
@@ -105,7 +105,7 @@ If t, auto wrap lines at fill-column columns.  If nil, don't
 automatically insert newlines to wrap lines that go over
 fill-column."
   :group 'vimacs
-  :type 'symbol)
+  :type 'boolean)
 
 (defcustom vimacs-config-wrap-style 'fancy
   "Whether to wrap lines, on words, and with indentation alignment.
@@ -132,7 +132,7 @@ X11 it starts GPM Mode and then when attempting to create a TTY
 frame the new frame crashes failing to connect to the GPM server
 if it's not running."
   :group 'vimacs
-  :type 'symbol)
+  :type 'boolean)
 
 (defcustom vimacs-config-dap-mode-instead-of-dape nil
   "If non-nil, enable dap-mode instead of Dape.
@@ -140,7 +140,7 @@ if it's not running."
 If t, enable dap-mode for providing DAP debugger functionality.
 If nil, enable Dape for DAP debugger functionality."
   :group 'vimacs
-  :type 'symbol)
+  :type 'boolean)
 
 ;; Bootstrap Elpaca.
 (defvar elpaca-installer-version 0.8)
