@@ -180,6 +180,11 @@ If nil, enable Dape for DAP debugger functionality."
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
 
+;; Default to shallow clones for Elpaca.
+(setf elpaca-order-defaults '(:protocol https
+                              :inherit t
+                              :depth 1))
+
 ;; Load user customizations before continuing with configuration.
 (when (file-exists-p custom-file)
   (load custom-file))
