@@ -199,10 +199,6 @@ If nil, enable Dape for DAP debugger functionality."
   (elpaca-use-package-mode)
   (setf elpaca-use-package-by-default t))
 
-;; If insufficient Emacs version, install and load compat.
-(use-package compat
-  :if (version< emacs-version "29.0"))
-
 ;; Load Eldoc early.
 (unload-feature 'eldoc t)
 (setf custom-delayed-init-variables nil)
@@ -216,6 +212,10 @@ If nil, enable Dape for DAP debugger functionality."
 (setf custom-delayed-init-variables nil)
 (elpaca (seq :wait t)
   (require 'seq))
+
+;; If insufficient Emacs version, install and load compat.
+(use-package compat
+  :if (version< emacs-version "29.0"))
 
 ;; Setup capability to auto install system packages.
 (use-package system-packages
