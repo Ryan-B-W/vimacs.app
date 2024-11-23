@@ -8,8 +8,6 @@
 
 ;; Set customizer file location.
 (setf custom-file (concat user-emacs-directory "custom.el"))
-(when (file-exists-p custom-file)
-  (load custom-file))
 
 ;; Vimacs.app settings.
 (defgroup vimacs nil
@@ -181,6 +179,10 @@ If nil, enable Dape for DAP debugger functionality."
     (load "./elpaca-autoloads")))
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
+
+;; Load user customizations before continuing with configuration.
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 ;; Load use-package.
 (if (fboundp 'use-package)
