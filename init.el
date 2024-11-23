@@ -183,7 +183,7 @@ If nil, enable Dape for DAP debugger functionality."
 (elpaca `(,@elpaca-order))
 
 ;; Load use-package.
-(if (featurep 'use-package)
+(if (fboundp 'use-package)
     (require 'use-package)
   (elpaca (use-package :wait t)))
 
