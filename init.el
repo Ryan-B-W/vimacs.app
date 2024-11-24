@@ -214,8 +214,9 @@ If nil, enable Dape for DAP debugger functionality."
   (require 'seq))
 
 ;; If insufficient Emacs version, install and load compat.
-(use-package compat
-  :if (version< emacs-version "29.0"))
+(unless (version< "29.0" emacs-version)
+  (elpaca (compat :wait t)
+    (require 'compat)))
 
 ;; Setup capability to auto install system packages.
 (use-package system-packages
