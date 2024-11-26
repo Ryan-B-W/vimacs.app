@@ -35,7 +35,7 @@ Ensure stable backports repository is enabled.  If it's not, enable it with—as
 #+end_src
 or
 #+begin_src bash
-  echo "deb http://deb.debian.org/debian bookworm-backports main" > /etc/apt/sources.list.d/backports.list
+  echo "deb http://deb.debian.org/debian bookworm-backports main" >> /etc/apt/sources.list.d/backports.list
 #+end_src
 Install Emacs and dependencies:
 #+begin_src bash
