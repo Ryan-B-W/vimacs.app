@@ -1,4 +1,4 @@
-An opinionated Emacs config intended for Neovim users with a IDE-like experience.  This config attempts to meld the quick, powerful editing conventions of Vim with the extensibility and power of Emacs along with aiming for modern development environment sensibilities.
+An opinionated Emacs configuration intended for Neovim users with an IDE-like experience.  This config attempts to meld the quick, powerful editing conventions of Vim with the extensibility and power of Emacs along with aiming for modern development environment sensibilities.
 * Features
  - *[[https://evil.readthedocs.io/][Evil Mode]]* for [[https://www.vim.org/][Vim]]-like modal editing
  - *[[https://tree-sitter.github.io/tree-sitter/][Tree-sitter]]* incremental parsing of supported languages for syntax highlighting, indentation, and similar features, [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Parser_002dbased-Font-Lock.html][built-in to Emacs 29]] and later
@@ -12,9 +12,9 @@ An opinionated Emacs config intended for Neovim users with a IDE-like experience
  - *[[https://jwiegley.github.io/use-package/][Use-package]]* based simplified configuration and package management, [[https://www.gnu.org/software/emacs/manual/html_node/use-package/index.html][built-in to Emacs 29]] and later
  - *[[https://github.com/progfolio/elpaca][Elpaca]]* for improved asynchronous package management with a convenient UI and easy installation from upstream sources
 * Requirements
-This configuration assumes at least GNU Emacs 29.1 with built-in tree-sitter (=treesit=), LSP (=eglot=), and =use-package=.  It also assumes a build environment is setup and available to it for native builds of some packages.  In addition, it also currently assumes certain additional tools are installed such as specific tree-sitter language implementations and some LSP servers.
+This configuration assumes at least GNU Emacs 29.1 with built-in tree-sitter (=treesit=), LSP (=eglot=), and =use-package=.  It also assumes a build environment is set up and available to it for native builds of some packages.  In addition, it also currently assumes certain additional tools are installed such as specific tree-sitter language implementations and some LSP servers.
 * Installation
-Ensure you have Emacs, preferably 29.1 or later, installed in in the =PATH=.
+Ensure you have Emacs, preferably 29.1 or later, installed in the =PATH=.
 
 Checkout this repository into your home directory as =~/.emacs.d=:
 #+begin_src sh
@@ -148,11 +148,11 @@ It is also possible to update all packages in one go with ~elpaca-pull-all~; how
  - [ ] Integrate with Emacs's built in ~customize~ UI for configuring Vimacs.app
  - [ ] Add more language/tool/platform specific helpers and tools like python virtual environment management
  - [ ] Add more communications stuff like a properly integrated IRC setup, Matrix client, mail client, RSS reader, etc.
-   - There are a few of a couple of those built-in but they need to be configured and a couple have packages that are better than the built-in option
+   - There are a few of a couple of those built-in, but they need to be configured, and a couple have packages that are better than the built-in option
  - [ ] Add more media stuff like music, video, and podcast listening/watching
  - [ ] External CalDAV/WebCAL/ICS compatible calendar integration
  - [ ] Determine if the version of Slime helper from Quicklisp should be replaced with the Slime package from NonGNU Elpa, Melpa Stable, Melpa, or if it is still the best option
  - [ ] Add introduction tutorial for new users who may not be familiar with Emacs and Vim
  - [ ] Document the various features of Vimacs.app and how to use them
-   - This would serve as both a way for new users to get familiar with what the configuration has to offer as well as an entrypoint into the relevant documentation for the packages that provide that functionality
+   - This would serve as both a way for new users to get familiar with what the configuration has to offer and as an entrypoint into the relevant documentation for the packages that provide that functionality
  - [ ] Add binding for opening attachment(s) of Org Roam node at point
