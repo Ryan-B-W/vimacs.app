@@ -112,6 +112,19 @@ The maintainer of this configuration doesn't use Windows, so testing is up to th
 If you opt for Windows native Emacs, see the official [[https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html][Emacs FAQ for MS Windows]].  As above, checkout this repository as the Emacs init directory using git.
 ** Other
 You probably know what you're doing.  Good luck.
+* Updates
+** Vimacs.app Updates
+To update Vimacs.app, just open up the Emacs config directory in Emacs or a terminal, pull, and then checkout the desired git ref.  For example:
+#+begin_src bash
+  cd ~/.emacs.d/
+  git pull origin main
+#+end_src
+** Updating Emacs Packages
+Vimacs.app uses the [[https://github.com/progfolio/elpaca][Elpaca]] package manager for managing Emacs packages.  To update the installed Emacs packages, the procedure is to fetch the changes to each package from upstream, select the desired changes to be merged in Elpaca, and execute the queued merge actions.  This can be done through the Elpaca management UI which can be opened with ~M-x~~elpaca-manager~.
+
+In the Elpaca management UI, the list of currently installed packages can be viewed with ~elpaca-ui-search-installed~ (bound to =g i=).  Elpaca can be instructed to fetch updates for all installed packages with ~M-x~~elpaca-fetch-all~.  Individual packages can be marked to be fetched with ~elpaca-ui-mark-fetch~ (bound to =p=) and then all pending actions can be executed with ~elpaca-ui-execute-marks~ (bound to =x=).  Once Elpaca has finished fetching updates, it displays a list of new commits which can each be selected to be merged with ~elpaca-ui-mark-merge~ (bound to =m=) and then executed as usual with ~elpaca-ui-execute-marks~.  Alternatively, all updates can be merged with ~elpaca-merge-all~.
+
+It is also possible to update all packages in one go with ~elpaca-pull-all~; however, the [[https://github.com/progfolio/elpaca/blob/master/doc/manual.md][Elpaca manual]] recommends going through the fetch, select, and merge process in order to review the changes made to the packages, so the user isn't surprised by some major change to an installed package.
 * Todo
  - [ ] Make =Escape= and =C-g= equivalent
  - [ ] Fix diff-hl not syncing with magit changes
