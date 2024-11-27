@@ -104,7 +104,7 @@ Install this config:
 Launch Emacs.
 *** Nix
 Sorry, but you're on your own.  Then again, you expected as much.  Didn't you?
-** Mac OS
+** macOS
 Using Homebrew:
 #+begin_src bash
   brew tap railwaycat/emacsmacport
@@ -126,10 +126,11 @@ If you opt for Windows native Emacs, see the official [[https://www.gnu.org/soft
 You probably know what you're doing.  Good luck.
 * Updates
 ** Vimacs.app Updates
-To update Vimacs.app, just open up the Emacs config directory in Emacs or a terminal, pull, and then checkout the desired git ref.  For example:
+To update Vimacs.app, just open up the Emacs config directory in Emacs or a terminal then checkout and pull the desired git ref.  For example:
 #+begin_src bash
   cd ~/.emacs.d/
-  git pull origin main
+  git checkout main
+  git pull
 #+end_src
 ** Updating Emacs Packages
 Vimacs.app uses the [[https://github.com/progfolio/elpaca][Elpaca]] package manager for managing Emacs packages.  To update the installed Emacs packages, the procedure is to fetch the changes to each package from upstream, select the desired changes to be merged in Elpaca, and execute the queued merge actions.  This can be done through the Elpaca management UI which can be opened with ~M-x~~elpaca-manager~.
