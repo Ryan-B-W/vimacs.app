@@ -192,10 +192,10 @@ If nil, enable Dape for DAP debugger functionality."
 ;; Load use-package.
 (if (fboundp 'use-package)
     (require 'use-package)
-  (elpaca (use-package :wait t)))
+  (elpaca (use-package)))
 
 ;; Enable Elpaca use-package support.
-(elpaca (elpaca-use-package :wait t)
+(elpaca (elpaca-use-package)
   (elpaca-use-package-mode)
   (setf elpaca-use-package-by-default t))
 
@@ -203,20 +203,22 @@ If nil, enable Dape for DAP debugger functionality."
 (unload-feature 'eldoc t)
 (setf custom-delayed-init-variables nil)
 (defvar global-eldoc-mode nil)
-(elpaca (eldoc :wait t)
+(elpaca (eldoc)
   (require 'eldoc)
   (global-eldoc-mode))
 
 ;; Load and update seq early.
 (unload-feature 'seq t)
 (setf custom-delayed-init-variables nil)
-(elpaca (seq :wait t)
+(elpaca (seq)
   (require 'seq))
 
+(elpaca-wait)
+
 ;; If insufficient Emacs version, install and load compat.
-(unless (version< "29.0" emacs-version)
-  (elpaca (compat :wait t)
-    (require 'compat)))
+(use-package compat
+  :when (version< emacs-version "29.1")
+  :defer t)
 
 ;; Setup capability to auto install system packages.
 (use-package system-packages
@@ -562,6 +564,7 @@ their keymaps at runtime instead of load time."
 
 (use-package org
   :demand t
+  :ensure (:wait t)
   :custom
   (org-startup-folded t)
   (org-startup-truncated truncate-lines)
