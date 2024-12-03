@@ -11,6 +11,8 @@ An opinionated Emacs configuration intended for Neovim users with an IDE-like ex
  - *Advanced note-taking, knowledge management, and organization systems* via Emacs's built-in [[https://orgmode.org/][Org Mode]] package along with [[https://www.orgroam.com/][Org Roam]]
  - *[[https://jwiegley.github.io/use-package/][Use-package]]* based simplified configuration and package management, [[https://www.gnu.org/software/emacs/manual/html_node/use-package/index.html][built-in to Emacs 29]] and later
  - *[[https://github.com/progfolio/elpaca][Elpaca]]* for improved asynchronous package management with a convenient UI and easy installation from upstream sources
+ - *Easy customization* using the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Easy-Customization.html][~customize~ system built into Emacs]]
+ - *Pre-made keymap for common actions* bound to =SPACE= by default for convenient access
 * Requirements
 This configuration assumes at least GNU Emacs 29.1 with built-in tree-sitter (=treesit=), LSP (=eglot=), and =use-package=.  It also assumes a build environment is set up and available to it for native builds of some packages.  In addition, it also currently assumes certain additional tools are installed such as specific tree-sitter language implementations and some LSP servers.
 * Installation
