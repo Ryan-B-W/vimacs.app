@@ -142,11 +142,11 @@ It is also possible to update all packages in one go with ~elpaca-pull-all~; how
  - [ ] Make =Escape= and =C-g= equivalent
  - [ ] Fix diff-hl not syncing with magit changes
  - [ ] Have some way of reliably managing external dependencies, such as language servers, across all supported platforms
- - [ ] Make initial startup much quieter by silencing expected native- and byte-compilation warnings
- - [ ] Add configurable grammar checker
+ - [X] Make initial startup much quieter by silencing expected native- and byte-compilation warnings
+ - [X] Add configurable grammar checker
  - [ ] Add optional AI assistant and completion
    - This is contingent on finding an /actually/ legally safe language model, not simply one that claims to be safe but has training data of questionable at best legality
- - [ ] Integrate with Emacs's built in ~customize~ UI for configuring Vimacs.app
+ - [X] Integrate with Emacs's built in ~customize~ UI for configuring Vimacs.app
  - [ ] Add more language/tool/platform specific helpers and tools like python virtual environment management
  - [ ] Add more communications stuff like a properly integrated IRC setup, Matrix client, mail client, RSS reader, etc.
    - There are a few of a couple of those built-in, but they need to be configured, and a couple have packages that are better than the built-in option
