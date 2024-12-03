@@ -14,6 +14,13 @@
   "Emacs configuration and distribution."
   :tag "Vimacs")
 
+(defcustom vimacs-config-user-init-path (expand-file-name "init.d/init.el" user-emacs-directory)
+  "Path to user init file.
+
+specifies user init file to load that is loaded after the
+Vimacs.app configuration initial setup but before most of the
+Vimacs.app configuration runs.")
+
 (defcustom vimacs-config-user-notes-path (file-truename "~/notes/")
   "Directory containing user's general or non-project specific notes."
   :group 'vimacs
@@ -233,6 +240,10 @@ If nil, enable Dape for DAP debugger functionality."
   :doc "Custom keymap for triggering various actions."
   "s" custom-search-map
   "w" custom-workspace-map)
+
+;; Load user's configuration file, if it exists.
+(when (file-exists-p vimacs-config-user-init-path)
+  (load vimacs-config-user-init-path))
 
 ;; Set font.
 (when vimacs-config-setup-fonts
