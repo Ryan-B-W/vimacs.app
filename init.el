@@ -720,7 +720,7 @@ their keymaps at runtime instead of load time."
 (use-package emacsql)
 
 (use-package org-roam
-  :after (org emacsql)
+  :after (org emacsql org-web-tools)
   :demand t
   :bind
   (("C-c r c" . org-roam-capture)
@@ -771,7 +771,7 @@ their keymaps at runtime instead of load time."
    '(("r" "ref" plain "%?%(unless (string-blank-p \"${body}\") \"\n#+begin_quote\n${body}\n#+end_quote\")" :target
       (file+head "${slug}.org" "#+title: ${title}")
       :unnarrowed t)
-     ("w" "web-ref" plain "%?%(unless (string-blank-p \"${body}\") \"\n#+begin_quote\n${body}\n#+end_quote\")" :target
+     ("w" "web-ref" plain "%?%(unless (string-blank-p \"${body}\") (concat \"\n#+begin_quote\n\" (replace-regexp-in-string \" +$\" \"\" (replace-regexp-in-string \"^\" \"  \" (string-trim (org-web-tools--html-to-org-with-pandoc (replace-regexp-in-string \"&nbsp;\" \" \" \"${body}\"))))) \"\n#+end_quote\"))" :target
       (file+head "${slug}.org" "#+title: ${title}\n#+filetags: :website:")
       :unnarrowed t)))
   (org-roam-graph-executable "sfdp")
@@ -824,6 +824,8 @@ their keymaps at runtime instead of load time."
   :after (org)
   :custom
   (org-web-tools--pandoc-no-wrap-option "--wrap=none")
+  :commands
+  (org-web-tools--html-to-org-with-pandoc)
   :bind
   (:map custom-leader-map
    ("o l" . org-web-tools-insert-link-for-url)
