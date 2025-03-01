@@ -445,6 +445,11 @@ their keymaps at runtime instead of load time."
   :config
   (global-company-mode 1))
 
+;; Setup/extend pcomplete and improve eshell and comint completions.
+(use-package pcmpl-args)
+(use-package capf-autosuggest
+  :demand t
+  :hook ((commint-mode eshell-mode) . capf-autosuggest-mode))
 ;; Eldoc customization.
 (use-package inline-docs
   :when vimacs-config-inline-help
