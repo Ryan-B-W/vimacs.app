@@ -421,9 +421,24 @@ their keymaps at runtime instead of load time."
 ;; More fancy auto-completion and matching than default.
 (use-package flx)
 
-(use-package counsel
+(use-package ivy
   :demand t
   :after (flx)
+  :config
+  (setf ivy-re-builders-alist '((swiper . ivy--regex-plus)
+                                (t . ivy--regex-fuzzy)))
+  (ivy-mode 1))
+
+(use-package ivy-hydra
+  :demand t
+  :after (ivy)
+  :bind
+  (:map ivy-minibuffer-map
+   ("M-o" . hydra-ivy/body)))
+
+(use-package counsel
+  :demand t
+  :after (flx ivy)
   :bind
   (("C-x b" . counsel-switch-buffer)
    :map custom-leader-map
@@ -432,9 +447,6 @@ their keymaps at runtime instead of load time."
    :map custom-search-map
    ("f" . counsel-find-file))
   :config
-  (setf ivy-re-builders-alist '((swiper . ivy--regex-plus)
-                                (t . ivy--regex-fuzzy)))
-  (ivy-mode 1)
   (counsel-mode 1))
 
 ;; Fuzzy search in buffer.
