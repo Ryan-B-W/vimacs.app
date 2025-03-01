@@ -487,6 +487,10 @@ their keymaps at runtime instead of load time."
          ("SPC" . nil)
          ("<normal-state> SPC" . nil)))
 
+(use-package devdocs
+  :bind (:map help-map
+         ("D" . devdocs-lookup)))
+
 ;; Folding in programming modes.
 (use-package hideshow ; hs-minor-mode.
   :ensure nil
