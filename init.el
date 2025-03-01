@@ -765,6 +765,11 @@ their keymaps at runtime instead of load time."
       :unnarrowed t)))
   ;; The capture ref templates are technically unsafe due to handling
   ;; of body property expansion inside Emacs Lisp snippet.
+  ;;
+  ;; TODO: modify org-roam to handle function templates that take an
+  ;; alist of properties and returns a pre-formatted string to use
+  ;; without the usual org-capture and org-roam-capture templating
+  ;; keyword hackery.
   (org-roam-capture-ref-templates
    '(("r" "ref" plain "%?%(unless (string-blank-p \"${body}\") \"\n#+begin_quote\n${body}\n#+end_quote\")" :target
       (file+head "${slug}.org" "#+title: ${title}")
