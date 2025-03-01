@@ -148,7 +148,7 @@ If nil, enable Dape for DAP debugger functionality."
   :type 'boolean)
 
 ;; Bootstrap Elpaca.
-(defvar elpaca-installer-version 0.8)
+(defvar elpaca-installer-version 0.10)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
@@ -205,20 +205,6 @@ If nil, enable Dape for DAP debugger functionality."
 (elpaca (elpaca-use-package)
   (elpaca-use-package-mode)
   (setf elpaca-use-package-by-default t))
-
-;; Load Eldoc early.
-(unload-feature 'eldoc t)
-(setf custom-delayed-init-variables nil)
-(defvar global-eldoc-mode nil)
-(elpaca (eldoc)
-  (require 'eldoc)
-  (global-eldoc-mode))
-
-;; Load and update seq early.
-(unload-feature 'seq t)
-(setf custom-delayed-init-variables nil)
-(elpaca (seq)
-  (require 'seq))
 
 (elpaca-wait)
 
@@ -1362,6 +1348,7 @@ their keymaps at runtime instead of load time."
 
 ;; Setup flymake.
 (use-package flymake
+  :ensure nil
   :hook
   (text-mode . flymake-mode))
 
