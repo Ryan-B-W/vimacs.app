@@ -834,9 +834,10 @@ their keymaps at runtime instead of load time."
 
 (use-package org-web-tools
   :after (org)
+  :demand t
   :custom
   (org-web-tools--pandoc-no-wrap-option "--wrap=none")
-  :commands
+  :autoload
   (org-web-tools--html-to-org-with-pandoc)
   :bind
   (:map custom-leader-map
