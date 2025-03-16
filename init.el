@@ -835,8 +835,6 @@ their keymaps at runtime instead of load time."
 (use-package org-web-tools
   :after (org)
   :demand t
-  :custom
-  (org-web-tools--pandoc-no-wrap-option "--wrap=none")
   :autoload
   (org-web-tools--html-to-org-with-pandoc)
   :bind
@@ -846,7 +844,9 @@ their keymaps at runtime instead of load time."
    ("o r" . org-web-tools-read-url-as-org)
    ("o w" . org-web-tools-convert-links-to-page-entries)
    ("o a" . org-web-tools-archive-attach)
-   ("o v" . org-web-tools-archive-view)))
+   ("o v" . org-web-tools-archive-view))
+  :config
+  (setf org-web-tools--pandoc-no-wrap-option "--wrap=none"))
 
 ;; Enable more Org-Mode link types.
 (use-package ol-man
