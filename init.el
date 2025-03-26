@@ -753,6 +753,7 @@ their keymaps at runtime instead of load time."
    ("r x" . org-roam-extract-subtree)
    ("r t" . org-roam-buffer-toggle)
    ("r g" . org-roam-graph)
+   ("r d c" . org-roam-dailies-capture-today)
    ("r d d" . org-roam-dailies-goto-today)
    ("r d y" . org-roam-dailies-goto-yesterday)
    ("r d t" . org-roam-dailies-goto-tomorrow)
