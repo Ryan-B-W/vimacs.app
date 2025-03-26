@@ -822,6 +822,11 @@ their keymaps at runtime instead of load time."
   :ensure nil
   :demand t)
 
+(use-package org-roam-export
+  :after (org-roam)
+  :ensure nil
+  :demand t)
+
 (use-package citar-org-roam
   :after (citar org-roam)
   :config
