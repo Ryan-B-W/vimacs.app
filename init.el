@@ -1001,6 +1001,7 @@ their keymaps at runtime instead of load time."
 
 (use-package smartparens
   :hook ((lisp-mode . smartparens-strict-mode)
+         (lisp-data-mode . smartparens-strict-mode)
          (emacs-lisp-mode . smartparens-strict-mode)
          (eval-expression-minibuffer-setup . (lambda ()
                                                (sp-local-pair 'minibuffer-pairs "'" nil :actions nil)
