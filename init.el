@@ -1376,6 +1376,7 @@ their keymaps at runtime instead of load time."
 
 ;; Setup LanguageTool.
 (use-package flymake-languagetool
+  :ensure (flymake-languagetool :branch "feat/incremental-checking")
   :hook
   (text-mode . flymake-languagetool-load)
   (find-file . flymake-languagetool-maybe-load)
