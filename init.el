@@ -719,8 +719,8 @@ their keymaps at runtime instead of load time."
   :after (org)
   :demand t
   :custom
-  (citar-bibliography (list (concat vimacs-config-user-notes-path "bibliography/references.bib")))
-  (org-cite-global-bibliography (list (concat vimacs-config-user-notes-path "bibliography/references.bib")))
+  (citar-bibliography (list (expand-file-name "bibliography/references.bib" vimacs-config-user-notes-path)))
+  (org-cite-global-bibliography (list (expand-file-name "bibliography/references.bib" vimacs-config-user-notes-path)))
   :hook
   (LaTeX-mode . citar-capf-setup)
   (org-mode . citar-capf-setup)
