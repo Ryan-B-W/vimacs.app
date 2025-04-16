@@ -639,6 +639,13 @@ their keymaps at runtime instead of load time."
 \\addtolength{\\textheight}{-3cm}
 \\setlength{\\topmargin}{1.5cm}
 \\addtolength{\\topmargin}{-2.54cm}")
+  (org-html-doctype "xhtml5")
+  (org-html-html5-fancy t)
+  (org-html-prefer-user-labels t)
+  (org-html-validation-link nil)
+  (org-html-checkbox-type 'unicode)
+  (org-html-with-latex 'mathjax)
+  (org-export-with-broken-links :mark)
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
