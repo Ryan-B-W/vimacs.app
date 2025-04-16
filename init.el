@@ -1243,6 +1243,9 @@ their keymaps at runtime instead of load time."
   :bind
   (:map custom-leader-map
    ("b f" . biblio-lookup)))
+(use-package biblio-gbooks
+  :defer t
+  :after (biblio))
 ;;(use-package autodisass-java-bytecode
 ;;  :defer t)
 (use-package tex
