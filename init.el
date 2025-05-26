@@ -592,7 +592,7 @@ their keymaps at runtime instead of load time."
                "DONELATE(l!)" "PARTIALCOMPLETE(p!)" "FAILED(f!)"
                "DONE(d!)")))
   ;; Set org-mode to log items being marked as DONE.
-  (org-tags-exclude-from-inheritance '("ARCHIVE" "ATTACH" "directory" "lists" "blog" "blog_post" "essay" "searches" "class_homework" "class_assignment"))
+  (org-tags-exclude-from-inheritance '("ARCHIVE" "ATTACH" "directory" "lists" "playlist" "blog" "blog_post" "essay" "searches" "class_homework" "class_assignment"))
   (org-log-done 'time)
   (org-link-frame-setup
    '((vm . vm-visit-folder)
