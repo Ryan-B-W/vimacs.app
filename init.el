@@ -822,7 +822,18 @@ their keymaps at runtime instead of load time."
     (interactive)
     (when-let ((first-ref (car (custom-org-roam-refs-at-point))))
       (org-link-open-from-string first-ref)))
-  (bind-key (kbd "r o") 'custom-org-roam-visit-first-ref-at-point custom-leader-map))
+  (bind-key (kbd "r o") 'custom-org-roam-visit-first-ref-at-point custom-leader-map)
+  ;; Fix minibuffer content width when completion with ivy, as per https://github.com/org-roam/org-roam/issues/2066
+  (defun custom-org-roam-node-read--to-candidate (node template)
+    "Return a minibuffer completion candidate given NODE.
+TEMPLATE is the processed template used to format the entry."
+    (let ((candidate-main (org-roam-node--format-entry
+                           template
+                           node
+                           (1- (if (minibufferp)
+                                   (window-width) (frame-width))))))
+      (cons (propertize candidate-main 'node node) node)))
+  (advice-add 'org-roam-node-read--to-candidate :override #'custom-org-roam-node-read--to-candidate))
 
 (use-package org-roam-protocol
   :after (org-roam)
