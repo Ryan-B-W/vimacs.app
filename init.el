@@ -775,7 +775,7 @@ their keymaps at runtime instead of load time."
      ,(concat "^" (expand-file-name org-roam-directory) "/other/")
      ,(concat "^" (expand-file-name org-roam-directory) "/.git/")
      ".*\\.gpg"))
-  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:40}" 'face 'org-tag)))
+  (org-roam-node-display-template (concat "${title:*} (${aliases:15})" "[" (propertize "${file-title:20}" 'face 'org-document-title) "]" (propertize "${tags:40}" 'face 'org-tag)))
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-capture-templates
    '(("d" "default" plain "%?" :target
