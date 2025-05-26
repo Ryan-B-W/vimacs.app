@@ -641,10 +641,20 @@ their keymaps at runtime instead of load time."
 \\addtolength{\\topmargin}{-2.54cm}")
   (org-html-doctype "xhtml5")
   (org-html-html5-fancy t)
+  (org-html-link-org-files-as-html t)
   (org-html-prefer-user-labels t)
   (org-html-validation-link nil)
+  (org-html-divs '((preamble "div" "preamble")
+                   (content "main" "content")
+                   (postamble "div" "postamble")))
   (org-html-checkbox-type 'unicode)
   (org-html-with-latex 'mathjax)
+  (org-html-text-markup-alist '((bold . "<b>%s</b>")
+                                (code . "<code>%s</code>")
+                                (italic . "<i>%s</i>")
+                                (strike-through . "<del>%s</del>")
+                                (underline . "<u class=\"underline\">%s</u>")
+                                (verbatim . "<pre class=\"verbatim\">%s</pre>")))
   (org-export-with-broken-links :mark)
   :config
   (org-babel-do-load-languages
@@ -796,6 +806,33 @@ their keymaps at runtime instead of load time."
       (file+head "${slug}.org" "#+title: ${title}\n#+filetags: :website:")
       :unnarrowed t)))
   (org-roam-graph-executable "sfdp")
+  (org-roam-graph-max-title-length 40)
+  (org-roam-graph-extra-config '(("overlap" . "prism")
+                                 ("sep" . "1")))
+  (org-roam-graph-node-extra-config '(("id"
+                                       ("class" . "node-id")
+                                       ("style" . "bold,rounded,filled")
+                                       ("shape" . "circle")
+                                       ("fixedsize" . "shape")
+                                       ("fillcolor" . "#EEEEEE")
+                                       ("color" . "#C9C9C9")
+                                       ("fontcolor" . "#111111"))
+                                      ("http"
+                                       ("class" . "node-http")
+                                       ("style" . "rounded,filled")
+                                       ("shape" . "circle")
+                                       ("fixedsize" . "shape")
+                                       ("fillcolor" . "#EEEEEE")
+                                       ("color" . "#C9C9C9")
+                                       ("fontcolor" . "#0A97A6"))
+                                      ("https"
+                                       ("class" . "node-https")
+                                       ("style" . "rounded,filled")
+                                       ("shape" . "circle")
+                                       ("fixedsize" . "shape")
+                                       ("fillcolor" . "#EEEEEE")
+                                       ("color" . "#C9C9C9")
+                                       ("fontcolor" . "#0A97A6")))))
   :config
   (org-roam-db-autosync-mode 1)
   (add-to-list 'display-buffer-alist
@@ -900,6 +937,10 @@ TEMPLATE is the processed template used to format the entry."
 (use-package org-modern
   :when vimacs-config-org-modern
   :after (org))
+
+;; Apply Emacs theme derived styles to exported source code and Org Mode source blocks.
+(use-package htmlize
+  :defer t)
 
 ;; Setup org-mode with which-function-mode.
 ;; Originally taken from https://emacs.stackexchange.com/a/30901
